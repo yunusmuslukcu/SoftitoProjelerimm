@@ -1,0 +1,191 @@
+@model BTProjectt.Models.RaporViewModel
+@using Model
+@{
+    ViewData["Title"] = "Raporlama Paneli";
+    ViewData["PageHeader"] = "Detaylı Raporlama ve Analiz";
+}
+
+<!-- Üst Özet Kartları (COUNT Sorguları) -->
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="stat-card" style="background: var(--grad-primary);">
+            <div class="icon-bg"><i class="bi bi-chat-left-text"></i></div>
+            <h6 class="text-uppercase text-white-50 small">Toplam Destek Talebi</h6>
+            <h2 class="display-5 fw-bold m-0">@Model.TotalTickets</h2>
+            <p class="text-white-50 m-0 mt-2 small">Sistemdeki tüm kayıtlı talepler</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="stat-card" style="background: var(--grad-success);">
+            <div class="icon-bg"><i class="bi bi-tags"></i></div>
+            <h6 class="text-uppercase text-white-50 small">Toplam Kategori Sayısı</h6>
+            <h2 class="display-5 fw-bold m-0">@Model.TotalCategories</h2>
+            <p class="text-white-50 m-0 mt-2 small">Aktif destek kategorileri</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="stat-card" style="background: var(--grad-warning);">
+            <div class="icon-bg"><i class="bi bi-people"></i></div>
+            <h6 class="text-uppercase text-white-50 small">Sistem Kullanıcı Sayısı</h6>
+            <h2 class="display-5 fw-bold m-0">@Model.TotalUsers</h2>
+            <p class="text-white-50 m-0 mt-2 small">Kayıtlı yardım alan personeller</p>
+        </div>
+    </div>
+</div>
+
+<!-- Rapor Başlıkları & Detaylar -->
+<div class="row g-4">
+    <!-- GROUP BY DURUM ANALİZİ -->
+    <div class="col-md-5">
+        <div class="card card-custom h-100">
+            <div class="card-header card-header-custom">
+                <h6 class="m-0 text-dark fw-bold">
+                    <i class="bi bi-pie-chart text-danger me-2"></i>Durum Dağılımı
+                </h6>
+            </div>
+            <div class="card-body p-4">
+                <div class="table-responsive">
+                    <table class="table table-custom">
+                        <thead>
+                            <tr>
+                                <th>Durum</th>
+                                <th style="text-align: right;">Talep Sayısı</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var group in Model.GroupByData)
+                            {
+                                <tr>
+                                    <td>
+                                        @if (group.Status == TicketStatus.Open)
+                                        {
+                                            <span class="badge-custom badge-open"><i class="bi bi-info-circle me-1"></i> Açık</span>
+                                        }
+                                        else if (group.Status == TicketStatus.InProgress)
+                                        {
+                                            <span class="badge-custom badge-progress"><i class="bi bi-gear me-1"></i> İşlemde</span>
+                                        }
+                                        else if (group.Status == TicketStatus.Resolved)
+                                        {
+                                            <span class="badge-custom badge-resolved"><i class="bi bi-check-circle me-1"></i> Çözüldü</span>
+                                        }
+                                    </td>
+                                    <td class="fw-bold" style="text-align: right;">@group.Count</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ORDER BY SIRALAMA -->
+    <div class="col-md-7">
+        <div class="card card-custom h-100">
+            <div class="card-header card-header-custom">
+                <h6 class="m-0 text-dark fw-bold">
+                    <i class="bi bi-sort-down text-primary me-2"></i>Son Talepler Sıralı Listesi 
+                </h6>
+            </div>
+            <div class="card-body p-4">
+                <div class="table-responsive" style="max-height: 250px; overflow-y: auto;">
+                    <table class="table table-custom">
+                        <thead>
+                            <tr>
+                                <th style="width: 100px;">Talep ID</th>
+                                <th>Başlık</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.OrderByData)
+                            {
+                                <tr>
+                                    <td><span class="fw-bold text-secondary">#@item.TicketId</span></td>
+                                    <td><span class="fw-semibold text-dark">@item.TicketTitle</span></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mt-2">
+    <!-- INNER JOIN: BİRLEŞİK DETAYLAR -->
+    <div class="col-lg-6">
+        <div class="card card-custom h-100">
+            <div class="card-header card-header-custom">
+                <h6 class="m-0 text-dark fw-bold">
+                    <i class="bi bi-link-45deg text-success me-2"></i>Talep, Kategori ve Kullanıcı 
+                </h6>
+            </div>
+            <div class="card-body p-4">
+                <div class="table-responsive" style="max-height: 350px; overflow-y: auto;">
+                    <table class="table table-custom">
+                        <thead>
+                            <tr>
+                                <th>Talep</th>
+                                <th>Kategori</th>
+                                <th>Kullanıcı</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var row in Model.InnerJoinData)
+                            {
+                                <tr>
+                                    <td><span class="fw-semibold">@row.TicketTitle</span></td>
+                                    <td><span class="badge bg-light text-dark border">@row.CategoryName</span></td>
+                                    <td><small class="text-secondary"><i class="bi bi-person me-1"></i>@row.UserName</small></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LEFT JOIN: KATEGORİ VE TALEPLER (HİÇ TALEP OLMAYANLAR DAHİL) -->
+    <div class="col-lg-6">
+        <div class="card card-custom h-100">
+            <div class="card-header card-header-custom">
+                <h6 class="m-0 text-dark fw-bold">
+                    <i class="bi bi-layout-three-columns text-info me-2"></i>Kategoriler ve Talep Başlıkları 
+                </h6>
+            </div>
+            <div class="card-body p-4">
+                <div class="table-responsive" style="max-height: 350px; overflow-y: auto;">
+                    <table class="table table-custom">
+                        <thead>
+                            <tr>
+                                <th>Kategori Adı</th>
+                                <th>Talep Başlığı</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var row in Model.LeftJoinData)
+                            {
+                                <tr>
+                                    <td><span class="fw-semibold text-dark">@row.CategoryName</span></td>
+                                    <td>
+                                        @if (row.TicketTitle == "Talep Yok")
+                                        {
+                                            <span class="text-danger italic small"><i class="bi bi-slash-circle me-1"></i>Talep Yok</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">@row.TicketTitle</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

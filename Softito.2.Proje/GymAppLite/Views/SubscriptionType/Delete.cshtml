@@ -1,0 +1,20 @@
+﻿@model GymAppLite.Models.SubscriptionType
+
+<div class="card shadow mb-4">
+    <div class="card-header bg-danger text-white py-3">
+        <h6 class="m-0 font-weight-bold">⚠️ Paket Silme Onayı</h6>
+    </div>
+    <div class="card-body">
+        <p>Aşağıdaki paketi silmek istediğinize emin misiniz? Bu işlem geri alınamaz.</p>
+        <hr />
+        <ul>
+            <li><strong>Paket Adı:</strong> @Model.TypeName</li>
+            <li><strong>Fiyatı:</strong> @Model.Price.ToString("C2")</li>
+        </ul>
+        <form href="@Url.Action("Delete", "SubscriptionType")" method="post">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-danger">Evet, Sil</button>
+            <a href="@Url.Action("Index", "SubscriptionType")" class="btn btn-secondary">İptal</a>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,248 @@
+@{
+    ViewData["Title"] = "Giriş Paneli";
+}
+
+<div class="container-fluid mt-4">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold text-dark mb-1">ScoutPro Genel Bakış</h2>
+            <p class="text-muted mb-0">Kulüp, oyuncu ve pozisyon verilerine dair genel istatistikler.</p>
+        </div>
+        <div class="text-secondary small font-monospace bg-white border rounded px-3 py-2 shadow-sm">
+            <i class="far fa-calendar-alt me-1 text-primary"></i> @DateTime.Now.ToString("dd MMMM yyyy")
+        </div>
+    </div>
+
+    <!-- Stat Cards -->
+    <div class="row g-4 mb-5">
+        <!-- Players Stat Card -->
+        <div class="col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm rounded-lg overflow-hidden position-relative" style="min-height: 120px;">
+                <div class="card-body d-flex align-items-center justify-content-between">
+                    <div>
+                        <h6 class="text-muted text-uppercase fw-semibold mb-2" style="font-size: 0.8rem; letter-spacing: 0.5px;">Toplam Oyuncu</h6>
+                        <h2 class="fw-bold text-dark mb-0" id="statPlayers">0</h2>
+                    </div>
+                    <div class="bg-primary-subtle text-primary border border-primary-subtle rounded-circle p-3 d-flex align-items-center justify-content-center" style="width: 54px; height: 54px;">
+                        <i class="fas fa-users fa-lg"></i>
+                    </div>
+                </div>
+                <div class="position-absolute bottom-0 start-0 end-0 bg-primary" style="height: 4px;"></div>
+            </div>
+        </div>
+
+        <!-- Teams Stat Card -->
+        <div class="col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm rounded-lg overflow-hidden position-relative" style="min-height: 120px;">
+                <div class="card-body d-flex align-items-center justify-content-between">
+                    <div>
+                        <h6 class="text-muted text-uppercase fw-semibold mb-2" style="font-size: 0.8rem; letter-spacing: 0.5px;">Toplam Takım</h6>
+                        <h2 class="fw-bold text-dark mb-0" id="statTeams">0</h2>
+                    </div>
+                    <div class="bg-success-subtle text-success border border-success-subtle rounded-circle p-3 d-flex align-items-center justify-content-center" style="width: 54px; height: 54px;">
+                        <i class="fas fa-shield-halved fa-lg"></i>
+                    </div>
+                </div>
+                <div class="position-absolute bottom-0 start-0 end-0 bg-success" style="height: 4px;"></div>
+            </div>
+        </div>
+
+        <!-- Positions Stat Card -->
+        <div class="col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm rounded-lg overflow-hidden position-relative" style="min-height: 120px;">
+                <div class="card-body d-flex align-items-center justify-content-between">
+                    <div>
+                        <h6 class="text-muted text-uppercase fw-semibold mb-2" style="font-size: 0.8rem; letter-spacing: 0.5px;">Toplam Pozisyon</h6>
+                        <h2 class="fw-bold text-dark mb-0" id="statPositions">0</h2>
+                    </div>
+                    <div class="bg-warning-subtle text-warning border border-warning-subtle rounded-circle p-3 d-flex align-items-center justify-content-center" style="width: 54px; height: 54px;">
+                        <i class="fas fa-arrows-to-dot fa-lg"></i>
+                    </div>
+                </div>
+                <div class="position-absolute bottom-0 start-0 end-0 bg-warning" style="height: 4px;"></div>
+            </div>
+        </div>
+
+        <!-- Avg Age Stat Card -->
+        <div class="col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm rounded-lg overflow-hidden position-relative" style="min-height: 120px;">
+                <div class="card-body d-flex align-items-center justify-content-between">
+                    <div>
+                        <h6 class="text-muted text-uppercase fw-semibold mb-2" style="font-size: 0.8rem; letter-spacing: 0.5px;">Ortalama Yaş</h6>
+                        <h2 class="fw-bold text-dark mb-0" id="statAvgAge">0</h2>
+                    </div>
+                    <div class="bg-danger-subtle text-danger border border-danger-subtle rounded-circle p-3 d-flex align-items-center justify-content-center" style="width: 54px; height: 54px;">
+                        <i class="fas fa-hourglass-half fa-lg"></i>
+                    </div>
+                </div>
+                <div class="position-absolute bottom-0 start-0 end-0 bg-danger" style="height: 4px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts -->
+    <div class="row g-4">
+        <!-- Chart 1: Bar Chart (Positions) -->
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm rounded-lg h-100">
+                <div class="card-header bg-white py-3 border-bottom d-flex align-items-center justify-content-between">
+                    <h5 class="mb-0 fw-semibold text-dark"><i class="fas fa-chart-bar me-2 text-primary"></i>Pozisyonlara Göre Dağılım</h5>
+                    <span class="text-muted small">Futbolcu Sayısı</span>
+                </div>
+                <div class="card-body d-flex align-items-center justify-content-center p-4">
+                    <div style="position: relative; height: 350px; width: 100%;">
+                        <canvas id="positionsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chart 2: Doughnut Chart (Teams) -->
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm rounded-lg h-100">
+                <div class="card-header bg-white py-3 border-bottom d-flex align-items-center justify-content-between">
+                    <h5 class="mb-0 fw-semibold text-dark"><i class="fas fa-chart-pie me-2 text-success"></i>Takımlara Göre Dağılım</h5>
+                    <span class="text-muted small">Futbolcu Sayısı</span>
+                </div>
+                <div class="card-body d-flex align-items-center justify-content-center p-4">
+                    <div style="position: relative; height: 350px; width: 100%;">
+                        <canvas id="teamsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        $(document).ready(function () {
+            LoadDashboardData();
+        });
+
+        function LoadDashboardData() {
+            $.ajax({
+                url: '/Home/GetDashboardData',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    var totalPlayers = data.totalPlayers !== undefined ? data.totalPlayers : data.TotalPlayers;
+                    var totalTeams = data.totalTeams !== undefined ? data.totalTeams : data.TotalTeams;
+                    var totalPositions = data.totalPositions !== undefined ? data.totalPositions : data.TotalPositions;
+                    var averageAge = data.averageAge !== undefined ? data.averageAge : data.AverageAge;
+                    var teamCounts = data.teamCounts !== undefined ? data.teamCounts : data.TeamCounts;
+                    var positionCounts = data.positionCounts !== undefined ? data.positionCounts : data.PositionCounts;
+
+                    // Update stats
+                    $('#statPlayers').text(totalPlayers);
+                    $('#statTeams').text(totalTeams);
+                    $('#statPositions').text(totalPositions);
+                    $('#statAvgAge').text(averageAge);
+
+                    // Render Charts
+                    renderPositionsChart(positionCounts);
+                    renderTeamsChart(teamCounts);
+                },
+                error: function () {
+                    alert("Dashboard verileri yüklenirken bir hata oluştu!");
+                }
+            });
+        }
+
+        function renderPositionsChart(counts) {
+            var ctx = document.getElementById('positionsChart').getContext('2d');
+            if (!counts) return;
+            
+            var labels = counts.map(c => c.label !== undefined ? c.label : c.Label);
+            var values = counts.map(c => c.value !== undefined ? c.value : c.Value);
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Oyuncu Sayısı',
+                        data: values,
+                        backgroundColor: 'rgba(37, 99, 235, 0.7)',
+                        borderColor: 'rgb(37, 99, 235)',
+                        borderWidth: 1.5,
+                        borderRadius: 6,
+                        hoverBackgroundColor: 'rgba(37, 99, 235, 0.9)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                precision: 0
+                            },
+                            grid: {
+                                color: '#f1f5f9'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderTeamsChart(counts) {
+            var ctx = document.getElementById('teamsChart').getContext('2d');
+            if (!counts) return;
+
+            var labels = counts.map(c => c.label !== undefined ? c.label : c.Label);
+            var values = counts.map(c => c.value !== undefined ? c.value : c.Value);
+
+            var colors = [
+                'rgba(37, 99, 235, 0.8)',
+                'rgba(22, 163, 74, 0.8)',
+                'rgba(234, 179, 8, 0.8)',
+                'rgba(239, 68, 68, 0.8)',
+                'rgba(168, 85, 247, 0.8)',
+                'rgba(249, 115, 22, 0.8)',
+                'rgba(100, 116, 139, 0.8)'
+            ];
+
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: values,
+                        backgroundColor: colors.slice(0, labels.length),
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 12,
+                                padding: 15
+                            }
+                        }
+                    },
+                    cutout: '65%'
+                }
+            });
+        }
+    </script>
+}

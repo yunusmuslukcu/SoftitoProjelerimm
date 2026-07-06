@@ -1,0 +1,319 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary-color: #3b82f6;
+    --primary-hover: #2563eb;
+    --secondary-color: #64748b;
+    --dark-bg: #0f172a;
+    --panel-color: #1e293b; /* Eşleşen Sidebar, Navbar ve Footer rengi */
+    --text-light: #f8fafc;
+    --danger-color: #dc3545;
+    --danger-hover: #b52a37;
+    --card-bg-opacity: rgba(30, 41, 59, 0.7);
+}
+
+* {
+    font-family: 'Outfit', sans-serif;
+}
+
+body {
+    background-color: #ffffff;
+    color: #333333;
+    margin: 0;
+    padding: 0;
+}
+
+/* --- AUTHENTICATION PAGES (LOGIN & REGISTER) --- */
+.auth-page {
+    background: radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+                var(--dark-bg);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.auth-container {
+    width: 100%;
+    max-width: 480px;
+}
+
+.auth-card {
+    background: var(--card-bg-opacity);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.auth-card:hover {
+    box-shadow: 0 25px 50px rgba(59, 130, 246, 0.15);
+}
+
+.brand-logo-outer {
+    width: 70px;
+    height: 70px;
+    padding: 3px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.brand-logo {
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+}
+
+.auth-title {
+    font-weight: 700;
+    color: var(--text-light);
+    margin-top: 10px;
+    font-size: 1.6rem;
+}
+
+.auth-subtitle {
+    color: var(--secondary-color);
+    font-size: 0.9rem;
+}
+
+/* Auth Input Fields Styling */
+.auth-card .form-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #94a3b8;
+    margin-bottom: 6px;
+}
+
+.auth-card .input-group-text {
+    background-color: rgba(15, 23, 42, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #64748b;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.auth-card .form-control {
+    background-color: rgba(15, 23, 42, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 10px 14px;
+    font-size: 0.95rem;
+}
+
+.auth-card .form-control:focus {
+    background-color: rgba(15, 23, 42, 0.8);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    color: var(--text-light);
+}
+
+.auth-card .form-control::placeholder {
+    color: #475569;
+}
+
+/* Button & Link Styling */
+.btn-auth {
+    background: linear-gradient(135deg, var(--primary-color), #6366f1);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+.btn-auth:hover {
+    background: linear-gradient(135deg, var(--primary-hover), #4f46e5);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
+    color: white;
+}
+
+.auth-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.auth-link:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+}
+
+/* --- ADMIN PANEL LAYOUT --- */
+.admin-body {
+    background-color: var(--dark-bg);
+}
+
+.admin-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.admin-sidebar {
+    width: 260px;
+    background-color: var(--panel-color); /* Eşleşen Renk */
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    transition: all 0.3s ease;
+}
+
+/* Content Area */
+.admin-content-area {
+    flex: 1;
+    margin-left: 260px;
+    display: flex;
+    flex-column: min-height;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    transition: all 0.3s ease;
+}
+
+/* Navbar */
+.admin-navbar {
+    height: 70px;
+    background-color: var(--panel-color); /* Eşleşen Renk */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 99;
+}
+
+/* Main Content Wrapper */
+.admin-main-content {
+    flex: 1;
+    background-color: var(--dark-bg);
+}
+
+/* Footer */
+.admin-footer {
+    background-color: var(--panel-color); /* Eşleşen Renk */
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Sidebar Links */
+.sidebar-nav .nav-link {
+    font-size: 0.95rem;
+    font-weight: 500;
+    opacity: 0.75;
+    transition: all 0.2s ease;
+}
+
+.sidebar-nav .nav-link:hover {
+    opacity: 1;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.sidebar-nav .nav-link.active {
+    opacity: 1;
+    background-color: rgba(59, 130, 246, 0.15);
+    color: var(--primary-color) !important;
+    border-left: 3px solid var(--primary-color);
+}
+
+/* Logout Button (Filled Red) */
+.btn-logout {
+    background-color: var(--danger-color);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-logout:hover {
+    background-color: var(--danger-hover);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+}
+
+/* Navbar Search Input */
+.navbar-search .form-control {
+    width: 250px;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.navbar-search .form-control:focus {
+    width: 320px;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+/* --- ADMIN PANEL COMPONENTS --- */
+.card-dashboard {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-dashboard:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) !important;
+}
+
+.table-dark {
+    --bs-table-bg: #1e293b;
+    --bs-table-hover-bg: #334155;
+    --bs-table-striped-bg: #1e293b;
+}
+
+.table thead th {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    color: #94a3b8;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.table tbody td {
+    padding: 16px 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.badge {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+.fs-7 {
+    font-size: 0.8rem;
+}
+
+.fs-8 {
+    font-size: 0.65rem;
+}
+
+/* Responsive Sidebar Mobile rules */
+@media (max-width: 767.98px) {
+    .admin-sidebar {
+        left: -260px;
+    }
+    .admin-sidebar.active {
+        left: 0;
+    }
+    .admin-content-area {
+        margin-left: 0;
+    }
+    .navbar-search .form-control {
+        width: 150px;
+    }
+    .navbar-search .form-control:focus {
+        width: 200px;
+    }
+}

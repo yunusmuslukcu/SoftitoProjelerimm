@@ -1,0 +1,95 @@
+@page
+@model Finansal.PortfoyProject.Pages.Cryptos.IndexModel
+@{
+    ViewData["Title"] = "Kripto Portföyüm";
+}
+
+<div class="container-fluid py-4">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+        <div>
+            <h3 class="fw-bold text-dark mb-1" style="font-family: var(--font-display);">Kripto Para Portföyü</h3>
+            <p class="text-muted mb-0" style="font-size: 0.9rem;">Sahip olduğunuz kripto varlıkları ve cüzdanlarınızı bu ekrandan takip edebilirsiniz.</p>
+        </div>
+        <div>
+            <a class="btn btn-success" asp-page="Create">
+                <i class="bi bi-plus-circle me-1"></i> Yeni Kripto Ekle
+            </a>
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-header border-0 bg-transparent py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 fw-bold text-dark" style="font-family: var(--font-display);">
+                    <i class="bi bi-currency-bitcoin me-2 text-primary"></i>Kripto Varlıkları
+                </h5>
+                <span class="badge bg-primary-subtle text-primary border border-primary-subtle">
+                    Toplam: @Model.CryptoList.Count Kripto
+                </span>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th class="ps-4">Kripto Kodu</th>
+                        <th>Kripto Adı</th>
+                        <th>Miktar (Adet)</th>
+                        <th>Ort. Alış Fiyatı</th>
+                        <th>Toplam Maliyet</th>
+                        <th>Cüzdan Adresi</th>
+                        <th class="pe-4 text-end">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.CryptoList.Count == 0)
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center text-muted py-5">
+                                <div class="py-3">
+                                    <i class="bi bi-inbox text-muted display-6 d-block mb-3"></i>
+                                    <span>Henüz portföyünüzde kripto varlık bulunmuyor.</span>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        @foreach (var crypto in Model.CryptoList)
+                        {
+                            <tr>
+                                <td class="ps-4">
+                                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2 fw-bold" style="font-family: var(--font-display); font-size: 0.85rem;">
+                                        @crypto.CryptoCode
+                                    </span>
+                                </td>
+                                <td class="fw-semibold text-secondary">@crypto.CryptoName</td>
+                                <td>@crypto.Amount.ToString("N6")</td>
+                                <td>@crypto.AvgPrice.ToString("C2")</td>
+                                <td class="fw-bold text-primary">@((crypto.Amount * crypto.AvgPrice).ToString("C2"))</td>
+                                <td>
+                                    @if (string.IsNullOrEmpty(crypto.WalletAddress))
+                                    {
+                                        <span class="text-muted" style="font-size: 0.85rem;">Girilmemiş</span>
+                                    }
+                                    else
+                                    {
+                                        <code class="text-monospace text-secondary" style="font-size: 0.8rem;">@crypto.WalletAddress</code>
+                                    }
+                                </td>
+                                <td class="pe-4 text-end">
+                                    <a class="btn btn-sm btn-warning me-1" asp-page="Update" asp-route-id="@crypto.Id">
+                                        <i class="bi bi-pencil-square"></i> Düzenle
+                                    </a>
+                                    <a class="btn btn-sm btn-danger" asp-page="Delete" asp-route-id="@crypto.Id">
+                                        <i class="bi bi-trash"></i> Sil
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,48 @@
+﻿@model IoTSystemMvc.Models.SystemLogViewModel
+
+@{
+    ViewData["Title"] = "Log Düzenle";
+}
+
+<div class="container mt-4">
+    <h2>Sistem Logu Düzenle</h2>
+    <hr />
+
+    <form action="@Url.Action("Edit", "SystemLogs")" method="post">
+
+        <input type="hidden" name="Id" value="@Model.Id" />
+
+        <div class="mb-3">
+            <label class="form-label">Log Kodu</label>
+            <input type="text" name="LogCode" class="form-control" value="@Model.LogCode" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Log Seviyesi</label>
+            <select name="LogLevel" class="form-select">
+                <option value="Information" selected="@(Model.LogLevel == "Information")">Information</option>
+                <option value="Warning" selected="@(Model.LogLevel == "Warning")">Warning</option>
+                <option value="Error" selected="@(Model.LogLevel == "Error")">Error</option>
+                <option value="Critical" selected="@(Model.LogLevel == "Critical")">Critical</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Açıklama</label>
+            <input type="text" name="Description" class="form-control" value="@Model.Description" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Çözüm Önerisi</label>
+            <input type="text" name="FixSuggestion" class="form-control" value="@Model.FixSuggestion" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Log Tarihi</label>
+            <input type="datetime-local" name="LogDate" class="form-control" value="@Model.LogDate.ToString("yyyy-MM-ddTHH:mm")" />
+        </div>
+
+        <button type="submit" class="btn btn-warning">Güncelle</button>
+        <a href="@Url.Action("Index", "SystemLogs")" class="btn btn-secondary">İptal</a>
+    </form>
+</div>

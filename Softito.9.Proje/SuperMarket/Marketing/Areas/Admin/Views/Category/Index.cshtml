@@ -1,0 +1,61 @@
+@model IEnumerable<Model.Category>
+@{
+    ViewData["Title"] = "Kategoriler";
+}
+<div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2>Kategoriler Listesi</h2>
+        <div style="display: flex; gap: 10px;">
+            <button class="btn-word" onclick="alert('Word indirme işlemi başlatılıyor...')">📄 Word İndir</button>
+            <button class="btn-pdf" onclick="alert('PDF indirme işlemi başlatılıyor...')">📕 PDF İndir</button>
+            <a href="/Admin/Category/Create" class="btn-add">+ Yeni Kategori Ekle</a>
+        </div>
+    </div>
+
+    <div class="filter-bar">
+        <span>🔍 Ara:</span>
+        <input type="text" id="searchInput" placeholder="Kategori adı veya açıklama ara..." onkeyup="filterTable()" style="flex: 1;" />
+    </div>
+
+    <table id="dataTable" style="width:100%; text-align:left; border-collapse: collapse;">
+        <thead>
+            <tr style="border-bottom: 2px solid #dee2e6;">
+                <th style="padding: 12px;">Ad</th>
+                <th style="padding: 12px;">Açıklama</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(Model != null) {
+                foreach(var item in Model) {
+                    <tr style="border-bottom: 1px solid #dee2e6;">
+                        <td style="padding: 10px;">@item.Name</td>
+                        <td style="padding: 10px;">@item.Description</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+function filterTable() {
+    var input, filter, table, tr, td, i, j, txtValue;
+    input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("dataTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 1; i < tr.length; i++) {
+        tr[i].style.display = "none";
+        td = tr[i].getElementsByTagName("td");
+        for (j = 0; j < td.length; j++) {
+            if (td[j]) {
+                txtValue = td[j].textContent || td[j].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    break;
+                }
+            }
+        }
+    }
+}
+</script>

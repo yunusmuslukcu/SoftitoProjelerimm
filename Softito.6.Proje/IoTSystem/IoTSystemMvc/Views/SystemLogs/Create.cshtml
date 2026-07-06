@@ -1,0 +1,46 @@
+﻿@model IoTSystemMvc.Models.SystemLogViewModel
+
+@{
+    ViewData["Title"] = "Yeni Log Ekle";
+}
+
+<div class="container mt-4">
+    <h2>Manuel Sistem Logu Ekle</h2>
+    <hr />
+
+    <form action="@Url.Action("Create", "SystemLogs")" method="post">
+
+        <div class="mb-3">
+            <label class="form-label">Log Kodu</label>
+            <input type="text" name="LogCode" class="form-control" placeholder="Örn: ERR-102" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Log Seviyesi</label>
+            <select name="LogLevel" class="form-select">
+                <option value="Information">Information</option>
+                <option value="Warning">Warning</option>
+                <option value="Error">Error</option>
+                <option value="Critical">Critical</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Açıklama</label>
+            <input type="text" name="Description" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Çözüm Önerisi</label>
+            <input type="text" name="FixSuggestion" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Log Tarihi</label>
+            <input type="datetime-local" name="LogDate" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
+        </div>
+
+        <button type="submit" class="btn btn-success">Kaydet</button>
+        <a href="@Url.Action("Index", "SystemLogs")" class="btn btn-secondary">İptal</a>
+    </form>
+</div>

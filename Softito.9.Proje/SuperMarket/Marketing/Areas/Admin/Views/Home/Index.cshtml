@@ -1,0 +1,194 @@
+@model IEnumerable<Model.Product>
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<!-- Welcome Banner -->
+<div class="card" style="margin-bottom: 24px; position: relative; overflow: hidden;">
+    <div style="position: absolute; top: 0; right: 0; width: 300px; height: 100%; background: radial-gradient(ellipse at 100% 50%, rgba(108, 99, 255, 0.08) 0%, transparent 70%); pointer-events: none;"></div>
+    <div style="display: flex; align-items: center; gap: 16px; position: relative; z-index: 1;">
+        <div style="width: 56px; height: 56px; border-radius: 16px; background: linear-gradient(135deg, #6c63ff, #a855f7); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; box-shadow: 0 8px 24px rgba(108, 99, 255, 0.3); flex-shrink: 0;">
+            🎉
+        </div>
+        <div>
+            <h2 style="margin-bottom: 4px; font-size: 1.35rem;">Hoşgeldiniz, Dashboard</h2>
+            <p style="color: #6b7280; margin: 0; font-size: 0.92rem; line-height: 1.5;">Sol menüden tablolarınızı yönetebilirsiniz. Aşağıda sistem özetlerini görebilirsiniz.</p>
+        </div>
+    </div>
+</div>
+
+<!-- İstatistik Kartları -->
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 28px;">
+    <a href="/Admin/AppUser/Index" style="text-decoration: none;">
+        <div class="card" style="text-align: center; cursor: pointer; position: relative; overflow: hidden;">
+            <div style="position: absolute; top: -20px; right: -20px; width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, rgba(108, 99, 255, 0.1), rgba(108, 99, 255, 0.03)); pointer-events: none;"></div>
+            <div style="width: 52px; height: 52px; margin: 0 auto 12px; border-radius: 14px; background: linear-gradient(135deg, #6c63ff, #8b5cf6); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; box-shadow: 0 6px 20px rgba(108, 99, 255, 0.3);">👤</div>
+            <h3 style="color: #1e1e2f; font-size: 1rem; font-weight: 600;">Kullanıcılar</h3>
+            <p style="color: #9ca3af; font-size: 0.78rem; margin-top: 4px; font-weight: 500;">Kullanıcı yönetimi</p>
+        </div>
+    </a>
+    <a href="/Admin/Branch/Index" style="text-decoration: none;">
+        <div class="card" style="text-align: center; cursor: pointer; position: relative; overflow: hidden;">
+            <div style="position: absolute; top: -20px; right: -20px; width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.03)); pointer-events: none;"></div>
+            <div style="width: 52px; height: 52px; margin: 0 auto 12px; border-radius: 14px; background: linear-gradient(135deg, #10b981, #059669); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);">🏪</div>
+            <h3 style="color: #1e1e2f; font-size: 1rem; font-weight: 600;">Şubeler</h3>
+            <p style="color: #9ca3af; font-size: 0.78rem; margin-top: 4px; font-weight: 500;">Şube yönetimi</p>
+        </div>
+    </a>
+    <a href="/Admin/Category/Index" style="text-decoration: none;">
+        <div class="card" style="text-align: center; cursor: pointer; position: relative; overflow: hidden;">
+            <div style="position: absolute; top: -20px; right: -20px; width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.03)); pointer-events: none;"></div>
+            <div style="width: 52px; height: 52px; margin: 0 auto 12px; border-radius: 14px; background: linear-gradient(135deg, #f59e0b, #d97706); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; box-shadow: 0 6px 20px rgba(245, 158, 11, 0.3);">📁</div>
+            <h3 style="color: #1e1e2f; font-size: 1rem; font-weight: 600;">Kategoriler</h3>
+            <p style="color: #9ca3af; font-size: 0.78rem; margin-top: 4px; font-weight: 500;">Kategori yönetimi</p>
+        </div>
+    </a>
+    <a href="/Admin/Product/Index" style="text-decoration: none;">
+        <div class="card" style="text-align: center; cursor: pointer; position: relative; overflow: hidden;">
+            <div style="position: absolute; top: -20px; right: -20px; width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.03)); pointer-events: none;"></div>
+            <div style="width: 52px; height: 52px; margin: 0 auto 12px; border-radius: 14px; background: linear-gradient(135deg, #ef4444, #dc2626); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);">📦</div>
+            <h3 style="color: #1e1e2f; font-size: 1rem; font-weight: 600;">Ürünler</h3>
+            <p style="color: #9ca3af; font-size: 0.78rem; margin-top: 4px; font-weight: 500;">Ürün yönetimi</p>
+        </div>
+    </a>
+    <a href="/Admin/Supplier/Index" style="text-decoration: none;">
+        <div class="card" style="text-align: center; cursor: pointer; position: relative; overflow: hidden;">
+            <div style="position: absolute; top: -20px; right: -20px; width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(99, 102, 241, 0.03)); pointer-events: none;"></div>
+            <div style="width: 52px; height: 52px; margin: 0 auto 12px; border-radius: 14px; background: linear-gradient(135deg, #6366f1, #4f46e5); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);">🚚</div>
+            <h3 style="color: #1e1e2f; font-size: 1rem; font-weight: 600;">Tedarikçiler</h3>
+            <p style="color: #9ca3af; font-size: 0.78rem; margin-top: 4px; font-weight: 500;">Tedarikçi yönetimi</p>
+        </div>
+    </a>
+</div>
+
+<!-- Grafik ve En Uygun Ürünler -->
+<div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px;">
+    
+    <!-- Fiyat Grafiği -->
+    <div class="card">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, rgba(108, 99, 255, 0.15), rgba(168, 85, 247, 0.1)); display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">📊</div>
+                <div>
+                    <h2 style="margin: 0; font-size: 1.1rem;">Fiyat Dağılımı</h2>
+                    <p style="color: #9ca3af; font-size: 0.75rem; margin: 0;">Ürün fiyat analizi</p>
+                </div>
+            </div>
+        </div>
+        <canvas id="priceChart" style="width: 100%; max-height: 350px;"></canvas>
+    </div>
+
+    <!-- En Uygun Ürünler -->
+    <div class="card">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+            <div style="width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(5, 150, 105, 0.1)); display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">💰</div>
+            <div>
+                <h2 style="margin: 0; font-size: 1.1rem;">En Uygun Ürünler</h2>
+                <p style="color: #9ca3af; font-size: 0.75rem; margin: 0;">Fiyat avantajlı ürünler</p>
+            </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+            @if(Model != null && Model.Any())
+            {
+                foreach(var item in Model)
+                {
+                    <div style="display: flex; align-items: center; gap: 14px; background: linear-gradient(135deg, #f8f9fd, #f0f2f8); padding: 14px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.04); transition: all 0.3s ease;">
+                        @if(!string.IsNullOrEmpty(item.ImageUrl))
+                        {
+                            <img src="@item.ImageUrl" style="width: 48px; height: 48px; border-radius: 10px; object-fit: cover; box-shadow: 0 3px 10px rgba(0,0,0,0.1);" />
+                        }
+                        else
+                        {
+                            <div style="width: 48px; height: 48px; border-radius: 10px; background: linear-gradient(135deg, #e5e7eb, #d1d5db); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;">📦</div>
+                        }
+                        <div style="flex: 1; min-width: 0;">
+                            <h4 style="margin: 0; color: #1e1e2f; font-size: 0.9rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">@item.Name</h4>
+                            <span style="color: #10b981; font-weight: 700; font-size: 1rem;">@item.Price.ToString("C2", new System.Globalization.CultureInfo("tr-TR"))</span>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div style="text-align: center; padding: 30px 0;">
+                    <div style="font-size: 2.5rem; margin-bottom: 10px;">📭</div>
+                    <p style="color: #9ca3af; font-size: 0.88rem;">Henüz ürün eklenmemiş.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var ctx = document.getElementById('priceChart').getContext('2d');
+        var labels = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(ViewBag.ChartLabels));
+        var data = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(ViewBag.ChartData));
+
+        // Premium gradient for chart
+        var gradient = ctx.createLinearGradient(0, 0, 0, 350);
+        gradient.addColorStop(0, 'rgba(108, 99, 255, 0.6)');
+        gradient.addColorStop(1, 'rgba(168, 85, 247, 0.1)');
+
+        var borderGradient = ctx.createLinearGradient(0, 0, 0, 350);
+        borderGradient.addColorStop(0, 'rgba(108, 99, 255, 1)');
+        borderGradient.addColorStop(1, 'rgba(168, 85, 247, 0.8)');
+
+        var priceChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Ürün Fiyatları (₺)',
+                    data: data,
+                    backgroundColor: gradient,
+                    borderColor: borderGradient,
+                    borderWidth: 2,
+                    borderRadius: 8,
+                    borderSkipped: false,
+                    hoverBackgroundColor: 'rgba(108, 99, 255, 0.8)'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        labels: {
+                            font: { family: 'Inter', weight: '500', size: 12 },
+                            color: '#6b7280',
+                            boxWidth: 12,
+                            boxHeight: 12,
+                            borderRadius: 3,
+                            useBorderRadius: true,
+                            padding: 16
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.04)',
+                            drawBorder: false
+                        },
+                        ticks: {
+                            font: { family: 'Inter', size: 11 },
+                            color: '#9ca3af',
+                            padding: 8
+                        }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: {
+                            font: { family: 'Inter', size: 11 },
+                            color: '#9ca3af',
+                            padding: 8
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+}

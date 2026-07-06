@@ -1,0 +1,81 @@
+@{
+    ViewData["Title"] = "Takım Yönetimi";
+}
+
+<div class="container-fluid mt-4">
+    <!-- Header & Action Buttons -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+        <div>
+            <h2 class="fw-bold text-dark mb-1">Takımlar</h2>
+            <p class="text-muted mb-0">Sistemde kayıtlı takımların listesi ve yönetimi.</p>
+        </div>
+        <button type="button" class="btn btn-primary d-flex align-items-center gap-2 shadow-sm" onclick="OpenAddModal()">
+            <i class="fas fa-plus"></i> Yeni Takım Ekle
+        </button>
+    </div>
+
+    <!-- Search & List Card -->
+    <div class="card border-0 shadow-sm rounded-lg overflow-hidden">
+        <div class="card-header bg-white py-3 border-bottom d-flex flex-wrap justify-content-between align-items-center gap-3">
+            <h5 class="mb-0 fw-semibold text-dark">Takım Listesi</h5>
+            <!-- Search bar -->
+            <div class="input-group" style="max-width: 320px;">
+                <span class="input-group-text bg-light border-end-0 text-muted"><i class="fas fa-search"></i></span>
+                <input type="text" id="txtSearchTeam" class="form-control bg-light border-start-0 ps-0" placeholder="Takım adı veya şehir ara..." onkeyup="SearchTeamsDebounced(this.value)">
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="ps-4">ID</th>
+                            <th>Takım Adı</th>
+                            <th>Şehir</th>
+                            <th class="text-end pe-4" style="width: 220px;">İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tblTeamBody">
+                        <tr>
+                            <td colspan="4" class="text-center py-4 text-muted">Yükleniyor...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add/Edit Modal -->
+<div class="modal fade" id="TeamModal" tabindex="-1" aria-labelledby="TeamModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header bg-dark text-white py-3">
+                <h5 class="modal-title fw-bold" id="TeamModalLabel">Takım Bilgisi</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form id="TeamForm">
+                    <input type="hidden" id="TeamId" name="TeamId" />
+
+                    <div class="mb-3">
+                        <label for="TeamName" class="form-label fw-semibold text-secondary">Takım Adı</label>
+                        <input type="text" class="form-control" id="TeamName" name="TeamName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="City" class="form-label fw-semibold text-secondary">Şehir</label>
+                        <input type="text" class="form-control" id="City" name="City" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer bg-light py-3">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                <button type="button" class="btn btn-success px-4" id="btnSave" onclick="SaveTeam()">Kaydet</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/Team.js" asp-append-version="true"></script>
+}

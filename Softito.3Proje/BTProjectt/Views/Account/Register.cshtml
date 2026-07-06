@@ -1,0 +1,65 @@
+@{
+    Layout = "_AuthLayout";
+    ViewData["Title"] = "Kayıt Ol";
+}
+
+<h4 class="text-center mb-4 text-dark">Yeni Hesap Oluştur</h4>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger p-2 mb-3">
+        @Html.ValidationSummary(false, "", new { @class = "mb-0 list-unstyled text-sm" })
+    </div>
+}
+
+<form asp-controller="Account" asp-action="Register" method="post">
+    <div class="mb-3">
+        <label class="form-label text-muted">Ad Soyad</label>
+        <div class="input-group">
+            <span class="input-group-text bg-light text-muted border-secondary-subtle"><i class="bi bi-person-badge"></i></span>
+            <input type="text" name="fullname" class="form-control form-control-custom border-start-0" required placeholder="Adınız ve soyadınız">
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label text-muted">Kullanıcı Adı</label>
+        <div class="input-group">
+            <span class="input-group-text bg-light text-muted border-secondary-subtle"><i class="bi bi-person"></i></span>
+            <input type="text" name="username" class="form-control form-control-custom border-start-0" required placeholder="Kullanıcı adınızı belirleyin">
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label text-muted">E-Posta</label>
+        <div class="input-group">
+            <span class="input-group-text bg-light text-muted border-secondary-subtle"><i class="bi bi-envelope"></i></span>
+            <input type="email" name="email" class="form-control form-control-custom border-start-0" required placeholder="E-Posta adresiniz">
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label text-muted">Departman</label>
+        <div class="input-group">
+            <span class="input-group-text bg-light text-muted border-secondary-subtle"><i class="bi bi-building"></i></span>
+            <input type="text" name="department" class="form-control form-control-custom border-start-0" required placeholder="Departmanınız">
+        </div>
+    </div>
+    
+    <div class="mb-4">
+        <label class="form-label text-muted">Şifre</label>
+        <div class="input-group">
+            <span class="input-group-text bg-light text-muted border-secondary-subtle"><i class="bi bi-lock"></i></span>
+            <input type="password" name="password" class="form-control form-control-custom border-start-0" required placeholder="Şifre belirleyin">
+        </div>
+    </div>
+
+    <div class="d-grid mb-3">
+        <button type="submit" class="btn btn-custom btn-custom-primary w-100 justify-content-center">
+            Kayıt Ol <i class="bi bi-person-plus"></i>
+        </button>
+    </div>
+    
+    <div class="text-center">
+        <small class="text-muted">Zaten hesabınız var mı? <a asp-action="Login" class="text-decoration-none" style="color: #6366f1;">Giriş Yap</a></small>
+    </div>
+</form>

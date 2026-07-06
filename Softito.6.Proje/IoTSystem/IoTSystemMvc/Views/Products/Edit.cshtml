@@ -1,0 +1,43 @@
+﻿@model IoTSystemMvc.Models.ProductViewModel
+
+@{
+    ViewData["Title"] = "Ürün Düzenle";
+}
+
+<div class="container mt-4">
+    <h2>Ürün Düzenle</h2>
+    <hr />
+
+    <form action="@Url.Action("Edit", "Products")" method="post">
+
+        <input type="hidden" name="Id" value="@Model.Id" />
+
+        <div class="mb-3">
+            <label class="form-label">Ürün Adı</label>
+            <input type="text" name="ProductName" class="form-control" value="@Model.ProductName" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Ürün Kodu</label>
+            <input type="text" name="ProductCode" class="form-control" value="@Model.ProductCode" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Birim Fiyatı</label>
+            <input type="number" name="UnitPrice" class="form-control" value="@Model.UnitPrice" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Stok Adedi</label>
+            <input type="number" name="StockQuantity" class="form-control" value="@Model.StockQuantity" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Kayıt Tarihi</label>
+            <input type="date" name="CreatedDate" class="form-control" value="@Model.CreatedDate.ToString("yyyy-MM-dd")" />
+        </div>
+
+        <button type="submit" class="btn btn-warning">Güncelle</button>
+        <a href="@Url.Action("Index", "Products")" class="btn btn-secondary">İptal</a>
+    </form>
+</div>

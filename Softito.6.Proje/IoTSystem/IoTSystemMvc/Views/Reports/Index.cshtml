@@ -1,0 +1,224 @@
+@model IoTSystemMvc.Models.ReportsViewModel
+
+@{
+    ViewData["Title"] = "Gelişmiş Raporlar Paneli";
+}
+
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-0 text-gray-800">Sistem Analiz ve Raporlama</h1>
+            <
+        </div>
+        <button onclick="window.print()" class="btn btn-outline-secondary btn-sm">
+            <i class="bi bi-printer"></i> Raporu Yazdır
+        </button>
+    </div>
+
+    <!-- Rapor Kartları (Özet) -->
+    <div class="row mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2 card-report">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Toplam Ürün Çeşidi</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.ProductSupplierReport.Count</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-box-seam fa-2x text-gray-300 fs-2"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2 card-report">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Raporlanan Cihazlar</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.DeviceLogReport.Count</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-cpu fa-2x text-gray-300 fs-2"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2 card-report">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Toplam Log Sayısı</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.LogLevelReport.Sum(l => l.LogCount)</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-file-earmark-medical fa-2x text-gray-300 fs-2"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2 card-report">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Toplam Stok Envanteri</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.ProductStockReport.Sum(p => p.TotalStock)</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-database-check fa-2x text-gray-300 fs-2"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rapor Tabloları Grid -->
+    <div class="row">
+        <!-- 1. Ürün ve Tedarikçi (Inner Join & Order By Price) -->
+        <div class="col-lg-7 mb-4">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex justify-content-between align-items-center bg-white border-bottom-0">
+                    <h6 class="m-0 font-weight-bold text-primary"><i class="bi bi-link-45deg text-primary"></i> Ürün & Tedarikçi Eşleşmesi (INNER JOIN & ORDER BY UnitPrice)</h6>
+                    <span class="badge bg-primary text-white">Fiyata Göre Sıralı</span>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="ps-3">Ürün Kodu</th>
+                                    <th>Ürün Adı</th>
+                                    <th>Tedarikçi Firma</th>
+                                    <th class="text-end">Birim Fiyat</th>
+                                    <th class="text-center">Stok</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.ProductSupplierReport)
+                                {
+                                    <tr>
+                                        <td class="ps-3 fw-bold text-secondary">@item.ProductCode</td>
+                                        <td>@item.ProductName</td>
+                                        <td><span class="badge bg-light text-dark border"><i class="bi bi-building"></i> @item.SupplierName</span></td>
+                                        <td class="text-end fw-semibold text-success">@item.UnitPrice.ToString("C0")</td>
+                                        <td class="text-center">
+                                            <span class="badge @(item.StockQuantity < 50 ? "bg-warning text-dark" : "bg-info")">@item.StockQuantity Adet</span>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Log Seviyesi Dağılımı (Group By & Count & Order By Count) -->
+        <div class="col-lg-5 mb-4">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 bg-white border-bottom-0">
+                    <h6 class="m-0 font-weight-bold text-primary"><i class="bi bi-pie-chart text-primary"></i> Log Seviyesi Dağılımı (GROUP BY & COUNT & ORDER BY LogCount)</h6>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted small">Sistem loglarının seviyelerine göre gruplandırılmış hata dağılımı.</p>
+                    <div class="mb-3">
+                        @foreach (var item in Model.LogLevelReport)
+                        {
+                            var totalLogs = Model.LogLevelReport.Sum(l => l.LogCount);
+                            var percentage = totalLogs > 0 ? (item.LogCount * 100) / totalLogs : 0;
+                            var barClass = item.LogLevel == "Critical" || item.LogLevel == "Error" ? "bg-danger" : (item.LogLevel == "Warning" ? "bg-warning" : "bg-success");
+
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="fw-semibold small">@item.LogLevel</span>
+                                    <span class="badge @barClass text-white small">@item.LogCount Adet (@percentage%)</span>
+                                </div>
+                                <div class="progress" style="height: 8px;">
+                                    <div class="progress-bar @barClass" role="progressbar" style="width: @percentage%" aria-valuenow="@percentage" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- 3. Cihaz Başına Log Analizi (Inner Join & Group By & Count & Order By Count) -->
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex justify-content-between align-items-center bg-white border-bottom-0">
+                    <h6 class="m-0 font-weight-bold text-primary"><i class="bi bi-cpu text-primary"></i> Cihaz Başına Log Analizi</h6>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="ps-3">Cihaz Adı</th>
+                                    <th>Konum</th>
+                                    <th class="text-center">Oluşan Toplam Hata/Log</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.DeviceLogReport)
+                                {
+                                    <tr>
+                                        <td class="ps-3 fw-bold">@item.DeviceName</td>
+                                        <td><span class="text-muted"><i class="bi bi-geo-alt"></i> @item.Location</span></td>
+                                        <td class="text-center">
+                                            <span class="badge rounded-pill @(item.LogCount > 1 ? "bg-danger" : "bg-warning text-dark")">@item.LogCount Log</span>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Tedarikçi Envanter Özeti (Inner Join & Group By & Count & Sum) -->
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex justify-content-between align-items-center bg-white border-bottom-0">
+                    <h6 class="m-0 font-weight-bold text-primary"><i class="bi bi-building-up text-primary"></i> Tedarikçi Envanter Özeti</h6>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="ps-3">Tedarikçi Adı</th>
+                                    <th class="text-center">Sağlanan Ürün Çeşidi</th>
+                                    <th class="text-end">Toplam Stok Adedi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.ProductStockReport)
+                                {
+                                    <tr>
+                                        <td class="ps-3 fw-bold"><i class="bi bi-building"></i> @item.SupplierName</td>
+                                        <td class="text-center fw-semibold text-primary">@item.ProductCount Çeşit</td>
+                                        <td class="text-end fw-bold text-secondary">@item.TotalStock.ToString("N0") Adet</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

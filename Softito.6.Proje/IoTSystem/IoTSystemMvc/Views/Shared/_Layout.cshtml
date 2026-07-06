@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - IoT Yönetim Sistemi</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/IoTSystemMvc.styles.css" asp-append-version="true" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    @{
+        var controllerName = ViewContext.RouteData.Values["controller"]?.ToString();
+        var isAuthenticated = User.Identity.IsAuthenticated;
+    }
+
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        @if (isAuthenticated)
+        {
+            <div class="border-end bg-dark-sidebar" id="sidebar-wrapper">
+                <div class="sidebar-heading border-bottom text-white">
+                    IoT System
+                </div>
+                <div class="list-group list-group-flush sidebar-nav-items">
+                    <a asp-controller="Home" asp-action="Index" class="list-group-item list-group-item-action @(controllerName == "Home" ? "active" : "")">
+                        <i class="bi bi-speedometer2 me-2"></i> Dashboard (Ana Sayfa)
+                    </a>
+                    <a asp-controller="Suppliers" asp-action="Index" class="list-group-item list-group-item-action @(controllerName == "Suppliers" ? "active" : "")">
+                        <i class="bi bi-truck me-2"></i> Tedarikçiler
+                    </a>
+                    <a asp-controller="Products" asp-action="Index" class="list-group-item list-group-item-action @(controllerName == "Products" ? "active" : "")">
+                        <i class="bi bi-box-seam me-2"></i> Ürünler
+                    </a>
+                    <a asp-controller="Devices" asp-action="Index" class="list-group-item list-group-item-action @(controllerName == "Devices" ? "active" : "")">
+                        <i class="bi bi-cpu-fill me-2"></i> Cihazlar
+                    </a>
+                    <a asp-controller="SystemLogs" asp-action="Index" class="list-group-item list-group-item-action @(controllerName == "SystemLogs" ? "active" : "")">
+                        <i class="bi bi-file-earmark-medical me-2"></i> Sistem Logları
+                    </a>
+                    <a asp-controller="Reports" asp-action="Index" class="list-group-item list-group-item-action @(controllerName == "Reports" ? "active" : "")">
+                        <i class="bi bi-graph-up-arrow me-2"></i> Gelişmiş Raporlar
+                    </a>
+                </div>
+                <div class="sidebar-footer border-top p-3 text-center">
+                    <a asp-controller="Account" asp-action="Logout" class="btn btn-sidebar-logout btn-sm w-100">
+                        <i class="bi bi-box-arrow-right me-1"></i> Güvenli Çıkış
+                    </a>
+                </div>
+            </div>
+        }
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper" class="bg-light-workspace">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark-sidebar border-bottom shadow-sm">
+                <div class="container-fluid">
+                    @if (isAuthenticated)
+                    {
+                        <div class="d-flex align-items-center">
+                            <!-- Ince uzun şık durum kutusu -->
+                            <div class="topbar-status-box d-none d-lg-flex align-items-center">
+                                <span class="status-dot bg-success me-2"></span>
+                                <span class="text-muted small">Sistem Durumu: <span class="text-success fw-semibold">Tüm Cihazlar Çevrimiçi</span></span>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <a class="navbar-brand fw-bold text-dark" asp-controller="Home" asp-action="Index">
+                            <i class="bi bi-cpu text-primary me-2"></i>IoT System
+                        </a>
+                    }
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                            @if (isAuthenticated)
+                            {
+                                <li class="nav-item">
+                                    <span class="nav-link text-white-50"><i class="bi bi-person-circle me-1"></i> @User.Identity.Name</span>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-danger" asp-controller="Account" asp-action="Logout" title="Çıkış Yap"><i class="bi bi-box-arrow-right"></i></a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link fw-semibold text-dark" asp-controller="Account" asp-action="Login">Giriş Yap</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link fw-semibold text-dark" asp-controller="Account" asp-action="Register">Kayıt Ol</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="container-fluid px-4 py-4 main-content-body">
+                <main role="main">
+                    @RenderBody()
+                </main>
+            </div>
+
+            <footer class="footer bg-dark-sidebar border-top text-center py-3 text-white-50">
+                <div class="container-fluid">
+                    <span class="small">&copy; @DateTime.Now.Year - IoTSystemMvc - Öğrenci Projesi</span>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

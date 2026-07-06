@@ -1,0 +1,22 @@
+﻿@model GymAppLite.Models.Trainer
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">✏️ Antrenör Bilgilerini Düzenle</h6>
+    </div>
+    <div class="card-body">
+        <form href="@Url.Action("Update", "Trainers")" method="post">
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group mb-3">
+                <label>Ad Soyad</label>
+                <input asp-for="FullName" class="form-control" required />
+            </div>
+            <div class="form-group mb-3">
+                <label>Uzmanlık Alanı</label>
+                <input asp-for="Expertise" class="form-control" required />
+            </div>
+            <button type="submit" class="btn btn-info">Güncelle</button>
+            <a href="@Url.Action("Index", "Trainers")" class="btn btn-secondary">İptal</a>
+        </form>
+    </div>
+</div>

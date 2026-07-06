@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BT Yardım Masası</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/BTProjectt.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <!-- Sidebar / Yan Menü -->
+    <aside class="sidebar">
+        <a class="brand" href="@Url.Action("Index", "Home")">
+            BT Admin
+        </a>
+        <nav class="nav flex-column flex-grow-1">
+            @{
+                var activeController = ViewContext.RouteData.Values["controller"]?.ToString();
+            }
+            <a class="nav-link @(activeController == "Home" ? "active" : "")" href="@Url.Action("Index", "Home")">
+                <i class="bi bi-speedometer2"></i> Dashboard
+            </a>
+            <a class="nav-link @(activeController == "Ticket" ? "active" : "")" href="@Url.Action("Index", "Ticket")">
+                <i class="bi bi-chat-left-text"></i> Destek Talepleri
+            </a>
+            <a class="nav-link @(activeController == "Category" ? "active" : "")" href="@Url.Action("Index", "Category")">
+                <i class="bi bi-tags"></i> Kategoriler
+            </a>
+            <a class="nav-link @(activeController == "User" ? "active" : "")" href="@Url.Action("Index", "User")">
+                <i class="bi bi-people"></i> Kullanıcılar
+            </a>
+            <a class="nav-link @(activeController == "Rapor" ? "active" : "")" href="@Url.Action("Index", "Rapor")">
+                <i class="bi bi-graph-up"></i> Raporlama
+            </a>
+        </nav>
+        <div class="mt-auto pt-3 border-top border-secondary-subtle">
+            <div class="px-2 mb-2">
+                <a href="@Url.Action("Index", "Portal")" class="btn btn-custom btn-custom-info w-100 justify-content-center text-white" style="background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);">
+                    <i class="bi bi-globe"></i> Web Sitesi
+                </a>
+            </div>
+            <form asp-controller="Account" asp-action="Logout" method="post" class="mb-3 px-2">
+                <button type="submit" class="btn btn-custom btn-custom-danger w-100 justify-content-center">
+                    <i class="bi bi-box-arrow-left"></i> Çıkış Yap
+                </button>
+            </form>
+            <small class="text-white-50 d-block text-center">&copy; 2026 - BT Yardım Masası</small>
+        </div>
+    </aside>
+
+    <!-- Ana İçerik Alanı -->
+    <div class="main-wrapper">
+        <!-- Üst Navbar -->
+        <header class="top-navbar">
+            <div class="d-flex align-items-center">
+                <h4 class="m-0 font-weight-bold text-dark">@ViewData["PageHeader"]</h4>
+            </div>
+
+            <!-- Ortak Arama Alanı (Tüm tablolarda çalışan) -->
+            <form id="globalSearchForm" method="get" class="d-flex align-items-center" style="max-width: 350px; width: 100%;">
+                <div class="input-group">
+                    <span class="input-group-text bg-light border-end-0 border-secondary-subtle" style="border-radius: 0.5rem 0 0 0.5rem;">
+                        <i class="bi bi-search text-muted"></i>
+                    </span>
+                    <input type="text" id="globalSearchInput" name="search" class="form-control bg-light border-start-0 border-secondary-subtle" style="border-radius: 0 0.5rem 0.5rem 0;" placeholder="Ara..." aria-label="Search" value="@Context.Request.Query["search"]">
+                </div>
+            </form>
+        </header>
+
+        <!-- İçerik Gövdesi -->
+        <main role="main" class="content-body">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!-- Ortak Arama ve Anlık Filtreleme Scripti -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const searchInput = document.getElementById("globalSearchInput");
+            
+            if (searchInput) {
+                // Sayfa ilk yüklendiğinde arama kutusuna odaklanmayı engellemek için anlık değerini al
+                const initialVal = searchInput.value.trim().toLowerCase();
+                if (initialVal) {
+                    filterRows(initialVal);
+                }
+
+                // Kullanıcı her tuşa bastığında anlık (client-side) filtrele
+                searchInput.addEventListener("input", function () {
+                    const filter = this.value.toLowerCase().trim();
+                    filterRows(filter);
+                });
+
+                // Kullanıcı Enter tuşuna bastığında sunucu taraflı arama yapmak için formun gönderilmesini sağla
+                searchInput.addEventListener("keypress", function (e) {
+                    if (e.key === 'Enter') {
+                        // Form otomatik gönderilecektir
+                    }
+                });
+            }
+
+            function filterRows(filter) {
+                const rows = document.querySelectorAll("table tbody tr");
+                rows.forEach(row => {
+                    // Eğer satırda "no-search" sınıfı varsa arama dışı tut
+                    if (row.classList.contains("no-search")) return;
+                    
+                    const text = row.textContent.toLowerCase();
+                    if (text.includes(filter)) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                });
+            }
+        });
+    </script>
+    
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,101 @@
+@{
+    ViewData["Title"] = "Gelişmiş Raporlar";
+}
+
+<div class="card" style="margin-bottom: 20px;">
+    <h2>📊 Sistem Raporları</h2>
+    <p style="color: #666;">Veritabanındaki verilere uygulanan gelişmiş sorgular (JOIN, GROUP BY, COUNT) ile elde edilen istatistikler.</p>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+
+    <!-- Rapor 1: INNER JOIN ve ORDER BY -->
+    <div class="card" style="max-height: 400px; overflow-y: auto;">
+        <h3 style="color: #8b0000; margin-bottom: 15px;">1. Ürünler ve Tedarikçiler (Fiyata Göre Sıralı)</h3>
+        <p style="font-size: 0.85rem; color: #888; margin-bottom: 15px;">Sorgu: INNER JOIN (Products & Suppliers) + ORDER BY Price DESC</p>
+        <table style="width:100%; text-align:left; border-collapse: collapse; font-size: 0.95rem;">
+            <thead>
+                <tr style="background-color: #f8f9fa;">
+                    <th style="padding: 10px;">Ürün Adı</th>
+                    <th style="padding: 10px;">Tedarikçi</th>
+                    <th style="padding: 10px;">Fiyat</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (ViewBag.ProductsWithSuppliers != null)
+                {
+                    foreach (var item in ViewBag.ProductsWithSuppliers)
+                    {
+                        <tr style="border-bottom: 1px solid #eee;">
+                            <td style="padding: 8px;">@item.ProductName</td>
+                            <td style="padding: 8px;">@item.SupplierName</td>
+                            <td style="padding: 8px; font-weight: bold; color: #28a745;">@item.Price.ToString("C2", new System.Globalization.CultureInfo("tr-TR"))</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Rapor 2: GROUP BY ve COUNT -->
+    <div class="card" style="max-height: 400px; overflow-y: auto;">
+        <h3 style="color: #8b0000; margin-bottom: 15px;">2. Kategori Bazında Ürün Sayısı</h3>
+        <p style="font-size: 0.85rem; color: #888; margin-bottom: 15px;">Sorgu: GROUP BY CategoryName + COUNT()</p>
+        <table style="width:100%; text-align:left; border-collapse: collapse; font-size: 0.95rem;">
+            <thead>
+                <tr style="background-color: #f8f9fa;">
+                    <th style="padding: 10px;">Kategori</th>
+                    <th style="padding: 10px;">Toplam Ürün</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (ViewBag.ProductsByCategory != null)
+                {
+                    foreach (var item in ViewBag.ProductsByCategory)
+                    {
+                        <tr style="border-bottom: 1px solid #eee;">
+                            <td style="padding: 8px;">@item.CategoryName</td>
+                            <td style="padding: 8px;">
+                                <span style="background: #007bff; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.85rem;">@item.ProductCount</span>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Rapor 3: LEFT JOIN Benzeri (Tedarikçilerin Ürün Sayıları) -->
+    <div class="card" style="grid-column: 1 / -1; margin-top: 10px;">
+        <h3 style="color: #8b0000; margin-bottom: 15px;">3. Tedarikçilerin Sağladığı Ürün Miktarı (Tümü)</h3>
+        <p style="font-size: 0.85rem; color: #888; margin-bottom: 15px;">Sorgu: LEFT JOIN / Subquery (Suppliers -> Products) + ORDER BY Count DESC</p>
+        <table style="width:100%; text-align:left; border-collapse: collapse; font-size: 0.95rem;">
+            <thead>
+                <tr style="background-color: #f8f9fa;">
+                    <th style="padding: 10px;">Firma Adı</th>
+                    <th style="padding: 10px;">Tedarik Ettiği Ürün Sayısı</th>
+                    <th style="padding: 10px;">Durum</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (ViewBag.SupplierProductCounts != null)
+                {
+                    foreach (var item in ViewBag.SupplierProductCounts)
+                    {
+                        <tr style="border-bottom: 1px solid #eee;">
+                            <td style="padding: 10px; font-weight: 500;">@item.SupplierName</td>
+                            <td style="padding: 10px;">@item.ProductCount adet</td>
+                            <td style="padding: 10px;">
+                                @if(item.ProductCount > 0) {
+                                    <span style="color: #28a745; font-weight: 600;">Aktif</span>
+                                } else {
+                                    <span style="color: #dc3545;">Ürün Yok</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

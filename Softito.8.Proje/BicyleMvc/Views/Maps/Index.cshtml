@@ -1,0 +1,46 @@
+@{
+    ViewData["Title"] = "İstasyon Haritası";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-map"></i> İstasyon Haritası</h2>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+        <!-- Map Container -->
+        <div id="stationMap" style="height: 600px; width: 100%; border-radius: 0.25rem;"></div>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Initialize the map (Centered on Istanbul as default)
+            var map = L.map('stationMap').setView([41.0082, 28.9784], 12);
+
+            // Add OpenStreetMap tiles
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(map);
+
+            // Fetch stations from API (Using our backend API or we can just mock a few points if API doesn't have lat/lng)
+            // For demo purposes we add a sample marker
+            var marker = L.marker([41.0082, 28.9784]).addTo(map)
+                .bindPopup('<b>Merkez İstasyon</b><br>Kapasite: 20<br>Mevcut: 5')
+                .openPopup();
+                
+            var marker2 = L.marker([41.0402, 29.0061]).addTo(map)
+                .bindPopup('<b>Beşiktaş İstasyonu</b><br>Kapasite: 15<br>Mevcut: 10');
+                
+            var marker3 = L.marker([40.9897, 29.0227]).addTo(map)
+                .bindPopup('<b>Kadıköy İstasyonu</b><br>Kapasite: 30<br>Mevcut: 2');
+        });
+    </script>
+}

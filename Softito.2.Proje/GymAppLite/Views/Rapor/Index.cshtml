@@ -1,0 +1,218 @@
+@{
+    ViewData["Title"] = "";
+}
+
+<div class="row mb-4 animate__animated animate__fadeIn">
+    <!-- Toplam Üye Kartı -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card shadow h-100 py-2" style="border-left: 4px solid #4e73df !important;">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Toplam Üye 
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-primary">@ViewBag.TotalMembers</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-users fa-2x text-primary" style="opacity: 0.3;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toplam Antrenör Kartı -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card shadow h-100 py-2" style="border-left: 4px solid #4e73df !important;">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Toplam Antrenör 
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-primary">@ViewBag.TotalTrainers</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-user-tie fa-2x text-primary" style="opacity: 0.3;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toplam Kayıt Kartı -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card shadow h-100 py-2" style="border-left: 4px solid #4e73df !important;">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Gelişim Kayıtları
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-primary">@ViewBag.TotalProgressLogs</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x text-primary" style="opacity: 0.3;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toplam Paket Kartı -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card shadow h-100 py-2" style="border-left: 4px solid #4e73df !important;">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Üyelik Paketleri 
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-primary">@ViewBag.TotalPackages</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-box-open fa-2x text-primary" style="opacity: 0.3;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Paketlere Göre Üye Dağılımı (GroupBy) -->
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow mb-4 h-100">
+            <div class="card-header py-3 bg-light d-flex align-items-center">
+                <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-chart-pie me-2"></i>Paket Dağılımı</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Paket Adı</th>
+                                <th>Üye Sayısı</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.MembersByPackage as List<GymAppLite.Controllers.GroupedReportItem> ?? new())
+                            {
+                                <tr>
+                                    <td><strong>@item.KeyName</strong></td>
+                                    <td><span class="badge bg-primary">@item.Count Üye</span></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sıralı Üye Listesi (OrderBy & Include) -->
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow mb-4 h-100">
+            <div class="card-header py-3 bg-light d-flex align-items-center">
+                <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-sort-alpha-down me-2"></i>Sıralı Üye Listesi </h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive" style="max-height: 300px; overflow-y: auto;">
+                    <table class="table table-bordered table-striped" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Ad Soyad</th>
+                                <th>Paket Türü</th>
+                                <th>Antrenör</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.SortedMembers as List<GymAppLite.Models.Member> ?? new())
+                            {
+                                <tr>
+                                    <td>@item.FirstName @item.LastName</td>
+                                    <td><span class="badge bg-secondary">@(item.SubscriptionType?.TypeName ?? "Yok")</span></td>
+                                    <td>@(item.Trainer?.FullName ?? "Atanmadı")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <!-- Aktif Eşleşmeler (Inner Join) -->
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow mb-4 h-100">
+            <div class="card-header py-3 bg-light d-flex align-items-center">
+                <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-handshake me-2"></i>Aktif Üye & Eğitmen Eşleşmeleri </h6>
+            </div>
+            <div class="card-body">
+                <p class="text-muted small">Bu tablo, sistemdeki yalnızca antrenörü olan aktif üyeleri listeler.</p>
+                <div class="table-responsive" style="max-height: 250px; overflow-y: auto;">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Üye Adı</th>
+                                <th>Antrenör Adı</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.InnerJoinResult as List<GymAppLite.Controllers.MemberTrainerJoinItem> ?? new())
+                            {
+                                <tr>
+                                    <td>@item.MemberName</td>
+                                    <td><span class="text-primary"><i class="fas fa-check-circle me-1"></i>@item.TrainerName</span></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tüm Üyeler ve Antrenörleri (Left Join) -->
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow mb-4 h-100">
+            <div class="card-header py-3 bg-light d-flex align-items-center">
+                <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-users-cog me-2"></i>Tüm Üyeler ve Eğitmen Durumları </h6>
+            </div>
+            <div class="card-body">
+                <p class="text-muted small">Bu tablo, antrenörü olsun veya olmasın sistemdeki tüm üyeleri listeler.</p>
+                <div class="table-responsive" style="max-height: 250px; overflow-y: auto;">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Üye Adı</th>
+                                <th>Antrenör Durumu</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.LeftJoinResult as List<GymAppLite.Controllers.MemberTrainerJoinItem> ?? new())
+                            {
+                                <tr>
+                                    <td>@item.MemberName</td>
+                                    <td>
+                                        @if (item.TrainerName == "Antrenör Atanmadı")
+                                        {
+                                            <span class="text-danger"><i class="fas fa-exclamation-triangle me-1"></i>@item.TrainerName</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-primary"><i class="fas fa-check-circle me-1"></i>@item.TrainerName</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

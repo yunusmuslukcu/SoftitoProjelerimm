@@ -1,0 +1,26 @@
+@model Model.Category
+@{
+    ViewData["Title"] = "Yeni Kategori Ekle";
+}
+<div class="card">
+    <h2>Yeni Kategori Ekle</h2>
+    <br />
+
+    <form method="post" action="/Admin/Category/Create">
+        <div style="display: grid; grid-template-columns: 1fr; gap: 20px; max-width: 600px;">
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px; font-weight: 500; color: #555;">Kategori Adı</label>
+                <input type="text" name="Name" required style="width: 100%; padding: 10px; border: 2px solid #eee; border-radius: 6px; font-size: 1rem;" />
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px; font-weight: 500; color: #555;">Açıklama</label>
+                <textarea name="Description" rows="4" style="width: 100%; padding: 10px; border: 2px solid #eee; border-radius: 6px; font-size: 1rem;"></textarea>
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+            <button type="submit" style="background: #28a745; color: white; padding: 12px 30px; border: none; border-radius: 6px; cursor: pointer; font-size: 1rem; font-weight: 600;">Kaydet</button>
+            <a href="/Admin/Category/Index" style="background: #6c757d; color: white; padding: 12px 30px; border-radius: 6px; text-decoration: none; font-weight: 500;">İptal</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,11 @@
+C:\Users\yunus.muslukcu\Desktop\MarketProjesi\SuperMarket\Model\bin\Debug\net10.0\Model.deps.json
+C:\Users\yunus.muslukcu\Desktop\MarketProjesi\SuperMarket\Model\bin\Debug\net10.0\Model.dll
+C:\Users\yunus.muslukcu\Desktop\MarketProjesi\SuperMarket\Model\bin\Debug\net10.0\Model.pdb
+C:\Users\yunus.muslukcu\Desktop\MarketProjesi\SuperMarket\Model\obj\Debug\net10.0\Model.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\yunus.muslukcu\Desktop\MarketProjesi\SuperMarket\Model\obj\Debug\net10.0\Model.AssemblyInfoInputs.cache
+C:\Users\yunus.muslukcu\Desktop\MarketProjesi\SuperMarket\Model\obj\Debug\net10.0\Model.AssemblyInfo.cs
+C:\Users\yunus.muslukcu\Desktop\MarketProjesi\SuperMarket\Model\obj\Debug\net10.0\Model.csproj.CoreCompileInputs.cache
+C:\Users\yunus.muslukcu\Desktop\MarketProjesi\SuperMarket\Model\obj\Debug\net10.0\Model.dll
+C:\Users\yunus.muslukcu\Desktop\MarketProjesi\SuperMarket\Model\obj\Debug\net10.0\refint\Model.dll
+C:\Users\yunus.muslukcu\Desktop\MarketProjesi\SuperMarket\Model\obj\Debug\net10.0\Model.pdb
+C:\Users\yunus.muslukcu\Desktop\MarketProjesi\SuperMarket\Model\obj\Debug\net10.0\ref\Model.dll

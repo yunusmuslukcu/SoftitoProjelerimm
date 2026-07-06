@@ -1,0 +1,129 @@
+@model IEnumerable<IoTSystemMvc.Models.SystemLogViewModel>
+
+@{
+    ViewData["Title"] = "Sistem Logları";
+    var currentFilter = ViewData["CurrentFilter"] as string;
+}
+
+<div class="container-fluid">
+    <!-- Page Title & Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold text-dark mb-1">Sistem Logları Takip Paneli</h2>
+            <p class="text-muted small mb-0">Sistemdeki tüm cihazların çalışma zamanı loglarını, hataları ve çözüm önerilerini listeleyin.</p>
+        </div>
+        <a href="@Url.Action("Create", "SystemLogs")" class="btn btn-primary shadow-sm">
+            <i class="bi bi-plus-circle me-1"></i> Manuel Log Ekle
+        </a>
+    </div>
+
+    <!-- Search / Filter Container -->
+    <div class="search-container mb-4">
+        <form method="get" action="@Url.Action("Index", "SystemLogs")" class="row g-3 align-items-center">
+            <div class="col-12 col-md-8 col-lg-6">
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-end-0 text-muted">
+                        <i class="bi bi-search"></i>
+                    </span>
+                    <input type="text" name="searchString" value="@currentFilter" class="form-control border-start-0 ps-0" placeholder="Log kodu, seviyesi veya açıklama ile arayın..." />
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <button type="submit" class="btn btn-primary me-2">
+                    <i class="bi bi-funnel-fill me-1"></i> Filtrele
+                </button>
+                @if (!string.IsNullOrEmpty(currentFilter))
+                {
+                    <a href="@Url.Action("Index", "SystemLogs")" class="btn btn-outline-secondary">
+                        <i class="bi bi-x-circle me-1"></i> Temizle
+                    </a>
+                }
+            </div>
+        </form>
+    </div>
+
+    <!-- Table Card -->
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th class="ps-4">ID</th>
+                            <th>Log Kodu</th>
+                            <th class="text-center">Log Seviyesi</th>
+                            <th>Açıklama</th>
+                            <th>Çözüm Önerisi</th>
+                            <th>Log Tarihi</th>
+                            <th class="text-center pe-4" style="width: 180px;">İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Any())
+                        {
+                            foreach (var item in Model)
+                            {
+                                var badgeClass = "bg-info-subtle text-info border border-info-subtle";
+                                if (item.LogLevel == "Critical")
+                                {
+                                    badgeClass = "bg-danger text-white";
+                                }
+                                else if (item.LogLevel == "Error")
+                                {
+                                    badgeClass = "bg-danger-subtle text-danger border border-danger-subtle";
+                                }
+                                else if (item.LogLevel == "Warning")
+                                {
+                                    badgeClass = "bg-warning-subtle text-warning-emphasis border border-warning-subtle";
+                                }
+                                else if (item.LogLevel == "Information")
+                                {
+                                    badgeClass = "bg-success-subtle text-success border border-success-subtle";
+                                }
+
+                                <tr>
+                                    <td class="ps-4 fw-semibold text-secondary">@item.Id</td>
+                                    <td class="fw-bold"><code>@item.LogCode</code></td>
+                                    <td class="text-center">
+                                        <span class="badge px-2.5 py-1.5 @badgeClass">@item.LogLevel</span>
+                                    </td>
+                                    <td class="text-wrap" style="max-width: 250px;">@item.Description</td>
+                                    <td class="text-wrap" style="max-width: 200px;">
+                                        @if (item.FixSuggestion == "None required" || item.FixSuggestion == "Yok")
+                                        {
+                                            <span class="text-muted small">Gerekli Değil</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-dark fw-semibold small text-success">@item.FixSuggestion</span>
+                                        }
+                                    </td>
+                                    <td><span class="small text-muted">@item.LogDate.ToString("yyyy-MM-dd HH:mm")</span></td>
+                                    <td class="text-center pe-4">
+                                        <div class="btn-group" role="group">
+                                            <a href="@Url.Action("Edit", "SystemLogs", new { id = item.Id })" class="btn btn-outline-warning btn-sm me-1" title="Düzenle">
+                                                <i class="bi bi-pencil-square"></i> Düzenle
+                                            </a>
+                                            <a href="@Url.Action("Delete", "SystemLogs", new { id = item.Id })" class="btn btn-outline-danger btn-sm" onclick="return confirm('Bu log kaydını silmek istediğinize emin misiniz?')" title="Sil">
+                                                <i class="bi bi-trash"></i> Sil
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="7" class="text-center text-muted py-5">
+                                    <i class="bi bi-emoji-frown fs-1 d-block mb-2 text-secondary"></i>
+                                    Listelenecek sistem logu bulunamadı.
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

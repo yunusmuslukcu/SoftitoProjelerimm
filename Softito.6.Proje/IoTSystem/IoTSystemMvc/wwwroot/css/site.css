@@ -1,0 +1,295 @@
+/* General Fonts & Typography */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f8fafc;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+#wrapper {
+  overflow-x: hidden;
+  display: flex;
+  width: 100%;
+}
+
+/* Theme Colors & Dark Mode Layouts */
+.bg-dark-sidebar {
+  background-color: #0f172a !important; /* Slate 900 */
+}
+
+/* Sidebar Wrapper Layout */
+#sidebar-wrapper {
+  min-width: 260px;
+  max-width: 260px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  transition: all 0.3s ease;
+}
+
+.sidebar-heading {
+  padding: 1.5rem 1.25rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  background-color: #1e293b; /* Slate 800 */
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #334155 !important;
+}
+
+.sidebar-nav-items {
+  flex-grow: 1;
+  padding-top: 1rem;
+}
+
+.sidebar-nav-items .list-group-item {
+  background-color: transparent !important;
+  color: #94a3b8 !important; /* Slate 400 */
+  border: none !important;
+  padding: 0.9rem 1.5rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s ease-in-out;
+  border-left: 4px solid transparent !important;
+}
+
+/* Hover and Selected active states - Emerald Green Theme */
+.sidebar-nav-items .list-group-item:hover {
+  background-color: #1e293b !important; /* Slate 800 */
+  color: #10b981 !important; /* Emerald 500 */
+  border-left-color: #10b981 !important;
+  padding-left: 1.75rem;
+}
+
+.sidebar-nav-items .list-group-item.active {
+  background: linear-gradient(90deg, #1e293b 0%, #0f172a 100%) !important;
+  color: #10b981 !important; /* Emerald 500 */
+  border-left-color: #10b981 !important;
+  font-weight: 600;
+  padding-left: 1.75rem;
+}
+
+.sidebar-footer {
+  border-top: 1px solid #334155 !important;
+}
+
+/* Page Content Wrapper - Fixes layout shift & horizontal scroll */
+#page-content-wrapper {
+  min-width: 0;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Dark Theme Navbar and Footer Custom styles */
+.navbar-dark.bg-dark-sidebar {
+  border-bottom: 1px solid #1e293b !important;
+}
+
+.footer.bg-dark-sidebar {
+  border-top: 1px solid #1e293b !important;
+}
+
+/* Status Box Dark Mode Styling */
+.navbar-dark .topbar-status-box {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+.navbar-dark .topbar-status-box .text-muted {
+  color: #94a3b8 !important; /* Slate 400 */
+}
+
+.navbar-dark .topbar-status-box .text-success {
+  color: #10b981 !important; /* Emerald 500 */
+}
+
+.bg-light-workspace {
+  background-color: #f8fafc;
+}
+
+.main-content-body {
+  flex-grow: 1;
+}
+
+.footer {
+  margin-top: auto;
+}
+
+/* Form controls & inputs custom focus styles */
+.form-control:focus, .form-select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15) !important;
+}
+
+.btn {
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background-color: #3b82f6;
+  border-color: #3b82f6;
+}
+
+.btn-primary:hover, .btn-primary:focus {
+  background-color: #2563eb;
+  border-color: #2563eb;
+}
+
+/* Modern Card Customizations */
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+}
+
+.card-report {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-report:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.08);
+}
+
+.border-left-primary {
+  border-left: 4px solid #3b82f6 !important;
+}
+.border-left-success {
+  border-left: 4px solid #10b981 !important;
+}
+.border-left-warning {
+  border-left: 4px solid #f59e0b !important;
+}
+.border-left-info {
+  border-left: 4px solid #06b6d4 !important;
+}
+
+/* Table Customizations */
+.table {
+  background-color: #ffffff;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table thead th {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+  font-weight: 600;
+  border-bottom: none;
+  padding: 14px 16px;
+}
+
+.table tbody td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #334155;
+  font-size: 0.95rem;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+/* Custom Search Box Styling */
+.search-container {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
+}
+
+/* Authentication Page Styles */
+.auth-bg {
+  background: radial-gradient(circle at top left, #1e293b, #0f172a) !important;
+  font-family: 'Inter', sans-serif;
+  height: 100vh;
+}
+
+.auth-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.25), 0 10px 10px -5px rgba(0, 0, 0, 0.25) !important;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 440px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-green {
+  background-color: #10b981 !important; /* Emerald 500 */
+  border-color: #10b981 !important;
+  color: #ffffff !important;
+  font-weight: 600;
+  padding: 10px 20px;
+  transition: all 0.2s ease;
+}
+
+.btn-green:hover {
+  background-color: #059669 !important; /* Emerald 600 */
+  border-color: #059669 !important;
+  transform: translateY(-1px);
+}
+
+/* Sidebar Logout Button */
+.btn-sidebar-logout {
+  background-color: transparent !important;
+  border: 1px solid #ef4444 !important; /* Red 500 */
+  color: #ef4444 !important;
+  transition: all 0.2s ease-in-out;
+  font-weight: 600;
+}
+
+.btn-sidebar-logout:hover {
+  background-color: #ef4444 !important;
+  color: #ffffff !important;
+}
+
+/* Topbar Status Box (Thin & Long) */
+.topbar-status-box {
+  background-color: #f1f5f9; /* Slate 100 */
+  border: 1px solid #e2e8f0; /* Slate 200 */
+  border-radius: 20px;
+  font-size: 0.8rem;
+  color: #475569; /* Slate 600 */
+  height: 32px;
+  padding: 0 16px;
+  letter-spacing: 0.2px;
+  display: flex;
+  align-items: center;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}

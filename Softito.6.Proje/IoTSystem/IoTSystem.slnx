@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="IoTSystemApi/IoTSystemApi.csproj" />
+  <Project Path="IoTSystemMvc/IoTSystemMvc.csproj" />
+</Solution>

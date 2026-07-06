@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ScoutPro</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+            overflow-x: hidden;
+        }
+
+        .app-wrapper {
+            display: flex;
+            min-height: 100vh;
+            width: 100vw;
+        }
+
+        /* Sidebar Styling */
+        .main-sidebar {
+            width: 280px;
+            min-width: 280px;
+            background: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 4px 0 25px rgba(0, 0, 0, 0.15);
+            z-index: 100;
+        }
+
+        .sidebar-brand {
+            height: 75px;
+            background-color: rgba(2, 6, 23, 0.5);
+            display: flex;
+            align-items: center;
+            padding: 0 28px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .sidebar-brand a {
+            text-decoration: none !important;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-menu {
+            list-style: none !important;
+            padding: 24px 0 !important;
+            margin: 0 !important;
+            flex-grow: 1;
+        }
+
+        .sidebar-item {
+            margin: 6px 18px !important;
+            padding: 0 !important;
+            list-style: none !important;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            padding: 14px 18px;
+            color: #94a3b8 !important;
+            text-decoration: none !important;
+            border-radius: 12px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .sidebar-link i {
+            margin-right: 12px;
+            font-size: 1.15rem;
+            width: 24px;
+            text-align: center;
+            transition: transform 0.25s ease;
+        }
+
+        .sidebar-link:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #ffffff !important;
+            transform: translateX(4px);
+        }
+
+        .sidebar-link:hover i {
+            transform: scale(1.1);
+        }
+
+        .sidebar-link.active {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%) !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 15px rgba(29, 78, 216, 0.35);
+        }
+
+        .sidebar-link.active i {
+            color: #ffffff !important;
+        }
+
+        /* Main Content Container */
+        .main-container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f8fafc;
+        }
+
+        /* Navbar Styling */
+        .main-navbar {
+            height: 75px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 35px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+        }
+
+        .navbar-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .role-badge {
+            background-color: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #475569;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .view-selector {
+            border: none;
+            background: transparent;
+            font-weight: 600;
+            color: #1e293b;
+            cursor: pointer;
+            outline: none;
+            padding-right: 4px;
+        }
+
+        /* Page Content wrapper */
+        .page-content {
+            padding: 35px;
+            flex-grow: 1;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        /* Footer */
+        .main-footer {
+            background-color: #ffffff;
+            border-top: 1px solid #e2e8f0;
+            height: 65px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 35px;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        /* Cards and premium elements */
+        .card {
+            border-radius: 16px !important;
+            border: 1px solid #e2e8f0 !important;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03) !important;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .table {
+            border-color: #f1f5f9;
+        }
+
+        .table th {
+            font-weight: 600;
+            color: #475569;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+            padding: 14px 16px;
+            background-color: #f8fafc;
+        }
+
+        .table td {
+            padding: 14px 16px;
+            color: #334155;
+            font-size: 0.9rem;
+        }
+
+        .btn {
+            border-radius: 10px;
+            padding: 8px 16px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            border: none;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+        }
+
+        /* Animations */
+        @@keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-wrapper">
+        <!-- Sidebar Navigation -->
+        <aside class="main-sidebar">
+            <div class="sidebar-brand">
+                <a href="@Url.Action("Index", "Home")">
+                    <i class="fa-solid fa-ranking-star text-primary"></i>
+                    <span>Scout<span class="text-primary">Pro</span></span>
+                </a>
+            </div>
+
+            <ul class="sidebar-menu">
+                <li class="sidebar-item">
+                    <a href="@Url.Action("Index", "Home")" class="sidebar-link" id="link-dashboard">
+                        <i class="fa-solid fa-chart-pie"></i> <span>Genel Bakış</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="@Url.Action("Index", "Player")" class="sidebar-link" id="link-player">
+                        <i class="fa-solid fa-users"></i> <span>Futbolcular</span>
+                    </a>
+                </li>
+                <li class="sidebar-item admin-menu">
+                    <a href="@Url.Action("Index", "Team")" class="sidebar-link" id="link-team">
+                        <i class="fa-solid fa-shield-halved"></i> <span>Takımlar</span>
+                    </a>
+                </li>
+                <li class="sidebar-item admin-menu">
+                    <a href="@Url.Action("Index", "Position")" class="sidebar-link" id="link-position">
+                        <i class="fa-solid fa-arrows-to-dot"></i> <span>Pozisyonlar</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="@Url.Action("Index", "Report")" class="sidebar-link" id="link-report">
+                        <i class="fa-solid fa-chart-line"></i> <span>Gelişmiş Raporlar</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div style="padding: 24px 18px; margin-top: auto; border-top: 1px solid rgba(255, 255, 255, 0.05);">
+                <a href="@Url.Action("Logout", "Account")" class="btn btn-danger w-100 d-flex align-items-center justify-content-center gap-2" style="border-radius: 12px; font-weight: 600; padding: 12px; background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); border: none; box-shadow: 0 4px 15px rgba(220, 38, 38, 0.2);">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Çıkış Yap
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="main-container">
+            <nav class="main-navbar">
+                <div class="navbar-title">
+                    <i class="fa-solid fa-cubes text-primary"></i> Yönetim Paneli
+                </div>
+
+                <div class="d-flex align-items-center gap-2">
+                    <div class="role-badge">
+                        <i class="fas fa-user-shield text-primary"></i>
+                        <select id="roleSelector" class="view-selector" onchange="ToggleMenus()">
+                            <option value="Admin">Geliştirici (Admin)</option>
+                            <option value="User">Gözlemci (Kullanıcı)</option>
+                        </select>
+                    </div>
+                </div>
+            </nav>
+
+            <main class="page-content">
+                @RenderBody()
+            </main>
+
+            <footer class="main-footer">
+                <div>
+                    <span>&copy; @DateTime.Now.Year - <b style="color: #0f172a;">ScoutPro</b></span>
+                </div>
+                <div>
+                    <span class="badge bg-slate-100 text-dark border px-3 py-2" style="background-color: #f1f5f9;"><i class="fas fa-code me-1 text-primary"></i> v1.0.0</span>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/bootstrap.bundle.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var savedRole = sessionStorage.getItem("activeRole") || "Admin";
+            $('#roleSelector').val(savedRole);
+            ToggleMenus();
+
+            var currentPath = window.location.pathname.toLowerCase();
+
+            if (currentPath.includes("/team")) {
+                $('#link-team').addClass('active');
+            } else if (currentPath.includes("/position")) {
+                $('#link-position').addClass('active');
+            } else if (currentPath.includes("/report")) {
+                $('#link-report').addClass('active');
+            } else if (currentPath.includes("/player")) {
+                $('#link-player').addClass('active');
+            } else {
+                // If it's root or contains home
+                $('#link-dashboard').addClass('active');
+            }
+        });
+
+        function ToggleMenus() {
+            var selectedRole = $('#roleSelector').val();
+            sessionStorage.setItem("activeRole", selectedRole);
+
+            if (selectedRole === "User") {
+                $('.admin-menu').addClass('d-none');
+                
+                var path = window.location.pathname.toLowerCase();
+                if (path.includes("/team") || path.includes("/position")) {
+                    window.location.href = '@Url.Action("Index", "Player")';
+                }
+            } else {
+                $('.admin-menu').removeClass('d-none');
+            }
+        }
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

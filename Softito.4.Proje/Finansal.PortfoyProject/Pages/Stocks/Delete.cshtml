@@ -1,0 +1,43 @@
+@page
+@model Finansal.PortfoyProject.Pages.Stocks.DeleteModel
+@{
+    ViewData["Title"] = "Hisse Sil";
+}
+
+<div class="container py-4" style="max-width: 600px;">
+    <div class="card border-0 shadow-sm border-top border-danger border-4">
+        <div class="card-header border-0 bg-transparent py-3">
+            <h5 class="mb-0 fw-bold text-danger" style="font-family: var(--font-display);">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>Hisse Senedi Silme Onayı
+            </h5>
+        </div>
+        <div class="card-body p-4">
+            <p class="lead text-secondary" style="font-size: 1rem;">
+                Aşağıdaki hisse senedini portföyünüzden <strong>tamamen silmek</strong> istediğinize emin misiniz? Bu işlem geri alınamaz.
+            </p>
+
+            <div class="bg-light rounded-3 p-3 my-4">
+                <dl class="row mb-0">
+                    <dt class="col-sm-4 text-muted">Hisse Kodu:</dt>
+                    <dd class="col-sm-8"><span class="badge bg-dark px-3 py-2">@Model.StockToDelete.StockCode</span></dd>
+
+                    <dt class="col-sm-4 text-muted mt-2">Hisse Adı:</dt>
+                    <dd class="col-sm-8 mt-2 fw-semibold">@Model.StockToDelete.StockName</dd>
+                </dl>
+            </div>
+
+            <form method="post">
+                <input type="hidden" asp-for="StockToDelete.Id" />
+
+                <div class="d-flex justify-content-between gap-3 mt-4">
+                    <a class="btn btn-light border flex-grow-1" asp-page="Index">
+                        <i class="bi bi-arrow-left me-1"></i> Vazgeç / Geri Dön
+                    </a>
+                    <button type="submit" class="btn btn-danger flex-grow-1">
+                        <i class="bi bi-trash-fill me-1"></i> Evet, Bu Hisseyi Sil
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

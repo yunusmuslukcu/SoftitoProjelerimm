@@ -1,0 +1,518 @@
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>GymAppLite - Profesyonel Fitness & Performans Yönetim Platformu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --primary-indigo: #4f46e5;
+            --primary-hover: #6366f1;
+            --accent-orange: #f97316;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        .navbar-custom {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: #ffffff !important;
+            letter-spacing: -0.5px;
+        }
+        .navbar-brand span {
+            color: var(--primary-hover);
+        }
+        .nav-link {
+            color: var(--text-muted) !important;
+            font-weight: 600;
+            margin: 0 0.5rem;
+            transition: color 0.2s ease;
+        }
+        .nav-link:hover {
+            color: #ffffff !important;
+        }
+        .btn-glow {
+            background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+            color: #fff !important;
+            font-weight: 700;
+            padding: 0.65rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(79, 70, 229, 0.4);
+            border: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+        .btn-glow:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.6);
+        }
+
+        /* Hero Section with Sliding Background Images */
+        .hero-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 1rem 5rem 1rem;
+            overflow: hidden;
+        }
+        .hero-bg-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        .slide-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            animation: bgSlideAnimation 24s infinite linear;
+        }
+        .slide-img:nth-child(1) {
+            background-image: url('https://images.unsplash.com/photo-534438327276-14e5300c3a48?q=80&w=1920&auto=format&fit=crop');
+            animation-delay: 0s;
+        }
+        .slide-img:nth-child(2) {
+            background-image: url('https://images.unsplash.com/photo-518611012118-696072aa579a?q=80&w=1920&auto=format&fit=crop');
+            animation-delay: 6s;
+        }
+        .slide-img:nth-child(3) {
+            background-image: url('https://images.unsplash.com/photo-571019614242-c5c5dee9f50b?q=80&w=1920&auto=format&fit=crop');
+            animation-delay: 12s;
+        }
+        .slide-img:nth-child(4) {
+            background-image: url('https://images.unsplash.com/photo-584735935682-2f2b69dff9d2?q=80&w=1920&auto=format&fit=crop');
+            animation-delay: 18s;
+        }
+
+        @@keyframes bgSlideAnimation {
+            0% { opacity: 0; transform: scale(1); }
+            8% { opacity: 0.65; }
+            25% { opacity: 0.65; transform: scale(1.06); }
+            33% { opacity: 0; transform: scale(1.08); }
+            100% { opacity: 0; }
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.75) 0%, rgba(15, 23, 42, 0.88) 60%, #0f172a 100%);
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            max-width: 900px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.4);
+            color: #818cf8;
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 0 25px rgba(99, 102, 241, 0.2);
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4.8rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1.5px;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #818cf8 0%, #c084fc 50%, #f97316 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.35rem);
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        /* Motivational Ticker */
+        .ticker-wrap {
+            width: 100%;
+            background: linear-gradient(90deg, #4f46e5 0%, #7c3aed 50%, #ea580c 100%);
+            padding: 0.9rem 0;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .ticker-move {
+            display: inline-block;
+            white-space: nowrap;
+            animation: ticker 25s linear infinite;
+        }
+        @@keyframes ticker {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
+        }
+        .ticker-item {
+            display: inline-block;
+            padding: 0 2.5rem;
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        /* Stats Cards */
+        .stats-section {
+            padding: 4rem 0;
+            position: relative;
+            z-index: 5;
+        }
+        .stat-card {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            backdrop-filter: blur(12px);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(99, 102, 241, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Section Headers */
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+        .section-subtitle {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            max-width: 600px;
+            margin: 0 auto 3.5rem auto;
+        }
+
+        /* Feature Cards */
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2.5rem;
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-hover);
+            box-shadow: 0 15px 35px rgba(79, 70, 229, 0.15);
+        }
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--primary-hover);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Package Cards */
+        .package-card {
+            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 2.5rem;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .package-card:hover {
+            transform: translateY(-10px);
+            border-color: #818cf8;
+            box-shadow: 0 25px 50px rgba(79, 70, 229, 0.2);
+        }
+        .package-price {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #ffffff;
+            margin: 1.5rem 0;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #080c16;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 4rem 0 2rem 0;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="/">
+                <i class="fas fa-dumbbell me-2" style="color: #818cf8;"></i>GymApp<span>Lite</span>
+            </a>
+            <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="#ozellikler">Özellikler</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#istatistikler">Canlı Durum</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#paketler">Paketler</a></li>
+                    <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
+                        <a class="btn btn-glow" href="@Url.Action("Index", "Home")">
+                            <i class="fas fa-user-shield me-2"></i> @(User.Identity?.IsAuthenticated == true ? "Yönetim Paneline Git" : "Giriş Yap / Panel")
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <!-- Background Slider Images -->
+        <div class="hero-bg-slider">
+            <div class="slide-img"></div>
+            <div class="slide-img"></div>
+            <div class="slide-img"></div>
+            <div class="slide-img"></div>
+        </div>
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content container">
+            <div class="hero-badge animate__animated animate__fadeInDown">
+                ⚡ PROFESYONEL PERFORMANS & ANTRENMAN YÖNETİMİ ⚡
+            </div>
+            <h1 class="hero-title">
+                PERFORMANSINIZI<br>
+                <span class="text-gradient">ZİRVE NOKTASINA TAŞIYIN</span>
+            </h1>
+            <p class="hero-subtitle">
+                GymAppLite ile spor salonunuzun tüm operasyonlarını tek ekrandan şık, hızlı ve profesyonel bir şekilde yönetin. Üyelerinize ilham verin, motivasyonu zirveye taşıyın!
+            </p>
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+                <a href="@Url.Action("Index", "Home")" class="btn btn-glow px-4 py-3 font-weight-bold" style="font-size: 1.1rem;">
+                    <i class="fas fa-bolt me-2"></i> Hemen Başla / Yönetim Paneli
+                </a>
+                <a href="#paketler" class="btn btn-outline-light px-4 py-3" style="border-radius: 12px; font-weight: 600; font-size: 1.1rem;">
+                    Paketlerimizi İncele
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Motivational Ticker -->
+    <div class="ticker-wrap">
+        <div class="ticker-move">
+            <span class="ticker-item">🔥 HIIT (HIGH-INTENSITY INTERVAL TRAINING) & KONDİSYON TAKİBİ</span>
+            <span class="ticker-item">⚡ HYPERTROPHY & MAXIMAL STRENGTH ANALİZİ</span>
+            <span class="ticker-item">💪 PROGRESSIVE OVERLOAD & PERIODIZATION METODOLOJİSİ</span>
+            <span class="ticker-item">🏆 BİYOMEKANİK & VÜCUT KOMPOZİSYONU RAPORLAMASI</span>
+            <span class="ticker-item">🔥 HIIT (HIGH-INTENSITY INTERVAL TRAINING) & KONDİSYON TAKİBİ</span>
+            <span class="ticker-item">⚡ HYPERTROPHY & MAXIMAL STRENGTH ANALİZİ</span>
+            <span class="ticker-item">💪 PROGRESSIVE OVERLOAD & PERIODIZATION METODOLOJİSİ</span>
+            <span class="ticker-item">🏆 BİYOMEKANİK & VÜCUT KOMPOZİSYONU RAPORLAMASI</span>
+        </div>
+    </div>
+
+    <!-- Live Gym Stats -->
+    <section class="stats-section container" id="istatistikler">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Canlı Salon <span class="text-gradient">İstatistikleri</span></h2>
+            <p class="section-subtitle">GymAppLite üzerinde anlık olarak takip edilen salon verileri</p>
+        </div>
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <div class="stat-number">@(ViewBag.ActiveMembersCount ?? 0)+</div>
+                    <div class="stat-label"><i class="fas fa-users me-2 text-primary"></i>Aktif Sporcu Üye</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <div class="stat-number">@(ViewBag.TrainersCount ?? 0)</div>
+                    <div class="stat-label"><i class="fas fa-dumbbell me-2 text-warning"></i>Uzman Eğitmen</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <div class="stat-number">@(ViewBag.ProgressLogsCount ?? 0)</div>
+                    <div class="stat-label"><i class="fas fa-chart-line me-2 text-success"></i>Gelişim & Vücut Ölçümü</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-5 container" id="ozellikler">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Neden <span class="text-gradient">GymAppLite</span>?</h2>
+            <p class="section-subtitle">Sidebar tasarımındaki şık koyu tema ile entegre, tam performanslı yönetim araçları.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-id-card"></i></div>
+                    <h4 class="text-white font-weight-bold mb-3">Akıllı Üye Takibi</h4>
+                    <p class="text-muted">Üye kayıtlarını, paket detaylarını ve antrenör atamalarını saniyeler içinde gerçekleştirin.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-user-ninja"></i></div>
+                    <h4 class="text-white font-weight-bold mb-3">Eğitmen Yönetimi</h4>
+                    <p class="text-muted">Uzman eğitmen kadronuzun uzmanlık alanlarını ve öğrenci havuzunu kolayca denetleyin.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-heartbeat"></i></div>
+                    <h4 class="text-white font-weight-bold mb-3">Vücut Kompozisyonu</h4>
+                    <p class="text-muted">1RM (One Rep Max), hipertrofi indeksi, antropometrik ölçümler ve somatotip değişimlerini grafiklerle izleyin.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-chart-pie"></i></div>
+                    <h4 class="text-white font-weight-bold mb-3">Dinamik Raporlar</h4>
+                    <p class="text-muted">Gelir dağılımı, üye abonelik türleri ve büyüme oranlarını tek tıkla analiz edin.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Packages Grid -->
+    <section class="py-5 container my-5" id="paketler">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Salon <span class="text-gradient">Paketlerimiz</span></h2>
+            <p class="section-subtitle">Her hedefe uygun tasarlanmış esnek abonelik seçenekleri</p>
+        </div>
+        <div class="row g-4 justify-content-center">
+            @if (ViewBag.Packages != null)
+            {
+                foreach (var pkg in (List<GymAppLite.Models.SubscriptionType>)ViewBag.Packages)
+                {
+                    <div class="col-md-4">
+                        <div class="package-card d-flex flex-column justify-content-between">
+                            <div>
+                                <h3 class="text-white font-weight-bold">@pkg.TypeName</h3>
+                                <div class="package-price">₺@pkg.Price.ToString("N0") <span style="font-size: 1rem; color: var(--text-muted); font-weight: 400;">/ Aylık</span></div>
+                                <ul class="list-unstyled text-muted mt-4 mb-5">
+                                    <li class="mb-3"><i class="fas fa-check-circle text-success me-2"></i> Sınırsız Salon Kullanımı</li>
+                                    <li class="mb-3"><i class="fas fa-check-circle text-success me-2"></i> Uzman Eğitmen Desteği</li>
+                                    <li class="mb-3"><i class="fas fa-check-circle text-success me-2"></i> Kişisel Gelişim Takibi</li>
+                                </ul>
+                            </div>
+                            <a href="@Url.Action("Index", "Home")" class="btn btn-glow w-100 justify-content-center py-3">Hemen Üye Ol</a>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container text-center">
+            <div class="d-flex justify-content-center align-items-center mb-4">
+                <i class="fas fa-dumbbell me-2" style="color: #818cf8; font-size: 1.8rem;"></i>
+                <span class="text-white font-weight-bold" style="font-size: 1.5rem;">GymApp<span style="color: #818cf8;">Lite</span></span>
+            </div>
+            <p class="mb-4" style="max-width: 550px; margin: 0 auto;">
+                Spor bilimleri prensiplerini dijital salon yönetimiyle birleştiriyor; periyodizasyon, üye takibi ve finansal analitiği en üst düzeyde sunuyoruz.
+            </p>
+            <div class="small">
+                &copy; 2026 GymAppLite. Tüm hakları saklıdır. Rengi sidebar ile tam uyumlu tasarım.
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+@page
+@model Finansal.PortfoyProject.Pages.Stocks.IndexModel
+@{
+    ViewData["Title"] = "Stok Portföyüm";
+}
+
+<div class="container-fluid py-4">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+        <div>
+            <h3 class="fw-bold text-dark mb-1" style="font-family: var(--font-display);">Hisse Senedi Portföyü</h3>
+            <p class="text-muted mb-0" style="font-size: 0.9rem;">Sahip olduğunuz hisse senetlerini ve maliyetlerinizi bu ekrandan takip edebilirsiniz.</p>
+        </div>
+        <div class="d-flex flex-wrap gap-2 align-items-center">
+            <a class="btn btn-success" asp-page="Create">
+                <i class="bi bi-plus-circle me-1"></i> Yeni Stok Ekle
+            </a>
+            <a class="btn btn-danger" asp-page-handler="DownloadPdf">
+                <i class="bi bi-file-earmark-pdf me-1"></i> PDF İndir
+            </a>
+            <a class="btn btn-danger" asp-page-handler="DownloadWord">
+                <i class="bi bi-file-earmark-word me-1"></i> Word İndir
+            </a>
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-header border-0 bg-transparent py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 fw-bold text-dark" style="font-family: var(--font-display);">
+                    <i class="bi bi-table me-2 text-primary"></i>Hisse Senedi Varlıkları
+                </h5>
+                <span class="badge bg-primary-subtle text-primary border border-primary-subtle">
+                    Toplam: @Model.StockList.Count Hisse
+                </span>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th class="ps-4">Hisse Kodu</th>
+                        <th>Hisse Adı</th>
+                        <th>Adet</th>
+                        <th>Ort. Alış Fiyatı</th>
+                        <th>Toplam Maliyet</th>
+                        <th>Tarih</th>
+                        <th class="pe-4 text-end">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.StockList.Count == 0)
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center text-muted py-5">
+                                <div class="py-3">
+                                    <i class="bi bi-inbox text-muted display-6 d-block mb-3"></i>
+                                    <span>Henüz portföyünüzde hisse senedi bulunmuyor.</span>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        @foreach (var stock in Model.StockList)
+                        {
+                            <tr>
+                                <td class="ps-4">
+                                    <span class="badge bg-dark-subtle text-dark border border-dark-subtle px-3 py-2 fw-bold" style="font-family: var(--font-display); font-size: 0.85rem;">
+                                        @stock.StockCode
+                                    </span>
+                                </td>
+                                <td class="fw-semibold text-secondary">@stock.StockName</td>
+                                <td>@stock.Quantity</td>
+                                <td>@stock.AvgPrice.ToString("C2")</td>
+                                <td class="fw-bold text-primary">@((stock.Quantity * stock.AvgPrice).ToString("C2"))</td>
+                                <td>@stock.PurchaseDate.ToShortDateString()</td>
+                                <td class="pe-4 text-end">
+                                    <a class="btn btn-sm btn-warning me-1" asp-page="Update" asp-route-id="@stock.Id">
+                                        <i class="bi bi-pencil-square"></i> Düzenle
+                                    </a>
+                                    <a class="btn btn-sm btn-danger" asp-page="Delete" asp-route-id="@stock.Id">
+                                        <i class="bi bi-trash"></i> Sil
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

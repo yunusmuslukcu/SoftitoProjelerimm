@@ -1,0 +1,202 @@
+@model IEnumerable<Model.Ticket>
+@using Model
+@{
+    ViewData["Title"] = "Destek Talepleri";
+    ViewData["PageHeader"] = "Destek Talepleri Yönetimi";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <p class="text-muted m-0">Sistemdeki tüm destek ve yardım taleplerini inceleyin.</p>
+    </div>
+    <div class="d-flex gap-2">
+        <a href="@Url.Action("Create")" class="btn btn-custom btn-custom-primary">
+            <i class="bi bi-plus-lg"></i> Yeni Ekle
+        </a>
+        <button id="btnPdfIndir" class="btn btn-custom btn-custom-danger">
+            <i class="bi bi-file-earmark-pdf"></i> PDF İndir
+        </button>
+        <button id="btnWordIndir" class="btn btn-custom btn-custom-danger">
+            <i class="bi bi-file-earmark-word"></i> Word İndir
+        </button>
+    </div>
+</div>
+
+<div class="card card-custom">
+    <div class="card-body p-0">
+        <div class="table-responsive" id="pdfExportContainer">
+            <!-- PDF başlığı için yazdırma anında görünecek gizli bir alan ekleyelim -->
+            <div class="d-none d-print-block p-4 border-bottom" id="printHeader">
+                <h3 class="text-indigo">BT Destek Portalı</h3>
+                <p class="text-muted">Destek Talepleri Listesi - @DateTime.Now.ToString("dd.MM.yyyy HH:mm")</p>
+            </div>
+            
+            <table class="table table-custom align-middle" id="ticketTable">
+                <thead>
+                    <tr>
+                        <th style="width: 80px;">ID</th>
+                        <th>Talep Başlığı</th>
+                        <th>Açıklama</th>
+                        <th>Kategori</th>
+                        <th>Kullanıcı</th>
+                        <th>Durum</th>
+                        <th style="width: 200px; text-align: right;" class="d-print-none action-column">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td><span class="fw-bold text-secondary">#@item.Id</span></td>
+                                <td><span class="fw-semibold">@item.Title</span></td>
+                                <td class="text-muted">
+                                    @(item.Description.Length > 60 ? item.Description.Substring(0, 57) + "..." : item.Description)
+                                </td>
+                                <td>
+                                    <span class="badge bg-light text-dark border">
+                                        @item.Category?.Name
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-person text-muted me-1"></i>
+                                        <span>@item.User?.FullName</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    @if (item.Status == TicketStatus.Open)
+                                    {
+                                        <span class="badge-custom badge-open"><i class="bi bi-info-circle me-1"></i> Açık</span>
+                                    }
+                                    else if (item.Status == TicketStatus.InProgress)
+                                    {
+                                        <span class="badge-custom badge-progress"><i class="bi bi-gear me-1"></i> İşlemde</span>
+                                    }
+                                    else if (item.Status == TicketStatus.Resolved)
+                                    {
+                                        <span class="badge-custom badge-resolved"><i class="bi bi-check-circle me-1"></i> Çözüldü</span>
+                                    }
+                                </td>
+                                <td style="text-align: right;" class="d-print-none action-column">
+                                    <a href="@Url.Action("Update", new { id = item.Id })" class="btn btn-sm btn-outline-warning me-1" title="Düzenle">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                    <a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-sm btn-outline-danger" title="Sil">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr class="no-search">
+                            <td colspan="7" class="text-center py-5 text-muted">
+                                <i class="bi bi-chat-left-text-fill display-6 d-block mb-3 text-secondary"></i>
+                                Kayıtlı destek talebi bulunamadı.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- PDF indirme işlemi için html2pdf kütüphanesini cdn üzerinden dahil ediyoruz -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ZOJK5vZ+5RY6gFMacKRYY9H0QXaOZXSpPGVvlCY1XXLiKj3m9ATgbBT3L36QQVlACcUI301941Qg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // PDF İNDİR BUTONU
+            const btnPdf = document.getElementById("btnPdfIndir");
+            if (btnPdf) {
+                btnPdf.addEventListener("click", function () {
+                    // PDF'e çevireceğimiz tabloyu kopyalıyoruz
+                    const originalTable = document.getElementById("pdfExportContainer");
+                    
+                    // Yazdırma başlığını geçici olarak gösterelim, işlem sütunlarını gizleyelim
+                    const printHeader = document.getElementById("printHeader");
+                    if(printHeader) printHeader.classList.remove("d-none");
+                    
+                    // İşlem butonları sütunlarını gizle
+                    const actions = document.querySelectorAll(".action-column");
+                    actions.forEach(el => el.style.display = "none");
+
+                    const opt = {
+                        margin:       10,
+                        filename:     'Destek_Talepleri_Raporu.pdf',
+                        image:        { type: 'jpeg', quality: 0.98 },
+                        html2canvas:  { scale: 2, useCORS: true },
+                        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape' }
+                    };
+
+                    // PDF Oluştur ve İndir
+                    html2pdf().set(opt).from(originalTable).save().then(function() {
+                        // PDF işlemi bittikten sonra görünümü eski haline getir
+                        if(printHeader) printHeader.classList.add("d-none");
+                        actions.forEach(el => el.style.display = "");
+                    });
+                });
+            }
+
+            // WORD İNDİR BUTONU
+            const btnWord = document.getElementById("btnWordIndir");
+            if (btnWord) {
+                btnWord.addEventListener("click", function () {
+                    const table = document.getElementById("ticketTable");
+                    
+                    // İşlem sütunlarını hariç tutarak bir HTML oluşturalım
+                    let tableHtml = '<table border="1" cellspacing="0" cellpadding="8" style="font-family: Arial, sans-serif; border-collapse: collapse; width: 100%;">';
+                    
+                    // Table Header
+                    tableHtml += '<tr style="background-color: #f1f5f9; font-weight: bold;">';
+                    const headers = table.querySelectorAll("thead th");
+                    headers.forEach(th => {
+                        if (!th.classList.contains("action-column")) {
+                            tableHtml += `<th>${th.innerText}</th>`;
+                        }
+                    });
+                    tableHtml += '</tr>';
+
+                    // Table Body
+                    const rows = table.querySelectorAll("tbody tr");
+                    rows.forEach(row => {
+                        if (row.classList.contains("no-search")) return;
+                        tableHtml += '<tr>';
+                        const cells = row.querySelectorAll("td");
+                        cells.forEach(td => {
+                            if (!td.classList.contains("action-column")) {
+                                tableHtml += `<td>${td.innerText}</td>`;
+                            }
+                        });
+                        tableHtml += '</tr>';
+                    });
+                    tableHtml += '</table>';
+
+                    const preHtml = "<" + "html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Destek Talepleri Raporu</title><style>table { width: 100%; } th, td { border: 1px solid #ddd; padding: 8px; }</style></" + "head><" + "body><h2>BT Destek Portalı - Destek Talepleri Listesi</h2><hr/>";
+                    const postHtml = "</" + "body></" + "html>";
+                    const fullHtml = preHtml + tableHtml + postHtml;
+
+                    const blob = new Blob(['\ufeff' + fullHtml], {
+                        type: 'application/msword'
+                    });
+                    
+                    const url = URL.createObjectURL(blob);
+                    const downloadLink = document.createElement("a");
+                    document.body.appendChild(downloadLink);
+                    
+                    downloadLink.href = url;
+                    downloadLink.download = 'Destek_Talepleri_Listesi.doc';
+                    downloadLink.click();
+                    
+                    document.body.removeChild(downloadLink);
+                    URL.revokeObjectURL(url);
+                });
+            }
+        });
+    </script>
+}

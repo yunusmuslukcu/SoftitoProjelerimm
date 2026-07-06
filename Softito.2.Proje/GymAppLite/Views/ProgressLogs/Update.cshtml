@@ -1,0 +1,40 @@
+﻿@model GymAppLite.Models.ProgressLog
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">✏️ Ölçüm Bilgilerini Düzenle</h6>
+    </div>
+    <div class="card-body">
+        <form action="@Url.Action("Update", "ProgressLog")" method="post">
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group mb-3">
+                <label>Ölçüm Yapılan Üye</label>
+                <select asp-for="MemberId" class="form-control" required>
+                    @if (ViewBag.Members != null)
+                    {
+                        @foreach (var member in ViewBag.Members)
+                        {
+                            <option value="@member.Id" selected="@(member.Id == Model.MemberId ? "selected" : null)">
+                                @member.FirstName @member.LastName
+                            </option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <div class="form-group mb-3">
+                <label>Kilo (kg)</label>
+                <input asp-for="Weight" type="number" step="0.01" class="form-control" required />
+            </div>
+
+            <div class="form-group mb-3">
+                <label>Boy (cm)</label>
+                <input asp-for="Height" type="number" class="form-control" required />
+            </div>
+
+            <button type="submit" class="btn btn-info">Güncelle</button>
+            <a href="@Url.ActionLink("Index", "ProgressLogs")" class="btn btn-secondary">İptal</a>
+        </form>
+    </div>
+</div>

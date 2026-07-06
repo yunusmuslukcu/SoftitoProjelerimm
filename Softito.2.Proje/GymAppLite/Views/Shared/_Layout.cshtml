@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>@(ViewData["Title"] ?? "Panel") - GymAppLite</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+    <link href="~/startbootstrap-sb-admin-gh-pages/css/styles.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+</head>
+<body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <!-- Navbar Brand-->
+        <a class="navbar-brand ps-3 font-weight-bold" href="@Url.Action("Landing", "Home")"><i class="fas fa-dumbbell me-2 text-primary"></i>GymApp Lite</a>
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+        <!-- Navbar Search-->
+        @{
+            var currentCtrl = ViewContext.RouteData.Values["controller"]?.ToString();
+            var searchAction = (currentCtrl == "Home" || currentCtrl == "Rapor" || string.IsNullOrEmpty(currentCtrl)) ? "/Members" : "";
+        }
+        <form method="get" action="@searchAction" class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+            <div class="input-group">
+                <input class="form-control" name="search" type="text" placeholder="Ara..." aria-label="Search for..." aria-describedby="btnNavbarSearch" value="@Context.Request.Query["search"]" />
+                <button class="btn btn-primary" id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i></button>
+            </div>
+        </form>
+        <!-- Navbar-->
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i> @User.Identity.Name</a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li>
+                            <form method="post" action="@Url.Action("Logout", "Account")" class="d-inline">
+                                <button type="submit" class="dropdown-item">Çıkış Yap</button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            }
+        </ul>
+    </nav>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <div class="sb-sidenav-menu-heading">Genel</div>
+                        <a class="nav-link" href="@Url.ActionLink("Landing", "Home")">
+                            <div class="sb-nav-link-icon"><i class="fas fa-globe text-primary"></i></div>
+                            Web Sitesi (Ana Sayfa)
+                        </a>
+                        <a class="nav-link" href="@Url.ActionLink("Index", "Home")">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Yönetim Paneli
+                        </a>
+                        <div class="sb-sidenav-menu-heading">Modüller</div>
+                        <a class="nav-link" href="@Url.ActionLink("Index", "Members")">
+                            <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
+                            Üyeler
+                        </a>
+                        <a class="nav-link" href="@Url.ActionLink("Index", "Trainers")">
+                            <div class="sb-nav-link-icon"><i class="fas fa-user-edit"></i></div>
+                            Antrenörler
+                        </a>
+                        <a class="nav-link" href="@Url.ActionLink("Index", "SubscriptionType")">
+                            <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
+                            Paketler
+                        </a>
+                        <a class="nav-link" href="@Url.ActionLink("Index", "ProgressLogs")">
+                            <div class="sb-nav-link-icon"><i class="fas fa-exchange-alt"></i></div>
+                            Programlar
+                        </a>
+                        <a class="nav-link" href="@Url.ActionLink("Index", "Rapor")">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-bar"></i></div>
+                            Raporlar
+                        </a>
+                    </div>
+                </div>
+                <div class="sb-sidenav-footer">
+                    <div class="small">Giriş Yapılan Hesap:</div>
+                    @(User.Identity?.IsAuthenticated == true ? User.Identity.Name : "Misafir")
+                </div>
+            </nav>
+        </div>
+
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <h1 class="mt-4">@ViewData["Title"]</h1>
+                    <ol class="breadcrumb mb-4">
+                        <li class="breadcrumb-item"><a href="@Url.ActionLink("Index", "Home")">Ana Sayfa</a></li>
+                    </ol>
+
+                    @RenderBody()
+                </div>
+            </main>
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; Gym App Lite 2026</div>
+                        <div>
+                            <a href="#">Gizlilik Politikası</a>
+                            &middot;
+                            <a href="#">Şartlar &amp; Koşullar</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="~/startbootstrap-sb-admin-gh-pages/js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="assets/demo/chart-area-demo.js"></script>
+    <script src="assets/demo/chart-bar-demo.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+    <script src="js/datatables-simple-demo.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+        var currentPath = window.location.pathname.toLowerCase().replace(/\/$/, "");
+        if (currentPath === "") currentPath = "/home/index";
+
+        var navLinks = document.querySelectorAll("#layoutSidenav_nav .sb-sidenav-menu .nav-link");
+
+        navLinks.forEach(function (link) {
+        var href = link.getAttribute("href");
+        if (href) {
+        var linkPath = href.toLowerCase().replace(/\/$/, "");
+        if (linkPath === "" || linkPath === "/") linkPath = "/home/index";
+
+        var currentParts = currentPath.split('/').filter(Boolean);
+        var linkParts = linkPath.split('/').filter(Boolean);
+
+        
+        if (currentPath === linkPath || (currentParts[0] && linkParts[0] && currentParts[0] === linkParts[0])) {
+        link.classList.add("active");
+        }
+        }
+        });
+        });
+    </script>
+</body>
+</html>

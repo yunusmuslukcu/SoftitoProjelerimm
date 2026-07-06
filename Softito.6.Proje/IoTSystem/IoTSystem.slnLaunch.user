@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "IoTSystemApi\\IoTSystemApi.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "IoTSystemMvc\\IoTSystemMvc.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

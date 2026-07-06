@@ -1,0 +1,26 @@
+﻿@model GymAppLite.Models.ProgressLog
+
+<div class="card shadow mb-4">
+    <div class="card-header bg-danger text-white py-3">
+        <h6 class="m-0 font-weight-bold">⚠️ Ölçüm Kaydı Silme Onayı</h6>
+    </div>
+    <div class="card-body">
+        <p>Aşağıdaki gelişim ölçüm kaydını sistemden silmek istediğinize emin misiniz? Bu işlem geri alınamaz.</p>
+        <hr />
+        <ul>
+            <li><strong>Ölçüm No (ID):</strong> @Model.Id</li>
+            
+            <li><strong>Üye Adı Soyadı:</strong> @(Model.Member != null ? $"{Model.Member.FirstName} {Model.Member.LastName}" : "Üye Tanımsız")</li>
+            <li><strong>Kilo Ölçümü:</strong> @Model.Weight kg</li>
+            <li><strong>Boy Ölçümü:</strong> @Model.Height cm</li>
+        </ul>
+        
+        <form action="@Url.ActionLink("Delete", "ProgressLogs")" method="post">
+            
+            <input type="hidden" asp-for="Id" />
+            
+            <button type="submit" class="btn btn-danger">Evet, Sil</button>
+            <a href="@Url.ActionLink("Index", "ProgressLogs")" class="btn btn-secondary">İptal</a>
+        </form>
+    </div>
+</div>

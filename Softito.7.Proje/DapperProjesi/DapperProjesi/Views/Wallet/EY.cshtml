@@ -1,0 +1,51 @@
+﻿@model DapperProjesi.Models.Wallets
+
+@{
+    bool isUpdate = Model != null && Model.Id > 0;
+    ViewData["Title"] = isUpdate ? "Cüzdan Güncelle" : "Yeni Cüzdan Tanımla";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow border-0">
+            <div class="card-header bg-success text-white p-3">
+                <h4 class="mb-0 fw-bold">@(isUpdate ? "Cüzdan/Bakiye Düzenle (ID: " + Model.Id + ")" : "Yeni Cüzdan Tanımlama")</h4>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="EY" method="post">
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Kullanıcı (User) ID</label>
+                        <input type="number" asp-for="UserId" class="form-control" placeholder="Cüzdanın ait olacağı Kullanıcı ID giriniz" required />
+                        <small class="text-muted">Her kullanıcının yalnızca 1 adet cüzdanı olabilir.</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Cüzdan Numarası</label>
+                        <input type="text" asp-for="WalletNumber" class="form-control" maxlength="16" placeholder="16 Haneli Hesap No Giriniz (Örn: 4444555566667777)" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Bakiye</label>
+                        <input type="number" step="0.01" asp-for="Balance" class="form-control" placeholder="0.00" required />
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Para Birimi</label>
+                        <select asp-for="Currency" class="form-select">
+                            <option value="TRY">TRY (Türk Lirası)</option>
+                            <option value="USD">USD (Amerikan Doları)</option>
+                            <option value="EUR">EUR (Euro)</option>
+                        </select>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index" class="btn btn-secondary">Vazgeç</a>
+                        <button type="submit" class="btn btn-success px-4">@(isUpdate ? "Güncelle" : "Cüzdanı Oluştur")</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,86 @@
+@model Model.Ticket
+@using Model
+@{
+    ViewData["Title"] = "Yeni Destek Talebi";
+    ViewData["PageHeader"] = "Yeni Destek Talebi Oluştur";
+}
+
+<div class="mb-4">
+    <a href="@Url.Action("Index")" class="btn btn-custom btn-custom-secondary btn-sm">
+        <i class="bi bi-arrow-left"></i> Listeye Geri Dön
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <div class="card card-custom">
+            <div class="card-header card-header-custom bg-white">
+                <h5 class="m-0"><i class="bi bi-chat-left-text text-primary me-2"></i>Talep Detayları</h5>
+            </div>
+            <div class="card-body p-4">
+                <form action="@Url.Action("Create")" method="post">
+                    <div class="mb-3">
+                        <label asp-for="Title" class="form-label fw-semibold">Talep Başlığı</label>
+                        <input asp-for="Title" class="form-control form-control-custom" placeholder="Örn: Bilgisayarım Açılmıyor" required />
+                        <span asp-validation-for="Title" class="text-danger small"></span>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label asp-for="CategoryId" class="form-label fw-semibold">Kategori</label>
+                            <select asp-for="CategoryId" class="form-select form-control-custom" required>
+                                <option value="">Kategori Seçiniz...</option>
+                                @if (ViewBag.Categories != null)
+                                {
+                                    foreach (var cat in (List<Category>)ViewBag.Categories)
+                                    {
+                                        <option value="@cat.Id">@cat.Name</option>
+                                    }
+                                }
+                            </select>
+                            <span asp-validation-for="CategoryId" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="UserId" class="form-label fw-semibold">Talebi Açan Kullanıcı</label>
+                            <select asp-for="UserId" class="form-select form-control-custom" required>
+                                <option value="">Kullanıcı Seçiniz...</option>
+                                @if (ViewBag.Users != null)
+                                {
+                                    foreach (var usr in (List<User>)ViewBag.Users)
+                                    {
+                                        <option value="@usr.Id">@usr.FullName (@usr.Department)</option>
+                                    }
+                                }
+                            </select>
+                            <span asp-validation-for="UserId" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Status" class="form-label fw-semibold">Başlangıç Durumu</label>
+                        <select asp-for="Status" class="form-select form-control-custom" asp-items="Html.GetEnumSelectList<TicketStatus>()">
+                        </select>
+                        <span asp-validation-for="Status" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="Description" class="form-label fw-semibold">Açıklama / Detay</label>
+                        <textarea asp-for="Description" class="form-control form-control-custom" rows="5" placeholder="Karşılaştığınız sorunu detaylıca açıklayınız..." required></textarea>
+                        <span asp-validation-for="Description" class="text-danger small"></span>
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2">
+                        <a href="@Url.Action("Index")" class="btn btn-custom btn-custom-secondary">İptal</a>
+                        <button type="submit" class="btn btn-custom btn-custom-primary">
+                            <i class="bi bi-check-lg"></i> Talebi Oluştur
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,61 @@
+@model Model.User
+@{
+    ViewData["Title"] = "Yeni Kullanıcı";
+    ViewData["PageHeader"] = "Yeni Kullanıcı Ekle";
+}
+
+<div class="mb-4">
+    <a href="@Url.Action("Index")" class="btn btn-custom btn-custom-secondary btn-sm">
+        <i class="bi bi-arrow-left"></i> Listeye Geri Dön
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-lg-6 col-md-8 mx-auto">
+        <div class="card card-custom">
+            <div class="card-header card-header-custom bg-white">
+                <h5 class="m-0"><i class="bi bi-person-plus text-primary me-2"></i>Kullanıcı Detayları</h5>
+            </div>
+            <div class="card-body p-4">
+                <form action="@Url.Action("Create")" method="post">
+                    <div class="mb-3">
+                        <label asp-for="FullName" class="form-label fw-semibold">Ad Soyad</label>
+                        <input asp-for="FullName" class="form-control form-control-custom" placeholder="Örn: Ahmet Yılmaz" required />
+                        <span asp-validation-for="FullName" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label fw-semibold">E-posta Adresi</label>
+                        <input type="email" asp-for="Email" class="form-control form-control-custom" placeholder="Örn: ahmet@sirket.com" required />
+                        <span asp-validation-for="Email" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="Department" class="form-label fw-semibold">Departman</label>
+                        <select asp-for="Department" class="form-select form-control-custom" required>
+                            <option value="">Departman Seçiniz...</option>
+                            <option value="Bilgi İşlem">Bilgi İşlem</option>
+                            <option value="İnsan Kaynakları">İnsan Kaynakları</option>
+                            <option value="Finans">Finans</option>
+                            <option value="Pazarlama">Pazarlama</option>
+                            <option value="Satış">Satış</option>
+                            <option value="Yönetim">Yönetim</option>
+                        </select>
+                        <span asp-validation-for="Department" class="text-danger small"></span>
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2">
+                        <a href="@Url.Action("Index")" class="btn btn-custom btn-custom-secondary">İptal</a>
+                        <button type="submit" class="btn btn-custom btn-custom-primary">
+                            <i class="bi bi-check-lg"></i> Kaydet
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

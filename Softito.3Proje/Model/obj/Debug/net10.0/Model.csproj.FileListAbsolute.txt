@@ -1,0 +1,13 @@
+C:\Users\X\OneDrive\Desktop\BtProject\Model\bin\Debug\net10.0\Model.deps.json
+C:\Users\X\OneDrive\Desktop\BtProject\Model\bin\Debug\net10.0\Model.dll
+C:\Users\X\OneDrive\Desktop\BtProject\Model\bin\Debug\net10.0\Model.pdb
+C:\Users\X\OneDrive\Desktop\BtProject\Model\obj\Debug\net10.0\Model.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\X\OneDrive\Desktop\BtProject\Model\obj\Debug\net10.0\Model.AssemblyInfoInputs.cache
+C:\Users\X\OneDrive\Desktop\BtProject\Model\obj\Debug\net10.0\Model.AssemblyInfo.cs
+C:\Users\X\OneDrive\Desktop\BtProject\Model\obj\Debug\net10.0\Model.csproj.CoreCompileInputs.cache
+C:\Users\X\OneDrive\Desktop\BtProject\Model\obj\Debug\net10.0\Model.dll
+C:\Users\X\OneDrive\Desktop\BtProject\Model\obj\Debug\net10.0\refint\Model.dll
+C:\Users\X\OneDrive\Desktop\BtProject\Model\obj\Debug\net10.0\Model.pdb
+C:\Users\X\OneDrive\Desktop\BtProject\Model\obj\Debug\net10.0\ref\Model.dll
+C:\Users\X\OneDrive\Desktop\BtProject\Model\obj\Debug\net10.0\Model.csproj.AssemblyReference.cache
+C:\Users\X\OneDrive\Desktop\BtProject\Model\obj\Debug\net10.0\Model.sourcelink.json

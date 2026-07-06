@@ -1,0 +1,131 @@
+@model IEnumerable<GymAppLite.Models.Member>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+        <h6 class="m-0 font-weight-bold text-primary">👥 Üye Listesi</h6>
+        <div class="d-flex gap-2">
+            <button onclick="exportToPDF()" class="btn btn-danger btn-sm text-white"><i class="fas fa-file-pdf me-1"></i> PDF İndir</button>
+            <button onclick="exportToWord()" class="btn btn-danger btn-sm text-white"><i class="fas fa-file-word me-1"></i> Word İndir</button>
+            <a href="@Url.ActionLink("Create", "Members")" class="btn btn-primary btn-sm">➕ Yeni Üye Ekle</a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="membersTable" class="table table-bordered" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Adı</th>
+                        <th>Soyadı</th>
+                        
+                        <th>Seçili Paket</th>
+                        <th>Sorumlu Antrenör</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.FirstName</td>
+                            <td>@item.LastName</td>
+                            
+                            <td>@(item.SubscriptionType?.TypeName ?? "Paket Tanımsız")</td>
+                            <td>@(item.Trainer?.FullName ?? "Atama Yapılmadı")</td>
+                            <td>
+                                <a href="@Url.ActionLink("Update", "Members", new { id = item.Id })" class="btn btn-warning btn-sm">✏️ Düzenle</a>
+                                <a href="@Url.ActionLink("Delete", "Members", new { id = item.Id })" class="btn btn-danger btn-sm">🗑️ Sil</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+    function getCleanTableHTML() {
+        var originalTable = document.getElementById("membersTable");
+        var clonedTable = originalTable.cloneNode(true);
+        
+        var ths = clonedTable.querySelectorAll("thead tr th");
+        if (ths.length > 0) {
+            ths[ths.length - 1].remove();
+        }
+        
+        var rows = clonedTable.querySelectorAll("tbody tr");
+        rows.forEach(function(row) {
+            var tds = row.querySelectorAll("td");
+            if (tds.length > 0) {
+                tds[tds.length - 1].remove();
+            }
+        });
+        
+        return clonedTable;
+    }
+
+    function exportToPDF() {
+        var cleanTable = getCleanTableHTML();
+        
+        var wrapper = document.createElement("div");
+        wrapper.style.padding = "20px";
+        wrapper.style.fontFamily = "'Plus Jakarta Sans', sans-serif";
+        
+        var title = document.createElement("h2");
+        title.innerText = "GymApp Lite - Üye Listesi";
+        title.style.color = "#4e73df";
+        title.style.marginBottom = "20px";
+        title.style.textAlign = "center";
+        
+        wrapper.appendChild(title);
+        wrapper.appendChild(cleanTable);
+        
+        var opt = {
+            margin:       10,
+            filename:     'GymApp_Uye_Listesi.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, useCORS: true },
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+        
+        html2pdf().from(wrapper).save();
+    }
+
+    function exportToWord() {
+        var cleanTable = getCleanTableHTML();
+        
+        cleanTable.setAttribute("border", "1");
+        cleanTable.style.borderCollapse = "collapse";
+        cleanTable.style.width = "100%";
+        
+        var tdsAndThs = cleanTable.querySelectorAll("th, td");
+        tdsAndThs.forEach(function(el) {
+            el.style.border = "1px solid #cccccc";
+            el.style.padding = "8px";
+            el.style.fontFamily = "Arial, sans-serif";
+        });
+        
+        var tableHTML = cleanTable.outerHTML;
+        
+        var html = '<' + 'html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">' +
+                   '<' + 'head><' + 'title>GymApp Lite - Üye Listesi</' + 'title><' + 'meta charset="utf-8">' +
+                   '<' + 'style>h2 { color: #4e73df; font-family: Arial, sans-serif; text-align: center; }</' + 'style></' + 'head>' +
+                   '<' + 'body>' +
+                   '<' + 'h2>GymApp Lite - Üye Listesi</' + 'h2>' +
+                   tableHTML +
+                   '</' + 'body></' + 'html>';
+        
+        var blob = new Blob(['\ufeff' + html], {
+            type: 'application/msword'
+        });
+        
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'GymApp_Uye_Listesi.doc';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
+</script>

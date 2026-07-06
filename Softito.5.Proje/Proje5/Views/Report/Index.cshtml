@@ -1,0 +1,302 @@
+@{
+    ViewData["Title"] = "Gelişmiş Raporlar";
+}
+
+<div class="container-fluid mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold text-dark mb-1">Raporlama Paneli</h2>
+            <p class="text-muted mb-0">Veritabanındaki verilerin detaylı ilişkileri ve analizleri.</p>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="ReloadAllReports()">
+            <i class="fas fa-sync-alt me-2 animate-spin"></i> Verileri Yenile
+        </button>
+    </div>
+
+    <!-- Tab Navigation -->
+    <ul class="nav nav-pills nav-fill mb-4 bg-white p-2 rounded shadow-sm border" id="reportTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active py-3 fw-semibold text-uppercase" id="inner-tab" data-bs-toggle="tab" data-bs-target="#innerJoinContent" type="button" role="tab" aria-controls="innerJoinContent" aria-selected="true">
+                <i class="fas fa-link me-2 text-primary"></i> İç İlişki (Inner Join)
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link py-3 fw-semibold text-uppercase" id="left-tab" data-bs-toggle="tab" data-bs-target="#leftJoinContent" type="button" role="tab" aria-controls="leftJoinContent" aria-selected="false">
+                <i class="fas fa-project-diagram me-2 text-success"></i> Dış İlişki (Left Join)
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link py-3 fw-semibold text-uppercase" id="groupby-tab" data-bs-toggle="tab" data-bs-target="#groupbyContent" type="button" role="tab" aria-controls="groupbyContent" aria-selected="false">
+                <i class="fas fa-chart-bar me-2 text-warning"></i> Özet Veriler (Group By Count)
+            </button>
+        </li>
+    </ul>
+
+    <!-- Tab Contents -->
+    <div class="tab-content bg-transparent border-0" id="reportTabContent">
+        
+        <!-- Tab 1: Inner Join -->
+        <div class="tab-pane fade show active" id="innerJoinContent" role="tabpanel" aria-labelledby="inner-tab">
+            <div class="card border-0 shadow-sm rounded-lg overflow-hidden">
+                <div class="card-header bg-white py-3 border-bottom d-flex align-items-center">
+                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle me-2 px-3 py-2 rounded">INNER JOIN</span>
+                    <h5 class="mb-0 fw-semibold text-dark">Hem Takımı Hem Pozisyonu Olan Futbolcular</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="ps-4">ID</th>
+                                    <th>Futbolcu</th>
+                                    <th>Yaş</th>
+                                    <th>Piyasa Değeri</th>
+                                    <th>Takım</th>
+                                    <th>Pozisyon</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblInnerJoin">
+                                <tr>
+                                    <td colspan="6" class="text-center py-4 text-muted">Yükleniyor...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 2: Left Join -->
+        <div class="tab-pane fade" id="leftJoinContent" role="tabpanel" aria-labelledby="left-tab">
+            <div class="card border-0 shadow-sm rounded-lg overflow-hidden">
+                <div class="card-header bg-white py-3 border-bottom d-flex align-items-center">
+                    <span class="badge bg-success-subtle text-success border border-success-subtle me-2 px-3 py-2 rounded">LEFT JOIN</span>
+                    <h5 class="mb-0 fw-semibold text-dark">Tüm Futbolcular ve İlişki Durumları</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="ps-4">ID</th>
+                                    <th>Futbolcu</th>
+                                    <th>Yaş</th>
+                                    <th>Piyasa Değeri</th>
+                                    <th>Takım</th>
+                                    <th>Pozisyon</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblLeftJoin">
+                                <tr>
+                                    <td colspan="6" class="text-center py-4 text-muted">Yükleniyor...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 3: Group By -->
+        <div class="tab-pane fade" id="groupbyContent" role="tabpanel" aria-labelledby="groupby-tab">
+            <div class="row g-4">
+                
+                <!-- Players by Team -->
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm rounded-lg overflow-hidden h-100">
+                        <div class="card-header bg-white py-3 border-bottom">
+                            <h5 class="mb-0 fw-semibold text-dark"><i class="fas fa-shield-halved me-2 text-primary"></i>Takımlara Göre Dağılım</h5>
+                        </div>
+                        <div class="card-body p-0">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th class="ps-4">Takım Adı</th>
+                                        <th class="text-end pe-4" style="width: 150px;">Oyuncu Sayısı</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tblTeamGroup">
+                                    <tr>
+                                        <td colspan="2" class="text-center py-4 text-muted">Yükleniyor...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Players by Position -->
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm rounded-lg overflow-hidden h-100">
+                        <div class="card-header bg-white py-3 border-bottom">
+                            <h5 class="mb-0 fw-semibold text-dark"><i class="fas fa-arrows-to-dot me-2 text-success"></i>Pozisyonlara Göre Dağılım</h5>
+                        </div>
+                        <div class="card-body p-0">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th class="ps-4">Pozisyon Adı</th>
+                                        <th class="text-end pe-4" style="width: 150px;">Oyuncu Sayısı</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tblPositionGroup">
+                                    <tr>
+                                        <td colspan="2" class="text-center py-4 text-muted">Yükleniyor...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            ReloadAllReports();
+        });
+
+        function ReloadAllReports() {
+            GetInnerJoin();
+            GetLeftJoin();
+            GetGroupBy();
+        }
+
+        function GetInnerJoin() {
+            $.ajax({
+                url: '/Report/InnerJoinReport',
+                type: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    var html = '';
+                    if (response.length === 0) {
+                        html = '<tr><td colspan="6" class="text-center py-4 text-muted">Takımı ve pozisyonu olan futbolcu bulunamadı.</td></tr>';
+                    } else {
+                        $.each(response, function (index, item) {
+                            var playerId = item.playerId !== undefined ? item.playerId : item.PlayerId;
+                            var firstName = item.firstName !== undefined ? item.firstName : item.FirstName;
+                            var lastName = item.lastName !== undefined ? item.lastName : item.LastName;
+                            var age = item.age !== undefined ? item.age : item.Age;
+                            var marketValue = item.marketValue !== undefined ? item.marketValue : item.MarketValue;
+                            var teamName = item.teamName !== undefined ? item.teamName : item.TeamName;
+                            var positionName = item.positionName !== undefined ? item.positionName : item.PositionName;
+
+                            html += '<tr>';
+                            html += '<td class="ps-4 fw-medium text-secondary">' + playerId + '</td>';
+                            html += '<td class="fw-semibold text-dark">' + firstName + ' ' + lastName + '</td>';
+                            html += '<td>' + age + '</td>';
+                            html += '<td><span class="badge bg-light text-dark border px-2 py-1">' + marketValue + '</span></td>';
+                            html += '<td><span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-1.5 rounded-pill"><i class="fas fa-shield-halved me-1"></i>' + teamName + '</span></td>';
+                            html += '<td><span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-1.5 rounded-pill"><i class="fas fa-running me-1"></i>' + positionName + '</span></td>';
+                            html += '</tr>';
+                        });
+                    }
+                    $('#tblInnerJoin').html(html);
+                },
+                error: function () {
+                    $('#tblInnerJoin').html('<tr><td colspan="6" class="text-center py-4 text-danger">Veriler yüklenirken bir hata oluştu!</td></tr>');
+                }
+            });
+        }
+
+        function GetLeftJoin() {
+            $.ajax({
+                url: '/Report/LeftJoinReport',
+                type: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    var html = '';
+                    if (response.length === 0) {
+                        html = '<tr><td colspan="6" class="text-center py-4 text-muted">Futbolcu bulunamadı.</td></tr>';
+                    } else {
+                        $.each(response, function (index, item) {
+                            var playerId = item.playerId !== undefined ? item.playerId : item.PlayerId;
+                            var firstName = item.firstName !== undefined ? item.firstName : item.FirstName;
+                            var lastName = item.lastName !== undefined ? item.lastName : item.LastName;
+                            var age = item.age !== undefined ? item.age : item.Age;
+                            var marketValue = item.marketValue !== undefined ? item.marketValue : item.MarketValue;
+                            var teamName = item.teamName !== undefined ? item.teamName : item.TeamName;
+                            var positionName = item.positionName !== undefined ? item.positionName : item.PositionName;
+
+                            var teamBadge = (teamName === 'Takımsız' || !teamName) 
+                                ? '<span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle px-3 py-1.5 rounded-pill"><i class="fas fa-times me-1"></i>Takımsız</span>' 
+                                : '<span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-1.5 rounded-pill"><i class="fas fa-shield-halved me-1"></i>' + teamName + '</span>';
+
+                            var posBadge = (positionName === 'Pozisyonsuz' || !positionName) 
+                                ? '<span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle px-3 py-1.5 rounded-pill"><i class="fas fa-times me-1"></i>Pozisyonsuz</span>' 
+                                : '<span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-1.5 rounded-pill"><i class="fas fa-running me-1"></i>' + positionName + '</span>';
+
+                            html += '<tr>';
+                            html += '<td class="ps-4 fw-medium text-secondary">' + playerId + '</td>';
+                            html += '<td class="fw-semibold text-dark">' + firstName + ' ' + lastName + '</td>';
+                            html += '<td>' + age + '</td>';
+                            html += '<td><span class="badge bg-light text-dark border px-2 py-1">' + marketValue + '</span></td>';
+                            html += '<td>' + teamBadge + '</td>';
+                            html += '<td>' + posBadge + '</td>';
+                            html += '</tr>';
+                        });
+                    }
+                    $('#tblLeftJoin').html(html);
+                },
+                error: function () {
+                    $('#tblLeftJoin').html('<tr><td colspan="6" class="text-center py-4 text-danger">Veriler yüklenirken bir hata oluştu!</td></tr>');
+                }
+            });
+        }
+
+        function GetGroupBy() {
+            $.ajax({
+                url: '/Report/GroupByReport',
+                type: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    var teamCounts = response.teamCounts !== undefined ? response.teamCounts : response.TeamCounts;
+                    var positionCounts = response.positionCounts !== undefined ? response.positionCounts : response.PositionCounts;
+
+                    // Team Counts
+                    var teamHtml = '';
+                    if (!teamCounts || teamCounts.length === 0) {
+                        teamHtml = '<tr><td colspan="2" class="text-center py-4 text-muted">Veri bulunamadı.</td></tr>';
+                    } else {
+                        $.each(teamCounts, function (index, item) {
+                            var groupName = item.groupName !== undefined ? item.groupName : item.GroupName;
+                            var count = item.count !== undefined ? item.count : item.Count;
+
+                            teamHtml += '<tr>';
+                            teamHtml += '<td class="ps-4 fw-semibold text-dark">' + groupName + '</td>';
+                            teamHtml += '<td class="text-end pe-4"><span class="badge bg-blue-100 text-blue-700 font-monospace px-3 py-1.5 rounded fs-6" style="background-color: rgba(37,99,235,0.1); color: #2563eb;">' + count + ' Oyuncu</span></td>';
+                            teamHtml += '</tr>';
+                        });
+                    }
+                    $('#tblTeamGroup').html(teamHtml);
+
+                    // Position Counts
+                    var posHtml = '';
+                    if (!positionCounts || positionCounts.length === 0) {
+                        posHtml = '<tr><td colspan="2" class="text-center py-4 text-muted">Veri bulunamadı.</td></tr>';
+                    } else {
+                        $.each(positionCounts, function (index, item) {
+                            var groupName = item.groupName !== undefined ? item.groupName : item.GroupName;
+                            var count = item.count !== undefined ? item.count : item.Count;
+
+                            posHtml += '<tr>';
+                            posHtml += '<td class="ps-4 fw-semibold text-dark">' + groupName + '</td>';
+                            posHtml += '<td class="text-end pe-4"><span class="badge bg-green-100 text-green-700 font-monospace px-3 py-1.5 rounded fs-6" style="background-color: rgba(22,163,74,0.1); color: #16a34a;">' + count + ' Oyuncu</span></td>';
+                            posHtml += '</tr>';
+                        });
+                    }
+                    $('#tblPositionGroup').html(posHtml);
+                },
+                error: function () {
+                    $('#tblTeamGroup').html('<tr><td colspan="2" class="text-center py-4 text-danger">Hata oluştu!</td></tr>');
+                    $('#tblPositionGroup').html('<tr><td colspan="2" class="text-center py-4 text-danger">Hata oluştu!</td></tr>');
+                }
+            });
+        }
+    </script>
+}

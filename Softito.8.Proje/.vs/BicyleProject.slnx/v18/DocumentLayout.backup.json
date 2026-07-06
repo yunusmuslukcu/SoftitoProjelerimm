@@ -1,0 +1,79 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\X\\OneDrive\\Desktop\\Softito.8.Proje-main\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{342AE96E-9C28-8FF5-15DE-C67298538905}|BicyleMvc\\BicyleMvc.csproj|c:\\users\\x\\onedrive\\desktop\\softito.8.proje-main\\bicylemvc\\views\\shared\\_adminlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{342AE96E-9C28-8FF5-15DE-C67298538905}|BicyleMvc\\BicyleMvc.csproj|solutionrelative:bicylemvc\\views\\shared\\_adminlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{342AE96E-9C28-8FF5-15DE-C67298538905}|BicyleMvc\\BicyleMvc.csproj|c:\\users\\x\\onedrive\\desktop\\softito.8.proje-main\\bicylemvc\\views\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{342AE96E-9C28-8FF5-15DE-C67298538905}|BicyleMvc\\BicyleMvc.csproj|solutionrelative:bicylemvc\\views\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{342AE96E-9C28-8FF5-15DE-C67298538905}|BicyleMvc\\BicyleMvc.csproj|c:\\users\\x\\onedrive\\desktop\\softito.8.proje-main\\bicylemvc\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{342AE96E-9C28-8FF5-15DE-C67298538905}|BicyleMvc\\BicyleMvc.csproj|solutionrelative:bicylemvc\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "_AdminLayout.cshtml",
+              "DocumentMoniker": "C:\\Users\\X\\OneDrive\\Desktop\\Softito.8.Proje-main\\BicyleMvc\\Views\\Shared\\_AdminLayout.cshtml",
+              "RelativeDocumentMoniker": "BicyleMvc\\Views\\Shared\\_AdminLayout.cshtml",
+              "ToolTip": "C:\\Users\\X\\OneDrive\\Desktop\\Softito.8.Proje-main\\BicyleMvc\\Views\\Shared\\_AdminLayout.cshtml",
+              "RelativeToolTip": "BicyleMvc\\Views\\Shared\\_AdminLayout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-07-03T22:08:52.293Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Register.cshtml",
+              "DocumentMoniker": "C:\\Users\\X\\OneDrive\\Desktop\\Softito.8.Proje-main\\BicyleMvc\\Views\\Account\\Register.cshtml",
+              "RelativeDocumentMoniker": "BicyleMvc\\Views\\Account\\Register.cshtml",
+              "ToolTip": "C:\\Users\\X\\OneDrive\\Desktop\\Softito.8.Proje-main\\BicyleMvc\\Views\\Account\\Register.cshtml",
+              "RelativeToolTip": "BicyleMvc\\Views\\Account\\Register.cshtml",
+              "ViewState": "AgIAAD0AAAAAAAAAAAAAABoAAABPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-07-03T22:07:52.277Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "C:\\Users\\X\\OneDrive\\Desktop\\Softito.8.Proje-main\\BicyleMvc\\Views\\Account\\Login.cshtml",
+              "RelativeDocumentMoniker": "BicyleMvc\\Views\\Account\\Login.cshtml",
+              "ToolTip": "C:\\Users\\X\\OneDrive\\Desktop\\Softito.8.Proje-main\\BicyleMvc\\Views\\Account\\Login.cshtml",
+              "RelativeToolTip": "BicyleMvc\\Views\\Account\\Login.cshtml",
+              "ViewState": "AgIAADUAAAAAAAAAAAAAABgAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-07-03T22:07:17.055Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

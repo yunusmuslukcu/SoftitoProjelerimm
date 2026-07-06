@@ -1,0 +1,249 @@
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BT Destek - Yeni Nesil Akıllı IT Destek ve Yardım Masası Platformu</title>
+    <meta name="description" content="Kurumsal IT operasyonlarınızı hızlandıran, yapay zeka destekli yardım masası ve talep yönetim platformu BT Destek." />
+    <link rel="stylesheet" href="~/css/btdestek-web.css" asp-append-version="true" />
+</head>
+<body>
+    <!-- Üst Navbar (Top Navigation Bar) -->
+    <header class="top-navbar-web" id="topNavbar">
+        <a href="@Url.Action("Index", "Portal")" class="nav-brand">
+            <div class="brand-icon">
+                <i class="bi bi-shield-lock-fill"></i>
+            </div>
+            <div class="brand-text">
+                <span>BT Destek</span>
+            </div>
+        </a>
+
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="#ana-sayfa" class="nav-link-item active"><i class="bi bi-house-door"></i> Ana Sayfa</a></li>
+            <li><a href="#ekranlar" class="nav-link-item"><i class="bi bi-laptop"></i> Proje Ekranları</a></li>
+            <li><a href="#istatistikler" class="nav-link-item"><i class="bi bi-bar-chart"></i> İstatistikler</a></li>
+            <li><a href="#ozellikler" class="nav-link-item"><i class="bi bi-stars"></i> Sistem Özellikleri</a></li>
+            <li><a href="#otomasyon" class="nav-link-item"><i class="bi bi-cpu"></i> Akıllı Akış</a></li>
+        </ul>
+
+        <div class="nav-actions">
+            <div class="status-badge-nav">
+                <span class="pulse-dot"></span> Sistem Aktif (v3.0)
+            </div>
+            <a href="@Url.Action("Index", "Home")" class="btn-admin-nav">
+                <i class="bi bi-speedometer2"></i> Admin Paneline Geç
+            </a>
+            <button class="menu-toggle" id="menuToggle" aria-label="Menüyü Aç">
+                <i class="bi bi-list"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Body -->
+    <main>
+        <!-- Hero Bölümü -->
+        <section id="ana-sayfa" class="hero-section">
+            <div class="hero-content">
+                <h1>
+                    Kesintisiz İş Akışı İçin <br />
+                    <span class="gradient-text">Akıllı IT Yardım Masası</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Yazılım, donanım, ağ ve erişim sorunlarınızı tek merkezden yönetin. Departmanlar arası talep takibini hızlandırın, gerçek zamanlı raporlarla IT operasyonlarınızı zirveye taşıyın.
+                </p>
+                <div class="hero-actions">
+                    <a href="@Url.Action("Index", "Home")" class="btn-primary-glow">
+                        <i class="bi bi-rocket-takeoff"></i> Admin Paneli Giriş
+                    </a>
+                    <a href="#ekranlar" class="btn-outline-glass">
+                        <i class="bi bi-eye"></i> Projeyi İncele
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="hero-img-box zoomable">
+                    <img src="~/images/hero.png" alt="BT Destek Hero Görseli" />
+                </div>
+                <div class="floating-badge">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div class="badge-info">
+                        <h4>%99.8</h4>
+                        <p>SLA Başarı Oranı</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- İstatistikler Bölümü -->
+        <section id="istatistikler" class="section">
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-icon"><i class="bi bi-ticket-detailed"></i></div>
+                    <div class="stat-number count-up" data-target="1240">0</div>
+                    <div class="stat-label">Çözülen Destek Talebi</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon"><i class="bi bi-clock-history"></i></div>
+                    <div class="stat-number count-up" data-target="12">0</div>
+                    <div class="stat-label">Ortalama Çözüm (Dakika)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon"><i class="bi bi-building"></i></div>
+                    <div class="stat-number count-up" data-target="18">0</div>
+                    <div class="stat-label">Aktif Departman</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon"><i class="bi bi-shield-check"></i></div>
+                    <div class="stat-number count-up" data-target="100">0</div>
+                    <div class="stat-label">% Güvenli Veri Altyapısı</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Proje Ekranları İnteraktif Vitrin -->
+        <section id="ekranlar" class="section">
+            <div class="section-title">
+                <span>CANLI SİSTEM EKRANLARI</span>
+                <h2>Projeden Gerçek Görseller</h2>
+                <p>BT Destek platformunun yönetici ve personel panellerinden arayüz kesitleri. Aşağıdaki sekmelere tıklayarak sistemin bölümlerini keşfedin.</p>
+            </div>
+
+            <div class="showcase-wrapper">
+                <div class="showcase-tabs">
+                    <button class="tab-btn active" data-tab="dashboard">
+                        <i class="bi bi-speedometer2"></i> Dashboard
+                    </button>
+                    <button class="tab-btn" data-tab="destek">
+                        <i class="bi bi-chat-left-text"></i> Destek Talepleri
+                    </button>
+                    <button class="tab-btn" data-tab="kategoriler">
+                        <i class="bi bi-tags"></i> Kategoriler
+                    </button>
+                    <button class="tab-btn" data-tab="kullanicilar">
+                        <i class="bi bi-people"></i> Kullanıcılar
+                    </button>
+                    <button class="tab-btn" data-tab="raporlar">
+                        <i class="bi bi-graph-up"></i> Raporlama
+                    </button>
+                </div>
+
+                <div class="showcase-display">
+                    <div class="showcase-screen zoomable">
+                        <img id="showcaseImg" src="~/images/Dashboard.png" alt="Sistem Ekran Görüntüsü" />
+                    </div>
+                    <div class="showcase-info">
+                        <h3 id="showcaseTitle">Yönetici Kontrol Paneli (Dashboard)</h3>
+                        <p id="showcaseDesc">Tüm destek süreçlerini, aktif talepleri, çözülen bilet oranlarını ve departman bazlı yük dağılımını gerçek zamanlı grafiklerle izleyin.</p>
+                        <ul class="feature-list" id="showcaseFeatures">
+                            <li><i class="bi bi-check-circle-fill"></i> Anlık ve güncel destek talebi istatistikleri</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Kategori ve öncelik bazlı dağılım grafikleri</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Son açılan taleplere hızlı erişim ve durum takibi</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sistem Özellikleri -->
+        <section id="ozellikler" class="section">
+            <div class="section-title">
+                <span>ÜSTÜN TEKNOLOJİ</span>
+                <h2>Neden BT Destek Platformu?</h2>
+                <p>Kurum içi iletişimdeki kayıpları önleyen ve IT personelinin verimliliğini artıran özellikler.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="fc-icon"><i class="bi bi-lightning-charge"></i></div>
+                    <h3>Anlık Filtreleme ve Arama</h3>
+                    <p>Tablolarda yüzlerce talep arasında kaybolmayın. Hem istemci (JavaScript) hem de sunucu tabanlı anlık arama ile aradığınız talebe saniyeler içinde ulaşın.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="fc-icon"><i class="bi bi-person-check"></i></div>
+                    <h3>Rol Tabanlı Yetkilendirme</h3>
+                    <p>ASP.NET Core Identity altyapısı ile yöneticiler, bilgi işlem uzmanları ve departman çalışanları için güvenli, izole erişim imkanı.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="fc-icon"><i class="bi bi-pie-chart"></i></div>
+                    <h3>Dinamik Kategori Yönetimi</h3>
+                    <p>Yazılım hatası, donanım arızası, ağ sorunu veya şifre sıfırlama... Talepleri otomatik olarak doğru kategoriye yönlendirin.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="fc-icon"><i class="bi bi-palette"></i></div>
+                    <h3>Ergonomik Koyu & Açık Tema</h3>
+                    <p>Yönetici panelinin derin indigo ve pastel tonlarıyla uyumlu, göz yormayan modern tasarım dili ve responsive cam efekti arayüz.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="fc-icon"><i class="bi bi-shield-lock"></i></div>
+                    <h3>Kurumsal Güvenlik Standartları</h3>
+                    <p>Veritabanı güvenliği, şifreli kimlik doğrulama ve XSS/CSRF korumalarıyla güçlendirilmiş mimari.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="fc-icon"><i class="bi bi-graph-up-arrow"></i></div>
+                    <h3>Gelişmiş Raporlama Çıktıları</h3>
+                    <p>Dönemsel SLA analizleri, departman bazlı yoğunluk haritaları ve yönetici özet raporlarıyla tam kontrol.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Akıllı Otomasyon Banner -->
+        <section id="otomasyon" class="section">
+            <div class="automation-banner">
+                <div class="auto-content">
+                    <span style="color: #06b6d4; font-weight: 700; letter-spacing: 0.1em; display: block; margin-bottom: 0.8rem;">OTOMATİK İŞ AKIŞI</span>
+                    <h2 style="font-size: 2.4rem; font-weight: 800; margin-bottom: 1.2rem;">Sıfır Bekleme Süresi, Maksimum Memnuniyet</h2>
+                    <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.7; margin-bottom: 2rem;">
+                        Kullanıcı bir talep oluşturduğu anda sistem talebi analiz eder, ilgili departman yöneticisine bildirim gönderir ve takip sürecini başlatır.
+                    </p>
+                    <a href="@Url.Action("Index", "Home")" class="btn-primary-glow">
+                        <i class="bi bi-box-arrow-in-right"></i> Hemen Deneyin
+                    </a>
+                </div>
+                <div class="auto-img zoomable">
+                    <img src="~/images/automation.png" alt="Otomasyon İş Akışı" />
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Bölümü -->
+        <section class="section">
+            <div class="cta-box">
+                <h2>Yönetim Paneline Giriş Yapın</h2>
+                <p>Kurumsal yardım masası operasyonlarınızı hemen yönetmeye başlayın.</p>
+                <a href="@Url.Action("Index", "Home")" class="btn-primary-glow" style="background: white; color: #1e1b4b; font-size: 1.1rem; padding: 1.1rem 2.5rem;">
+                    <i class="bi bi-speedometer2"></i> Admin Paneline Bağlan
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div>
+            <strong style="color: white; font-size: 1.2rem;">BT Destek</strong>
+            <span style="color: var(--text-muted); margin-left: 0.8rem;">&copy; 2026 Tüm Hakları Saklıdır.</span>
+        </div>
+        <div class="footer-links">
+            <a href="#ana-sayfa">Ana Sayfa</a>
+            <a href="#ekranlar">Ekranlar</a>
+            <a href="#ozellikler">Özellikler</a>
+            <a href="@Url.Action("Index", "Home")">Admin Paneli</a>
+        </div>
+    </footer>
+
+    <!-- Lightbox Modal -->
+    <div class="modal-backdrop" id="lightboxModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <img class="modal-img" id="lightboxImg" src="" alt="Tam Ekran Görsel" />
+        </div>
+    </div>
+
+    <script src="~/js/btdestek-web.js" asp-append-version="true"></script>
+</body>
+</html>

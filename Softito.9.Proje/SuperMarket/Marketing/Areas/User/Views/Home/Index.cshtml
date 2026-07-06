@@ -1,0 +1,270 @@
+@model IEnumerable<Model.Product>
+@{
+    ViewData["Title"] = "Anasayfa";
+}
+
+<style>
+    .hero {
+        height: 75vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background: radial-gradient(circle at center, #4a0404 0%, #121212 70%);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=2000') center/cover;
+        opacity: 0.15;
+        z-index: 0;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 800px;
+        padding: 2.5rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        backdrop-filter: blur(5px);
+        animation: fadeIn 1s ease-out;
+    }
+
+    .hero h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+        background: linear-gradient(to right, #ff4d4d, #ffffff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 800;
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+        color: #cccccc;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+    }
+
+    .btn-explore {
+        display: inline-block;
+        padding: 1rem 3rem;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: white;
+        text-decoration: none;
+        background: linear-gradient(135deg, #8b0000, #600000);
+        border-radius: 50px;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 20px rgba(139, 0, 0, 0.3);
+    }
+
+    .btn-explore:hover {
+        transform: scale(1.05);
+        box-shadow: 0 15px 30px rgba(255, 77, 77, 0.4);
+    }
+
+    @@keyframes fadeIn {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Features Section */
+    .features {
+        padding: 4rem 10%;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+    }
+
+    .feature-card {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 2rem;
+        text-align: center;
+        transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-10px);
+        border-color: #ff4d4d;
+    }
+
+    .feature-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .feature-card h3 { color: #ff4d4d; margin-bottom: 0.5rem; }
+    .feature-card p { color: #aaa; }
+
+    /* Products Section */
+    .products-section {
+        padding: 4rem 8%;
+    }
+
+    .section-title {
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+        background: linear-gradient(to right, #ff4d4d, #ffffff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .section-subtitle {
+        text-align: center;
+        color: #888;
+        margin-bottom: 3rem;
+        font-size: 1.1rem;
+    }
+
+    .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 2rem;
+    }
+
+    .product-card {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        overflow: hidden;
+        transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .product-card:hover {
+        transform: translateY(-8px);
+        border-color: #ff4d4d;
+        box-shadow: 0 10px 30px rgba(139, 0, 0, 0.2);
+    }
+
+    .product-image {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        display: block;
+    }
+
+    .product-placeholder {
+        width: 100%;
+        height: 220px;
+        background: linear-gradient(135deg, #2a1a1a, #1a1a2a);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        color: #555;
+    }
+
+    .product-info {
+        padding: 1.2rem;
+    }
+
+    .product-category {
+        font-size: 0.8rem;
+        color: #ff4d4d;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 6px;
+    }
+
+    .product-name {
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: #fff;
+        margin-bottom: 10px;
+    }
+
+    .product-price {
+        font-size: 1.4rem;
+        font-weight: 800;
+        color: #ff4d4d;
+    }
+
+    .product-price span {
+        font-size: 0.85rem;
+        color: #888;
+        font-weight: 400;
+    }
+
+    .no-products {
+        text-align: center;
+        color: #888;
+        padding: 3rem;
+        font-size: 1.2rem;
+    }
+</style>
+
+<!-- Hero Section -->
+<div class="hero">
+    <div class="hero-content">
+        <h1>Premium Market Deneyimi</h1>
+        <p>En taze ürünler, en şık sunumla kapınızda. Sizin için özenle seçilmiş ürün yelpazemizi hemen keşfedin.</p>
+        <a href="#products" class="btn-explore">Ürünleri İncele</a>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="features">
+    <div class="feature-card">
+        <div class="feature-icon">🥗</div>
+        <h3>Taze Ürünler</h3>
+        <p>Günlük tedarik edilen en taze sebze ve meyveler.</p>
+    </div>
+    <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Hızlı Teslimat</h3>
+        <p>Siparişleriniz dakikalar içinde güvenle kapınızda.</p>
+    </div>
+    <div class="feature-card">
+        <div class="feature-icon">💎</div>
+        <h3>Premium Kalite</h3>
+        <p>Dünyanın dört bir yanından özenle seçilmiş gurme ürünler.</p>
+    </div>
+</div>
+
+<!-- Products Section -->
+<div class="products-section" id="products">
+    <h2 class="section-title">Ürünlerimiz</h2>
+    <p class="section-subtitle">Admin panelinden eklenen tüm ürünler burada listelenir</p>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="products-grid">
+            @foreach (var product in Model)
+            {
+                <div class="product-card">
+                    @if (!string.IsNullOrEmpty(product.ImageUrl))
+                    {
+                        <img src="@product.ImageUrl" alt="@product.Name" class="product-image" />
+                    }
+                    else
+                    {
+                        <div class="product-placeholder">📦</div>
+                    }
+                    <div class="product-info">
+                        <div class="product-category">@(product.Category?.Name ?? "Genel")</div>
+                        <div class="product-name">@product.Name</div>
+                        <div class="product-price">
+                            @product.Price.ToString("N2") ₺
+                            <span>/ adet</span>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="no-products">
+            <p>🛒 Henüz ürün eklenmemiş. Admin panelinden ürün ekleyebilirsiniz.</p>
+        </div>
+    }
+</div>

@@ -1,0 +1,77 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\X\\OneDrive\\Desktop\\GymAppLite\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{AA599144-03D5-E0BA-4E69-30E7C5A9CCE7}|GymAppLite\\GymAppLite.csproj|c:\\users\\x\\onedrive\\desktop\\gymapplite\\gymapplite\\views\\rapor\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AA599144-03D5-E0BA-4E69-30E7C5A9CCE7}|GymAppLite\\GymAppLite.csproj|solutionrelative:gymapplite\\views\\rapor\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AA599144-03D5-E0BA-4E69-30E7C5A9CCE7}|GymAppLite\\GymAppLite.csproj|c:\\users\\x\\onedrive\\desktop\\gymapplite\\gymapplite\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AA599144-03D5-E0BA-4E69-30E7C5A9CCE7}|GymAppLite\\GymAppLite.csproj|solutionrelative:gymapplite\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AA599144-03D5-E0BA-4E69-30E7C5A9CCE7}|GymAppLite\\GymAppLite.csproj|c:\\users\\x\\onedrive\\desktop\\gymapplite\\gymapplite\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AA599144-03D5-E0BA-4E69-30E7C5A9CCE7}|GymAppLite\\GymAppLite.csproj|solutionrelative:gymapplite\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\X\\OneDrive\\Desktop\\GymAppLite\\GymAppLite\\Views\\Rapor\\Index.cshtml",
+              "RelativeDocumentMoniker": "GymAppLite\\Views\\Rapor\\Index.cshtml",
+              "ToolTip": "C:\\Users\\X\\OneDrive\\Desktop\\GymAppLite\\GymAppLite\\Views\\Rapor\\Index.cshtml",
+              "RelativeToolTip": "GymAppLite\\Views\\Rapor\\Index.cshtml",
+              "ViewState": "AgIAAKAAAAAAAAAAAAAAAKkAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-20T11:46:49.504Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\X\\OneDrive\\Desktop\\GymAppLite\\GymAppLite\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "GymAppLite\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\X\\OneDrive\\Desktop\\GymAppLite\\GymAppLite\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "GymAppLite\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAAAFwAAABxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-20T11:45:50.606Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\X\\OneDrive\\Desktop\\GymAppLite\\GymAppLite\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "GymAppLite\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\X\\OneDrive\\Desktop\\GymAppLite\\GymAppLite\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "GymAppLite\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-20T11:43:05.791Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="BTProjectt/BTProjectt.csproj" />
+  <Project Path="Data/Data.csproj" />
+  <Project Path="Model/Model.csproj" />
+</Solution>

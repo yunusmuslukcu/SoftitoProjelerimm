@@ -1,0 +1,88 @@
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row g-4">
+    <!-- STATS CARDS -->
+    <div class="col-xl-3 col-md-6">
+        <div class="card card-dashboard h-100 border-0 bg-dark text-white rounded-3 shadow">
+            <div class="card-body p-4 d-flex justify-content-between align-items-center">
+                <div>
+                    <h6 class="text-white-50 text-uppercase mb-2 fw-semibold fs-7">Toplam İstasyon</h6>
+                    <h3 class="mb-0 fw-bold">@ViewBag.TotalStations</h3>
+                    <small class="text-success fw-medium"><i class="bi bi-circle-fill fs-8 me-1"></i> @ViewBag.ActiveStations Aktif</small>
+                </div>
+                <div class="icon-shape bg-primary bg-opacity-25 text-primary rounded-3 d-flex align-items-center justify-content-center" style="width: 56px; height: 56px;">
+                    <i class="bi bi-geo-alt-fill fs-3"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="card card-dashboard h-100 border-0 bg-dark text-white rounded-3 shadow">
+            <div class="card-body p-4 d-flex justify-content-between align-items-center">
+                <div>
+                    <h6 class="text-white-50 text-uppercase mb-2 fw-semibold fs-7">Bisiklet Kapasitesi</h6>
+                    <h3 class="mb-0 fw-bold">@ViewBag.TotalCapacity</h3>
+                    <small class="text-primary fw-medium"><i class="bi bi-bicycle me-1"></i> @ViewBag.ActiveBicycles Aktif Bisiklet</small>
+                </div>
+                <div class="icon-shape bg-primary bg-opacity-25 text-primary rounded-3 d-flex align-items-center justify-content-center" style="width: 56px; height: 56px;">
+                    <i class="bi bi-bicycle fs-3"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="card card-dashboard h-100 border-0 bg-dark text-white rounded-3 shadow">
+            <div class="card-body p-4 d-flex justify-content-between align-items-center">
+                <div>
+                    <h6 class="text-white-50 text-uppercase mb-2 fw-semibold fs-7">Toplam Kiralama</h6>
+                    <h3 class="mb-0 fw-bold">@ViewBag.TotalRentals</h3>
+                    <small class="text-primary fw-medium"><i class="bi bi-arrow-repeat me-1"></i> @ViewBag.OngoingRentals Devam Eden</small>
+                </div>
+                <div class="icon-shape bg-primary bg-opacity-25 text-primary rounded-3 d-flex align-items-center justify-content-center" style="width: 56px; height: 56px;">
+                    <i class="bi bi-card-list fs-3"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="card card-dashboard h-100 border-0 bg-dark text-white rounded-3 shadow">
+            <div class="card-body p-4 d-flex justify-content-between align-items-center">
+                <div>
+                    <h6 class="text-white-50 text-uppercase mb-2 fw-semibold fs-7">Kiralama Geliri</h6>
+                    <h3 class="mb-0 fw-bold">@ViewBag.TotalRevenue.ToString("C2")</h3>
+                    <small class="text-primary fw-medium"><i class="bi bi-wallet2 me-1"></i> Toplam Kazanç</small>
+                </div>
+                <div class="icon-shape bg-primary bg-opacity-25 text-primary rounded-3 d-flex align-items-center justify-content-center" style="width: 56px; height: 56px;">
+                    <i class="bi bi-cash-stack fs-3"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mt-2">
+    <!-- PANEL DESCRIPTION & INSTRUCTIONS -->
+    <div class="col-12">
+        <div class="card border-0 bg-dark text-white rounded-3 shadow p-4">
+            <h4 class="fw-bold mb-3"><i class="bi bi-stars text-primary me-2"></i>VeloRent Yönetim Sistemine Hoş Geldiniz!</h4>
+            <p class="text-white-50 fs-5 leading-relaxed">
+                Bu panel, bisiklet kiralama istasyonlarının durumunu izlemek ve kiralama kayıtlarını yönetmek için özel olarak geliştirilmiştir.
+                Menüyü kullanarak istasyon ekleyebilir, bisiklet sayılarını düzenleyebilir ve kullanıcı kiralamalarını sonlandırarak ücret hesaplamalarını yapabilirsiniz.
+            </p>
+            <div class="d-flex flex-wrap gap-2 mt-3">
+                <a class="btn btn-primary px-4 py-2" asp-controller="Stations" asp-action="Index">
+                    <i class="bi bi-geo-alt me-1"></i> İstasyonları Yönet
+                </a>
+                <a class="btn btn-outline-light px-4 py-2" asp-controller="Rentals" asp-action="Index">
+                    <i class="bi bi-card-list me-1"></i> Kiralamaları Gör
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

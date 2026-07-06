@@ -1,0 +1,63 @@
+@model IEnumerable<Model.Supplier>
+@{
+    ViewData["Title"] = "Tedarikçiler";
+}
+<div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2>Tedarikçiler Listesi</h2>
+        <div style="display: flex; gap: 10px;">
+            <button class="btn-word" onclick="alert('Word indirme işlemi başlatılıyor...')">📄 Word İndir</button>
+            <button class="btn-pdf" onclick="alert('PDF indirme işlemi başlatılıyor...')">📕 PDF İndir</button>
+            <a href="/Admin/Supplier/Create" class="btn-add">+ Yeni Tedarikçi Ekle</a>
+        </div>
+    </div>
+
+    <div class="filter-bar">
+        <span>🔍 Ara:</span>
+        <input type="text" id="searchInput" placeholder="Firma adı, kişi veya telefon ara..." onkeyup="filterTable()" style="flex: 1;" />
+    </div>
+
+    <table id="dataTable" style="width:100%; text-align:left; border-collapse: collapse;">
+        <thead>
+            <tr style="border-bottom: 2px solid #dee2e6;">
+                <th style="padding: 12px;">Firma Adı</th>
+                <th style="padding: 12px;">İletişim Kişisi</th>
+                <th style="padding: 12px;">Telefon</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(Model != null) {
+                foreach(var item in Model) {
+                    <tr style="border-bottom: 1px solid #dee2e6;">
+                        <td style="padding: 10px;">@item.CompanyName</td>
+                        <td style="padding: 10px;">@item.ContactName</td>
+                        <td style="padding: 10px;">@item.Phone</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+function filterTable() {
+    var input, filter, table, tr, td, i, j, txtValue;
+    input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("dataTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 1; i < tr.length; i++) {
+        tr[i].style.display = "none";
+        td = tr[i].getElementsByTagName("td");
+        for (j = 0; j < td.length; j++) {
+            if (td[j]) {
+                txtValue = td[j].textContent || td[j].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    break;
+                }
+            }
+        }
+    }
+}
+</script>

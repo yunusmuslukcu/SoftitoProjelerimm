@@ -1,0 +1,41 @@
+﻿@model IoTSystemMvc.Models.SupplierViewModel
+
+@{
+    ViewData["Title"] = "Yeni Tedarikçi Ekle";
+}
+
+<div class="container mt-4">
+    <h2>Yeni Tedarikçi Ekle</h2>
+    <hr />
+
+    <form action="@Url.Action("Create", "Suppliers")" method="post">
+
+        <div class="mb-3">
+            <label class="form-label">Tedarikçi Adı</label>
+            <input type="text" name="SupplierName" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Yetkili Kişi</label>
+            <input type="text" name="ContactName" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Telefon</label>
+            <input type="text" name="Phone" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">E-posta</label>
+            <input type="email" name="Email" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Adres</label>
+            <textarea name="Address" class="form-control" rows="3"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success">Kaydet</button>
+        <a href="@Url.Action("Index", "Suppliers")" class="btn btn-secondary">İptal</a>
+    </form>
+</div>

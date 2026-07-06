@@ -1,0 +1,140 @@
+@model List<BicyleMvc.Models.RentalViewModel>
+@{
+    ViewData["Title"] = "Kiralama Yönetimi";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card border-0 bg-dark text-white rounded-3 shadow">
+    <div class="card-header bg-dark border-secondary border-opacity-25 py-3 d-flex justify-content-between align-items-center">
+        <h5 class="mb-0 fw-bold"><i class="bi bi-card-list me-2 text-primary"></i>Kiralama Kayıtları</h5>
+        <button class="btn btn-primary btn-sm px-3" data-bs-toggle="modal" data-bs-target="#rentalModal">
+            <i class="bi bi-plus-lg me-1"></i> Yeni Kiralama Başlat
+        </button>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-dark table-hover table-striped align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th class="ps-4">Kullanıcı</th>
+                        <th>İstasyon Adı</th>
+                        <th>Başlangıç Zamanı</th>
+                        <th>Teslim Zamanı</th>
+                        <th>Ücret</th>
+                        <th>Durum</th>
+                        <th class="pe-4 text-end">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model == null || !Model.Any())
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center py-5 text-muted">
+                                <i class="bi bi-card-list fs-1 d-block mb-3 text-secondary"></i>
+                                Kayıtlı kiralama bulunamadı.
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        foreach (var rental in Model)
+                        {
+                            <tr>
+                                <td class="ps-4 fw-semibold">@(rental.UserEmail ?? "Kullanıcı ID: " + rental.UserId)</td>
+                                <td>@rental.StationName</td>
+                                <td>@rental.RentalStartTime.ToString("dd.MM.yyyy HH:mm")</td>
+                                <td>
+                                    @(rental.RentalEndTime.HasValue ? rental.RentalEndTime.Value.ToString("dd.MM.yyyy HH:mm") : "-")
+                                </td>
+                                <td>
+                                    @(rental.TotalPrice.HasValue ? rental.TotalPrice.Value.ToString("C2") : "-")
+                                </td>
+                                <td>
+                                    @if (rental.RentalEndTime.HasValue)
+                                    {
+                                        <span class="badge bg-success bg-opacity-75">Teslim Edildi</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-warning bg-opacity-75 text-dark">Devam Ediyor</span>
+                                    }
+                                </td>
+                                <td class="pe-4 text-end">
+                                    <div class="d-flex justify-content-end gap-2">
+                                        @if (!rental.RentalEndTime.HasValue)
+                                        {
+                                            <form asp-controller="Rentals" asp-action="ReturnRental" asp-route-id="@rental.Id" method="post">
+                                                <button type="submit" class="btn btn-sm btn-success">
+                                                    <i class="bi bi-bicycle me-1"></i> Teslim Al
+                                                </button>
+                                            </form>
+                                        }
+                                        <form asp-controller="Rentals" asp-action="DeleteRental" asp-route-id="@rental.Id" method="post" onsubmit="return confirm('Bu kiralama kaydını silmek istediğinize emin misiniz?');">
+                                            <button type="submit" class="btn btn-outline-danger btn-sm">
+                                                <i class="bi bi-trash"></i> Sil
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- RENTAL START MODAL -->
+<div class="modal fade" id="rentalModal" tabindex="-1" aria-labelledby="rentalModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark text-white border-secondary border-opacity-25">
+            <div class="modal-header border-secondary border-opacity-25">
+                <h5 class="modal-title fw-bold" id="rentalModalLabel">Yeni Kiralama Başlat</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <form asp-controller="Rentals" asp-action="StartRental" method="post">
+                @Html.AntiForgeryToken()
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="rentalUserId" class="form-label">Müşteri / Kullanıcı</label>
+                        <select class="form-select border-secondary border-opacity-50" id="rentalUserId" name="UserId" required>
+                            <option value="">-- Kullanıcı Seçin --</option>
+                            @if (ViewBag.Users != null)
+                            {
+                                foreach (var user in (List<BicyleMvc.Models.UserViewModel>)ViewBag.Users)
+                                {
+                                    <option value="@user.Id">@user.FirstName @user.LastName (@user.Email)</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="rentalStationId" class="form-label">Kiralama İstasyonu</label>
+                        <select class="form-select border-secondary border-opacity-50" id="rentalStationId" name="StationId" required>
+                            <option value="">-- İstasyon Seçin --</option>
+                            @if (ViewBag.Stations != null)
+                            {
+                                foreach (var station in (List<BicyleMvc.Models.StationViewModel>)ViewBag.Stations)
+                                {
+                                    if (station.IsActive && station.ActiveBicyclesCount > 0)
+                                    {
+                                        <option value="@station.Id">@station.StationName (@station.ActiveBicyclesCount Bisiklet Mevcut)</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@station.Id" disabled>@station.StationName (Bisiklet Yok / Pasif)</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer border-secondary border-opacity-25">
+                    <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">İptal</button>
+                    <button type="submit" class="btn btn-primary btn-sm px-4">Kiralamayı Başlat</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

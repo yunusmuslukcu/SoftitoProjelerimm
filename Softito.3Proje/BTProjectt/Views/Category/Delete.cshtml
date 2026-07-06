@@ -1,0 +1,51 @@
+@model Model.Category
+@{
+    ViewData["Title"] = "Kategori Sil";
+    ViewData["PageHeader"] = "Kategoriyi Sil";
+}
+
+<div class="mb-4">
+    <a href="@Url.Action("Index")" class="btn btn-custom btn-custom-secondary btn-sm">
+        <i class="bi bi-arrow-left"></i> Listeye Geri Dön
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-lg-6 col-md-8 mx-auto">
+        <div class="card card-custom border-danger">
+            <div class="card-header bg-danger text-white py-3">
+                <h5 class="m-0"><i class="bi bi-exclamation-triangle-fill me-2"></i>Kategoriyi Silmek İstediğinize Emin Misiniz?</h5>
+            </div>
+            <div class="card-body p-4">
+                <div class="alert alert-warning mb-4">
+                    <i class="bi bi-info-circle-fill me-2"></i> Bu kategoriyi sildiğinizde, bu kategoriyle ilişkili olan tüm destek talepleri etkilenebilir. Bu işlem geri alınamaz.
+                </div>
+
+                <div class="mb-4">
+                    <div class="row mb-2">
+                        <div class="col-sm-4 fw-semibold text-muted">Kategori ID:</div>
+                        <div class="col-sm-8 fw-bold">#@Model.Id</div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-4 fw-semibold text-muted">Kategori Adı:</div>
+                        <div class="col-sm-8 fw-semibold">@Model.Name</div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-4 fw-semibold text-muted">Açıklama:</div>
+                        <div class="col-sm-8 text-secondary">@(string.IsNullOrEmpty(Model.Description) ? "-" : Model.Description)</div>
+                    </div>
+                </div>
+
+                <form action="@Url.Action("Delete")" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <div class="d-flex justify-content-end gap-2">
+                        <a href="@Url.Action("Index")" class="btn btn-custom btn-custom-secondary">İptal</a>
+                        <button type="submit" class="btn btn-custom btn-custom-danger">
+                            <i class="bi bi-trash-fill"></i> Evet, Sil
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

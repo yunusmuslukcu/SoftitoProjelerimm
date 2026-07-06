@@ -1,0 +1,237 @@
+@page
+@model Finansal.PortfoyProject.Pages.Account.LoginModel
+@{
+    Layout = null;
+    ViewData["Title"] = "Giriş Yap";
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Portföy Yönetim Paneli</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" />
+
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --secondary: #0ea5e9;
+            --dark-bg: #0f172a;
+            --sidebar-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --font-display: 'Outfit', sans-serif;
+            --font-sans: 'Inter', sans-serif;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* Decorative Background Glows */
+        .glow-circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .glow-1 {
+            width: 450px;
+            height: 450px;
+            background: rgba(99, 102, 241, 0.18);
+            top: -10%;
+            left: -5%;
+        }
+
+        .glow-2 {
+            width: 400px;
+            height: 400px;
+            background: rgba(14, 165, 233, 0.15);
+            bottom: -10%;
+            right: -5%;
+        }
+
+        .login-card {
+            background-color: var(--sidebar-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+            width: 100%;
+            max-width: 440px;
+            padding: 40px;
+            position: relative;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+        }
+
+        .brand-logo {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: #ffffff;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+
+        .brand-logo i {
+            color: var(--primary);
+        }
+
+        .form-label {
+            font-weight: 500;
+            font-size: 0.875rem;
+            color: var(--text-main);
+            margin-bottom: 6px;
+        }
+
+        .form-control {
+            background-color: rgba(15, 23, 42, 0.65);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: #ffffff !important;
+            padding: 12px 16px;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            background-color: rgba(15, 23, 42, 0.85);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+        }
+
+        .form-control::placeholder {
+            color: rgba(148, 163, 184, 0.5);
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+            border: none;
+            border-radius: 10px;
+            color: #ffffff;
+            font-weight: 600;
+            padding: 14px;
+            font-size: 1rem;
+            letter-spacing: 0.02em;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.35);
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5);
+            color: #ffffff;
+        }
+
+        .form-check-input {
+            background-color: rgba(15, 23, 42, 0.65);
+            border-color: var(--border-color);
+        }
+
+        .form-check-input:checked {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .link-primary-custom {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .link-primary-custom:hover {
+            color: #818cf8;
+            text-decoration: underline;
+        }
+
+        .alert-danger {
+            background-color: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+            border-radius: 10px;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="glow-circle glow-1"></div>
+    <div class="glow-circle glow-2"></div>
+
+    <div class="login-card">
+        <div class="text-center mb-4">
+            <div class="brand-logo">
+                <i class="bi bi-wallet2 me-2"></i>Portföyüm
+            </div>
+            <p class="text-muted mb-0" style="font-size: 0.9rem;">Finansal Portföy Paneline Giriş Yapın</p>
+        </div>
+
+        <form id="account" method="post">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2 mb-4" role="alert"></div>
+
+            <div class="mb-3">
+                <label asp-for="Input.UsernameOrEmail" class="form-label"></label>
+                <div class="input-group">
+                    <span class="input-group-text bg-transparent border-end-0 text-muted" style="border-color: var(--border-color);">
+                        <i class="bi bi-person"></i>
+                    </span>
+                    <input asp-for="Input.UsernameOrEmail" class="form-control border-start-0 ps-0" placeholder="Kullanıcı adı veya e-posta" autocomplete="username" />
+                </div>
+                <span asp-validation-for="Input.UsernameOrEmail" class="text-danger small d-block mt-1"></span>
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="Input.Password" class="form-label"></label>
+                <div class="input-group">
+                    <span class="input-group-text bg-transparent border-end-0 text-muted" style="border-color: var(--border-color);">
+                        <i class="bi bi-lock"></i>
+                    </span>
+                    <input asp-for="Input.Password" class="form-control border-start-0 ps-0" placeholder="••••••••" autocomplete="current-password" />
+                </div>
+                <span asp-validation-for="Input.Password" class="text-danger small d-block mt-1"></span>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div class="form-check">
+                    <input asp-for="Input.RememberMe" class="form-check-input" />
+                    <label asp-for="Input.RememberMe" class="form-check-label text-muted small">Beni Hatırla</label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-submit w-100 mb-4">
+                <i class="bi bi-box-arrow-in-right me-2"></i>Giriş Yap
+            </button>
+
+            <div class="text-center border-top pt-3" style="border-color: var(--border-color) !important;">
+                <span class="text-muted small">Henüz hesabınız yok mu?</span>
+                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="link-primary-custom small ms-1">Kayıt Ol</a>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

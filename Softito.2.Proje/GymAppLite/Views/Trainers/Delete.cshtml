@@ -1,0 +1,20 @@
+﻿@model GymAppLite.Models.Trainer
+
+<div class="card shadow mb-4">
+    <div class="card-header bg-danger text-white py-3">
+        <h6 class="m-0 font-weight-bold">⚠️ Antrenör Silme Onayı</h6>
+    </div>
+    <div class="card-body">
+        <p>Aşağıdaki antrenörü sistemden silmek istediğinize emin misiniz? Bu işlem geri alınamaz.</p>
+        <hr />
+        <ul>
+            <li><strong>Ad Soyad:</strong> @Model.FullName</li>
+            <li><strong>Uzmanlık Alanı:</strong> @Model.Expertise</li>
+        </ul>
+        <form href="@Url.Action("Delete", "Trainers")" method="post">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-danger">Evet, Sil</button>
+            <a href="@Url.Action("Index", "Trainers")" class="btn btn-secondary">İptal</a>
+        </form>
+    </div>
+</div>

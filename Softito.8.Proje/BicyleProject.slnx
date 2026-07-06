@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="BicyleApi/BicyleApi.csproj" />
+  <Project Path="BicyleMvc/BicyleMvc.csproj" />
+</Solution>

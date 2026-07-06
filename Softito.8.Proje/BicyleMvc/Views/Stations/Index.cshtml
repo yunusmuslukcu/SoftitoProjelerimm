@@ -1,0 +1,187 @@
+@model List<BicyleMvc.Models.StationViewModel>
+@{
+    ViewData["Title"] = "İstasyon Yönetimi";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card border-0 bg-dark text-white rounded-3 shadow">
+    <div class="card-header bg-dark border-secondary border-opacity-25 py-3 d-flex justify-content-between align-items-center">
+        <h5 class="mb-0 fw-bold"><i class="bi bi-geo-alt me-2 text-primary"></i>İstasyon Listesi</h5>
+        <div class="d-flex gap-2">
+            <button class="btn btn-danger btn-sm px-3" onclick="downloadWord()">
+                <i class="bi bi-file-word me-1"></i> Word İndir
+            </button>
+            <button class="btn btn-danger btn-sm px-3" onclick="downloadPdf()">
+                <i class="bi bi-file-pdf me-1"></i> PDF İndir
+            </button>
+            <button class="btn btn-primary btn-sm px-3" data-bs-toggle="modal" data-bs-target="#stationModal" onclick="clearForm()">
+                <i class="bi bi-plus-lg me-1"></i> Yeni İstasyon Ekle
+            </button>
+        </div>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-dark table-hover table-striped align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th class="ps-4">İstasyon Adı</th>
+                        <th>Konum</th>
+                        <th>Kapasite</th>
+                        <th>Aktif Bisiklet Sayısı</th>
+                        <th>Durum</th>
+                        <th class="pe-4 text-end">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model == null || !Model.Any())
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center py-5 text-muted">
+                                <i class="bi bi-geo-alt fs-1 d-block mb-3 text-secondary"></i>
+                                Kayıtlı istasyon bulunamadı.
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        foreach (var station in Model)
+                        {
+                            <tr>
+                                <td class="ps-4 fw-semibold">@station.StationName</td>
+                                <td>@station.Location</td>
+                                <td>@station.Capacity</td>
+                                <td>
+                                    <span class="badge bg-secondary">@station.ActiveBicyclesCount</span>
+                                </td>
+                                <td>
+                                    @if (station.IsActive)
+                                    {
+                                        <span class="badge bg-success bg-opacity-75">Aktif</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger bg-opacity-75">Pasif</span>
+                                    }
+                                </td>
+                                <td class="pe-4 text-end">
+                                    <div class="d-flex justify-content-end gap-2">
+                                        <button class="btn btn-outline-info btn-sm" onclick="editStation(@Json.Serialize(station))">
+                                            <i class="bi bi-pencil-square"></i> Düzenle
+                                        </button>
+                                        <form asp-controller="Stations" asp-action="DeleteStation" asp-route-id="@station.Id" method="post" onsubmit="return confirm('Bu istasyonu silmek istediğinize emin misiniz?');">
+                                            <button type="submit" class="btn btn-outline-danger btn-sm">
+                                                <i class="bi bi-trash"></i> Sil
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- STATION ADD / EDIT MODAL -->
+<div class="modal fade" id="stationModal" tabindex="-1" aria-labelledby="stationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark text-white border-secondary border-opacity-25">
+            <div class="modal-header border-secondary border-opacity-25">
+                <h5 class="modal-title fw-bold" id="stationModalLabel">Yeni İstasyon Ekle</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <form asp-controller="Stations" asp-action="SaveStation" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" id="stationId" name="Id" value="0" />
+
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="stationName" class="form-label">İstasyon Adı</label>
+                        <input type="text" class="form-control bg-dark text-white border-secondary border-opacity-50" id="stationName" name="StationName" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="stationLocation" class="form-label">Konum (Adres)</label>
+                        <input type="text" class="form-control bg-dark text-white border-secondary border-opacity-50" id="stationLocation" name="Location" required />
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <label for="stationCapacity" class="form-label">Kapasite</label>
+                            <input type="number" class="form-control bg-dark text-white border-secondary border-opacity-50" id="stationCapacity" name="Capacity" min="1" required />
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="stationActiveBikes" class="form-label">Aktif Bisiklet Sayısı</label>
+                            <input type="number" class="form-control bg-dark text-white border-secondary border-opacity-50" id="stationActiveBikes" name="ActiveBicyclesCount" min="0" required />
+                        </div>
+                    </div>
+                    <div class="mb-3 form-check form-switch mt-2">
+                        <input class="form-check-input" type="checkbox" id="stationIsActive" name="IsActive" value="true" checked />
+                        <label class="form-check-label" for="stationIsActive">İstasyon Aktif</label>
+                    </div>
+                </div>
+                <div class="modal-footer border-secondary border-opacity-25">
+                    <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">İptal</button>
+                    <button type="submit" class="btn btn-primary btn-sm px-4">Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- html2pdf for PDF Download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        function downloadWord() {
+            var content = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Istasyonlar</title></head><body>";
+            content += "<h2>İstasyon Listesi</h2>";
+            content += document.querySelector('.table-responsive').innerHTML;
+            content += "</body></html>";
+            
+            var blob = new Blob(['\ufeff', content], { type: 'application/msword' });
+            var url = URL.createObjectURL(blob);
+            var downloadLink = document.createElement("a");
+            document.body.appendChild(downloadLink);
+            downloadLink.href = url;
+            downloadLink.download = 'Istasyonlar.doc';
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+        }
+
+        function downloadPdf() {
+            var element = document.querySelector('.table-responsive');
+            var opt = {
+                margin:       0.5,
+                filename:     'Istasyonlar.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'landscape' }
+            };
+            html2pdf().set(opt).from(element).save();
+        }
+
+        function clearForm() {
+            $('#stationModalLabel').text('Yeni İstasyon Ekle');
+            $('#stationId').val(0);
+            $('#stationName').val('');
+            $('#stationLocation').val('');
+            $('#stationCapacity').val('');
+            $('#stationActiveBikes').val(0);
+            $('#stationIsActive').prop('checked', true);
+        }
+
+        function editStation(station) {
+            $('#stationModalLabel').text('İstasyon Düzenle');
+            $('#stationId').val(station.id);
+            $('#stationName').val(station.stationName);
+            $('#stationLocation').val(station.location);
+            $('#stationCapacity').val(station.capacity);
+            $('#stationActiveBikes').val(station.activeBicyclesCount);
+            $('#stationIsActive').prop('checked', station.isActive);
+            
+            var modal = new bootstrap.Modal(document.getElementById('stationModal'));
+            modal.show();
+        }
+    </script>
+}

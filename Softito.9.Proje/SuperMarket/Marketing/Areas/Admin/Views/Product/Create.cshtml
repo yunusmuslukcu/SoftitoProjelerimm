@@ -1,0 +1,75 @@
+@model Model.Product
+@{
+    ViewData["Title"] = "Yeni Ürün Ekle";
+}
+<div class="card">
+    <h2>Yeni Ürün Ekle</h2>
+    <br />
+
+    @if (ViewBag.Error != null)
+    {
+        <div style="color: #dc3545; background: #fff5f5; padding: 10px; border-radius: 6px; margin-bottom: 15px; border: 1px solid #f5c6cb;">
+            ❌ @ViewBag.Error
+        </div>
+    }
+
+    <form method="post" action="/Admin/Product/Create" enctype="multipart/form-data">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px; font-weight: 500; color: #555;">Ürün Adı</label>
+                <input type="text" name="Name" required style="width: 100%; padding: 10px; border: 2px solid #eee; border-radius: 6px; font-size: 1rem;" />
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px; font-weight: 500; color: #555;">Barkod</label>
+                <input type="text" name="Barcode" required style="width: 100%; padding: 10px; border: 2px solid #eee; border-radius: 6px; font-size: 1rem;" />
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px; font-weight: 500; color: #555;">Fiyat (₺)</label>
+                <input type="number" name="Price" step="0.01" required style="width: 100%; padding: 10px; border: 2px solid #eee; border-radius: 6px; font-size: 1rem;" />
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px; font-weight: 500; color: #555;">Stok Adedi</label>
+                <input type="number" name="StockQuantity" value="0" style="width: 100%; padding: 10px; border: 2px solid #eee; border-radius: 6px; font-size: 1rem;" />
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px; font-weight: 500; color: #555;">Kategori</label>
+                <select name="CategoryId" required style="width: 100%; padding: 10px; border: 2px solid #eee; border-radius: 6px; font-size: 1rem;">
+                    <option value="">-- Kategori Seçin --</option>
+                    @if (ViewBag.Categories != null)
+                    {
+                        foreach (SelectListItem item in ViewBag.Categories)
+                        {
+                            <option value="@item.Value">@item.Text</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px; font-weight: 500; color: #555;">Tedarikçi</label>
+                <select name="SupplierId" required style="width: 100%; padding: 10px; border: 2px solid #eee; border-radius: 6px; font-size: 1rem;">
+                    <option value="">-- Tedarikçi Seçin --</option>
+                    @if (ViewBag.Suppliers != null)
+                    {
+                        foreach (SelectListItem item in ViewBag.Suppliers)
+                        {
+                            <option value="@item.Value">@item.Text</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 20px; margin-top: 10px;">
+            <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #555;">Ürün Görseli</label>
+            <div style="border: 2px dashed #ddd; border-radius: 10px; padding: 30px; text-align: center; background: #fafafa;">
+                <input type="file" name="imageFile" accept="image/*" style="font-size: 1rem;" />
+                <p style="color: #999; margin-top: 10px; font-size: 0.85rem;">JPG, PNG veya WEBP formatında görsel yükleyin</p>
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+            <button type="submit" style="background: #28a745; color: white; padding: 12px 30px; border: none; border-radius: 6px; cursor: pointer; font-size: 1rem; font-weight: 600;">Ürünü Kaydet</button>
+            <a href="/Admin/Product/Index" style="background: #6c757d; color: white; padding: 12px 30px; border-radius: 6px; text-decoration: none; font-weight: 500;">İptal</a>
+        </div>
+    </form>
+</div>

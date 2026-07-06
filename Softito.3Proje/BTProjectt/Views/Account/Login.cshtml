@@ -1,0 +1,41 @@
+@{
+    Layout = "_AuthLayout";
+    ViewData["Title"] = "Giriş Yap";
+}
+
+<h4 class="text-center mb-4 text-dark">Sisteme Giriş</h4>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger p-2 mb-3">
+        @Html.ValidationSummary(false, "", new { @class = "mb-0 list-unstyled text-sm" })
+    </div>
+}
+
+<form asp-controller="Account" asp-action="Login" method="post">
+    <div class="mb-3">
+        <label class="form-label text-muted">Kullanıcı Adı</label>
+        <div class="input-group">
+            <span class="input-group-text bg-light text-muted border-secondary-subtle"><i class="bi bi-person"></i></span>
+            <input type="text" name="username" class="form-control form-control-custom border-start-0" required placeholder="Kullanıcı adınızı girin">
+        </div>
+    </div>
+    
+    <div class="mb-4">
+        <label class="form-label text-muted">Şifre</label>
+        <div class="input-group">
+            <span class="input-group-text bg-light text-muted border-secondary-subtle"><i class="bi bi-lock"></i></span>
+            <input type="password" name="password" class="form-control form-control-custom border-start-0" required placeholder="Şifrenizi girin">
+        </div>
+    </div>
+
+    <div class="d-grid mb-3">
+        <button type="submit" class="btn btn-custom btn-custom-primary w-100 justify-content-center">
+            Giriş Yap <i class="bi bi-box-arrow-in-right"></i>
+        </button>
+    </div>
+    
+    <div class="text-center">
+        <small class="text-muted">Hesabınız yok mu? <a asp-action="Register" class="text-decoration-none" style="color: #6366f1;">Kayıt Ol</a></small>
+    </div>
+</form>

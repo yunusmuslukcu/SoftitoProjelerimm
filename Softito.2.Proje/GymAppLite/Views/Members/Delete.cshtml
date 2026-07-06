@@ -1,0 +1,20 @@
+﻿@model GymAppLite.Models.Member
+
+<div class="card shadow mb-4">
+    <div class="card-header bg-danger text-white py-3">
+        <h6 class="m-0 font-weight-bold">⚠️ Üye Silme Onayı</h6>
+    </div>
+    <div class="card-body">
+        <p>Aşağıdaki üyeyi silmek istediğinize emin misiniz? Bu işlem geri alınamaz.</p>
+        <hr />
+        <ul>
+            <li><strong>Üye ID:</strong> @Model.Id</li>
+            <li><strong>Üye Adı Soyadı:</strong> @Model.FirstName @Model.LastName</li>
+        </ul>
+        <form action="@Url.ActionLink("Delete", "Members")" method="post">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-danger">Evet, Sil</button>
+            <a href="@Url.ActionLink("Index", "Members")" class="btn btn-secondary">İptal</a>
+        </form>
+    </div>
+</div>

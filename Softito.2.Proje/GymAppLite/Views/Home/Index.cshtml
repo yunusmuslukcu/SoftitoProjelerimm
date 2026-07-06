@@ -1,0 +1,278 @@
+@{
+    ViewData["Title"] = "Ana Sayfa";
+}
+
+<style>
+    .dashboard-hero {
+        position: relative;
+        border-radius: 20px;
+        overflow: hidden;
+        padding: 3rem 2.5rem;
+        margin-top: 1.5rem;
+        margin-bottom: 2.5rem;
+        box-shadow: 0 15px 35px rgba(15, 23, 42, 0.15);
+        color: #ffffff;
+    }
+    .hero-slides {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+    }
+    .hero-slide-item {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        opacity: 0;
+        animation: dashBgSlide 18s infinite linear;
+    }
+    .hero-slide-item:nth-child(1) {
+        background-image: url('https://images.unsplash.com/photo-534438327276-14e5300c3a48?q=80&w=1920&auto=format&fit=crop');
+        animation-delay: 0s;
+    }
+    .hero-slide-item:nth-child(2) {
+        background-image: url('https://images.unsplash.com/photo-571019614242-c5c5dee9f50b?q=80&w=1920&auto=format&fit=crop');
+        animation-delay: 9s;
+    }
+    @@keyframes dashBgSlide {
+        0% { opacity: 0; transform: scale(1); }
+        12% { opacity: 0.35; }
+        45% { opacity: 0.35; transform: scale(1.05); }
+        55% { opacity: 0; transform: scale(1.06); }
+        100% { opacity: 0; }
+    }
+    .hero-dash-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.92) 0%, rgba(15, 23, 42, 0.88) 100%);
+        z-index: 2;
+    }
+    .hero-dash-content {
+        position: relative;
+        z-index: 3;
+    }
+</style>
+
+<div class="dashboard-hero">
+    <div class="hero-slides">
+        <div class="hero-slide-item"></div>
+        <div class="hero-slide-item"></div>
+    </div>
+    <div class="hero-dash-overlay"></div>
+    <div class="hero-dash-content d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-4">
+        <div>
+            <div class="mb-2">
+                <span class="badge bg-primary px-3 py-2 text-uppercase font-weight-bold" style="letter-spacing: 1.5px;">⚡ OPERASYONEL PERFORMANS & ANALİTİK MERKEZİ</span>
+            </div>
+            <h2 class="font-weight-bold text-white mb-2" style="font-size: 2.2rem;">GymAppLite Yönetim Merkezine Hoş Geldiniz</h2>
+            <p class="text-light mb-0" style="opacity: 0.85; max-width: 650px;">
+                Tesisinizin atletik metriklerini, eğitmen atamalarını ve üye gelişim indekslerini gerçek zamanlı olarak buradan yönetebilirsiniz.
+            </p>
+        </div>
+        <div>
+            <a href="@Url.Action("Landing", "Home")" class="btn btn-primary px-4 py-3 font-weight-bold" style="border-radius: 12px; white-space: nowrap;">
+                <i class="fas fa-globe me-2"></i> Tanıtım Sitesine Git
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <!-- Toplam Aktif Üye -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card shadow h-100 py-2" style="border-left: 4px solid #4e73df !important;">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Toplam Aktif Üye</div>
+                        <div class="h3 mb-0 font-weight-bold text-dark">@ViewBag.ActiveMembersCount</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-users fa-2x text-primary" style="opacity: 0.3;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Uzman Eğitmenler -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card shadow h-100 py-2" style="border-left: 4px solid #4e73df !important;">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Uzman Eğitmenler</div>
+                        <div class="h3 mb-0 font-weight-bold text-dark">@ViewBag.TrainersCount</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-dumbbell fa-2x text-primary" style="opacity: 0.3;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gelişim Programları -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card shadow h-100 py-2" style="border-left: 4px solid #4e73df !important;">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Program Kayıtları</div>
+                        <div class="h3 mb-0 font-weight-bold text-dark">@ViewBag.ProgressLogsCount</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x text-primary" style="opacity: 0.3;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toplam Ciro -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card shadow h-100 py-2" style="border-left: 4px solid #4e73df !important;">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Aylık Toplam Ciro</div>
+                        <div class="h3 mb-0 font-weight-bold text-dark">₺@ViewBag.MonthlyRevenue.ToString("N0")</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-wallet fa-2x text-primary" style="opacity: 0.3;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Grafik Alanı -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 bg-light d-flex align-items-center">
+                <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-chart-bar me-2"></i>Paket Dağılım Grafiği (Üye Sayısı)</h6>
+            </div>
+            <div class="card-body">
+                <div class="chart-bar" style="height: 300px; position: relative;">
+                    <canvas id="memberCountChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tablolar Alanı -->
+<div class="row">
+    <!-- Son Üye Kayıtları (Last 5) -->
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow mb-4 h-100">
+            <div class="card-header py-3 bg-light d-flex align-items-center">
+                <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-user-plus me-2"></i>Son Üye Kayıtları (Son 5)</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Ad Soyad</th>
+                                <th>Paket</th>
+                                <th>Antrenör</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var member in ViewBag.RecentMembers as List<GymAppLite.Models.Member> ?? new())
+                            {
+                                <tr>
+                                    <td>@member.FirstName @member.LastName</td>
+                                    <td><span class="badge bg-secondary">@(member.SubscriptionType?.TypeName ?? "Paket Yok")</span></td>
+                                    <td>@(member.Trainer?.FullName ?? "Atanmadı")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gelişim Programları (Last 5) -->
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow mb-4 h-100">
+            <div class="card-header py-3 bg-light d-flex align-items-center">
+                <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-running me-2"></i>Aktif Gelişim Programları (Son 5)</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Üye Adı</th>
+                                <th>Boy (cm)</th>
+                                <th>Kilo (kg)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var log in ViewBag.RecentProgressLogs as List<GymAppLite.Models.ProgressLog> ?? new())
+                            {
+                                <tr>
+                                    <td>@(log.Member?.FirstName + " " + log.Member?.LastName)</td>
+                                    <td>@log.Height</td>
+                                    <td>@log.Weight kg</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var ctx = document.getElementById("memberCountChart").getContext("2d");
+        
+        var labels = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(ViewBag.ChartLabels));
+        var data = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(ViewBag.ChartData));
+        
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Üye Sayısı',
+                    data: data,
+                    backgroundColor: 'rgba(78, 115, 223, 0.85)',
+                    borderColor: 'rgba(78, 115, 223, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            stepSize: 1
+                        }
+                    }]
+                },
+                legend: {
+                    display: false
+                }
+            }
+        });
+    });
+</script>

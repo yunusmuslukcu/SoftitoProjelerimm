@@ -1,0 +1,137 @@
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <title>Giriş Yap - Admin Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1e1e2d 0%, #2d1a1a 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-box {
+            background: white;
+            padding: 45px;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 420px;
+        }
+        .login-box h2 {
+            text-align: center;
+            margin-bottom: 8px;
+            color: #1e1e2d;
+            font-size: 1.6rem;
+        }
+        .login-subtitle {
+            text-align: center;
+            color: #999;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+        .form-group { margin-bottom: 18px; }
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            color: #555;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+            outline: none;
+        }
+        .form-group input:focus { border-color: #8b0000; }
+        .btn-login {
+            width: 100%;
+            padding: 13px;
+            background: linear-gradient(135deg, #8b0000, #4a0404);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+        .btn-login:hover { opacity: 0.9; }
+        .error-msg {
+            color: #dc3545;
+            text-align: center;
+            font-size: 0.9rem;
+            background: #fff5f5;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            border: 1px solid #f5c6cb;
+        }
+        .success-msg {
+            color: #155724;
+            text-align: center;
+            font-size: 0.9rem;
+            background: #d4edda;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            border: 1px solid #c3e6cb;
+        }
+        .links {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .links a {
+            display: block;
+            margin-top: 10px;
+            color: #8b0000;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .links a:hover { text-decoration: underline; }
+        .links a.secondary { color: #999; }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h2>Admin Girişi</h2>
+        <p class="login-subtitle">Yönetim paneline erişmek için giriş yapın</p>
+
+        @if (TempData["Success"] != null)
+        {
+            <div class="success-msg">✅ @TempData["Success"]</div>
+        }
+        @if (ViewBag.Error != null)
+        {
+            <div class="error-msg">❌ @ViewBag.Error</div>
+        }
+
+        <form method="post" action="/Admin/Auth/Login">
+            <div class="form-group">
+                <label>Kullanıcı Adı</label>
+                <input type="text" name="username" placeholder="admin" required />
+            </div>
+            <div class="form-group">
+                <label>Şifre</label>
+                <input type="password" name="password" placeholder="••••••••" required />
+            </div>
+            <button type="submit" class="btn-login">Giriş Yap</button>
+        </form>
+        <div class="links">
+            <a href="/Admin/Auth/Register">Hesabın yok mu? Kayıt Ol</a>
+            <a href="/User/Home/Index" class="secondary">← Market Sitesine Dön</a>
+        </div>
+    </div>
+</body>
+</html>

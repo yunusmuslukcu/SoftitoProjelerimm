@@ -1,0 +1,223 @@
+@model IoTSystemMvc.Models.ReportsViewModel
+
+@{
+    ViewData["Title"] = "Sistem Analiz Kontrol Paneli";
+}
+
+<div class="container-fluid py-2">
+    <!-- Dashboard Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold text-dark mb-1">IoT System Dashboard</h2>
+            <p class="text-muted small mb-0">Sistem genelindeki donanım, tedarikçi, cihaz durumu ve sistem loglarının anlık analitik verileri.</p>
+        </div>
+        <div class="text-muted small">
+            <span class="badge bg-light text-dark border p-2"><i class="bi bi-calendar3 me-1"></i> Güncelleme: Anlık</span>
+        </div>
+    </div>
+
+    <!-- 4 Analitik Kart (Veri Kutuları) -->
+    <div class="row mb-4">
+        <!-- Toplam Ürün -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2 card-report">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" style="font-size: 0.75rem; letter-spacing: 0.5px;">Ürün Çeşitleri</div>
+                            <div class="h3 mb-0 font-weight-bold text-dark">@Model.ProductSupplierReport.Count</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-box-seam fs-1 text-primary bg-primary bg-opacity-10 rounded p-2" style="width: 54px; height: 54px; display: inline-flex; align-items: center; justify-content: center;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kayıtlı Cihazlar -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2 card-report">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1" style="font-size: 0.75rem; letter-spacing: 0.5px;">Raporlanan Cihazlar</div>
+                            <div class="h3 mb-0 font-weight-bold text-dark">@Model.DeviceLogReport.Count</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-cpu fs-1 text-success bg-success bg-opacity-10 rounded p-2" style="width: 54px; height: 54px; display: inline-flex; align-items: center; justify-content: center;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toplam Log Hataları -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2 card-report">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1" style="font-size: 0.75rem; letter-spacing: 0.5px;">Toplam Hata / Log</div>
+                            <div class="h3 mb-0 font-weight-bold text-dark">@Model.LogLevelReport.Sum(l => l.LogCount)</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-exclamation-triangle fs-1 text-warning bg-warning bg-opacity-10 rounded p-2" style="width: 54px; height: 54px; display: inline-flex; align-items: center; justify-content: center;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toplam Envanter Stoğu -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2 card-report">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1" style="font-size: 0.75rem; letter-spacing: 0.5px;">Toplam Stok Adedi</div>
+                            <div class="h3 mb-0 font-weight-bold text-dark">@Model.ProductStockReport.Sum(p => p.TotalStock).ToString("N0")</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-layers-half fs-1 text-info bg-info bg-opacity-10 rounded p-2" style="width: 54px; height: 54px; display: inline-flex; align-items: center; justify-content: center;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grafik ve Bilgi Kutuları İçeriği -->
+    <div class="row">
+        <!-- Grafik Alanı (Chart.js) -->
+        <div class="col-lg-8 mb-4">
+            <div class="card shadow border-0 h-100">
+                <div class="card-header py-3 bg-white border-bottom-0 d-flex align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary"><i class="bi bi-bar-chart-line text-primary me-2"></i>Tedarikçi Bazlı Donanım Stoğu Grafik Gösterimi</h6>
+                </div>
+                <div class="card-body">
+                    <div style="position: relative; height: 320px; width: 100%;">
+                        <canvas id="homeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hızlı Sistem Bilgisi (Önemli Uyarı Logları) -->
+        <div class="col-lg-4 mb-4">
+            <div class="card shadow border-0 h-100">
+                <div class="card-header py-3 bg-white border-bottom-0">
+                    <h6 class="m-0 font-weight-bold text-danger"><i class="bi bi-shield-exclamation text-danger me-2"></i>Önemli Log Seviyeleri Dağılımı</h6>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted small">Sistem loglarının ciddiyet seviyesine göre gruplanarak dağılımı.</p>
+                    <div class="mt-4">
+                        @foreach (var item in Model.LogLevelReport)
+                        {
+                            var total = Model.LogLevelReport.Sum(l => l.LogCount);
+                            var percentage = total > 0 ? (item.LogCount * 100) / total : 0;
+                            var badgeClass = item.LogLevel == "Critical" || item.LogLevel == "Error" ? "bg-danger" : (item.LogLevel == "Warning" ? "bg-warning" : "bg-success");
+                            
+                            <div class="mb-4">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="fw-semibold small">@item.LogLevel</span>
+                                    <span class="badge @badgeClass text-white rounded-pill small">@item.LogCount Adet</span>
+                                </div>
+                                <div class="progress" style="height: 10px; border-radius: 5px;">
+                                    <div class="progress-bar @badgeClass progress-bar-striped progress-bar-animated" role="progressbar" style="width: @percentage%" aria-valuenow="@percentage" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="text-center mt-3 pt-3 border-top">
+                        <a asp-controller="Reports" asp-action="Index" class="btn btn-primary btn-sm w-100">
+                            <i class="bi bi-file-earmark-bar-graph me-1"></i> Tüm Detaylı Raporları Gör
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- Chart.js CDN kütüphanesi -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const ctx = document.getElementById('homeChart').getContext('2d');
+            
+            // Modelden tedarikçi isimleri ve stok adetlerini alalım
+            const labels = @Json.Serialize(Model.ProductStockReport.Select(x => x.SupplierName));
+            const data = @Json.Serialize(Model.ProductStockReport.Select(x => x.TotalStock));
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Toplam Envanter Stoğu (Adet)',
+                        data: data,
+                        backgroundColor: [
+                            'rgba(59, 130, 246, 0.7)',  // Blue 500
+                            'rgba(16, 185, 129, 0.7)',  // Green 500
+                            'rgba(245, 158, 11, 0.7)',  // Warning 500
+                            'rgba(6, 182, 212, 0.7)'    // Cyan 500
+                        ],
+                        borderColor: [
+                            '#3b82f6',
+                            '#10b981',
+                            '#f59e0b',
+                            '#06b6d4'
+                        ],
+                        borderWidth: 1.5,
+                        borderRadius: 8,
+                        borderSkipped: false,
+                        maxBarThickness: 50
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            padding: 12,
+                            cornerRadius: 8
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: '#64748b',
+                                font: {
+                                    family: "'Inter', sans-serif",
+                                    size: 11
+                                }
+                            }
+                        },
+                        y: {
+                            grid: {
+                                borderDash: [5, 5],
+                                color: '#e2e8f0'
+                            },
+                            ticks: {
+                                color: '#64748b',
+                                font: {
+                                    family: "'Inter', sans-serif",
+                                    size: 11
+                                },
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+}

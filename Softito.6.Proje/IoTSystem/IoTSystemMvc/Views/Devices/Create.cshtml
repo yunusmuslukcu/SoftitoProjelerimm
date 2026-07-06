@@ -1,0 +1,41 @@
+﻿@model IoTSystemMvc.Models.DeviceViewModel
+
+@{
+    ViewData["Title"] = "Yeni Cihaz Ekle";
+}
+
+<div class="container mt-4">
+    <h2>Yeni IoT Cihazı Ekle</h2>
+    <hr />
+
+    <form action="@Url.Action("Create", "Devices")" method="post">
+
+        <div class="mb-3">
+            <label class="form-label">Cihaz Adı</label>
+            <input type="text" name="DeviceName" class="form-control" placeholder="Örn: Sıcaklık Sensörü" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">IP Adresi</label>
+            <input type="text" name="IpAddress" class="form-control" placeholder="Örn: 192.168.1.50" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">MAC Adresi</label>
+            <input type="text" name="MacAddress" class="form-control" placeholder="Örn: 00:1A:3F:F1:4C:C6" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Konum / Lokasyon</label>
+            <input type="text" name="Location" class="form-control" placeholder="Örn: Sunucu Odası A" />
+        </div>
+
+        <div class="mb-3 form-check">
+            <input type="checkbox" name="IsActive" class="form-check-input" id="IsActive" value="true" checked />
+            <label class="form-check-label" for="IsActive">Cihaz Aktif mi?</label>
+        </div>
+
+        <button type="submit" class="btn btn-success">Kaydet</button>
+        <a href="@Url.Action("Index", "Devices")" class="btn btn-secondary">İptal</a>
+    </form>
+</div>
