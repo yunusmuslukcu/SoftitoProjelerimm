@@ -1,0 +1,24 @@
+@model projectcodefrst.Models.Yazar
+
+@{
+    ViewData["Title"] = "Yazar Sil";
+}
+
+<h3>Bu yazarı silmek istediğinize emin misiniz?</h3>
+<div>
+    <h4>Yazar Detayları</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.YazarAdi)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.YazarAdi)
+        </dd>
+    </dl>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="YazarId" />
+        <input type="submit" value="Sil" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-secondary ms-2">Geri Dön</a>
+    </form>
+</div>

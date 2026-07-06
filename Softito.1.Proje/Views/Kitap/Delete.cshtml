@@ -1,0 +1,45 @@
+@model projectcodefrst.Models.Kitap
+
+@{
+    ViewData["Title"] = "Kitap Sil";
+}
+
+<h3>Bu kitabı silmek istediğinize emin misiniz?</h3>
+<div>
+    <h4>Kitap Detayları</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.KitapAdi)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.KitapAdi)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Sayfa)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Sayfa)
+        </dd>
+
+        <dt class="col-sm-2">
+            Yazar
+        </dt>
+        <dd class="col-sm-10">
+            @(Model.Yazar?.YazarAdi ?? "-")
+        </dd>
+
+        <dt class="col-sm-2">
+            Kategori
+        </dt>
+        <dd class="col-sm-10">
+            @(Model.Kategori?.KategoriAdi ?? "-")
+        </dd>
+    </dl>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="KitapId" />
+        <input type="submit" value="Sil" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-secondary ms-2">Geri Dön</a>
+    </form>
+</div>

@@ -1,0 +1,124 @@
+is_global = true
+build_property.TargetFramework = net10.0
+build_property.TargetFramework = net10.0
+build_property.TargetPlatformMinVersion = 
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.TargetFrameworkIdentifier = .NETCoreApp
+build_property.TargetFrameworkVersion = v10.0
+build_property.EntryPointFilePath = 
+build_property.RootNamespace = projectcodefrst
+build_property.RootNamespace = projectcodefrst
+build_property.ProjectDir = C:\Users\X\OneDrive\Desktop\SoftitoProjectCodeFirst\projectcodefrst\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 10.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\X\OneDrive\Desktop\SoftitoProjectCodeFirst\projectcodefrst
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 10.0
+build_property.EnableCodeStyleSeverity = 
+
+[C:/Users/X/OneDrive/Desktop/SoftitoProjectCodeFirst/projectcodefrst/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/X/OneDrive/Desktop/SoftitoProjectCodeFirst/projectcodefrst/Views/Kategori/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2F0ZWdvcmlcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/X/OneDrive/Desktop/SoftitoProjectCodeFirst/projectcodefrst/Views/Kategori/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2F0ZWdvcmlcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/X/OneDrive/Desktop/SoftitoProjectCodeFirst/projectcodefrst/Views/Kategori/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2F0ZWdvcmlcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/X/OneDrive/Desktop/SoftitoProjectCodeFirst/projectcodefrst/Views/Kategori/Update.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2F0ZWdvcmlcVXBkYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/X/OneDrive/Desktop/SoftitoProjectCodeFirst/projectcodefrst/Views/Kitap/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2l0YXBcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/X/OneDrive/Desktop/SoftitoProjectCodeFirst/projectcodefrst/Views/Kitap/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2l0YXBcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/X/OneDrive/Desktop/SoftitoProjectCodeFirst/projectcodefrst/Views/Kitap/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2l0YXBcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/X/OneDrive/Desktop/SoftitoProjectCodeFirst/projectcodefrst/Views/Kitap/Update.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2l0YXBcVXBkYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/X/OneDrive/Desktop/SoftitoProjectCodeFirst/projectcodefrst/Views/Odunc/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT2R1bmNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/X/OneDrive/Desktop/SoftitoProjectCodeFirst/projectcodefrst/Views/Odunc/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT2R1bmNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/X/OneDrive/Desktop/SoftitoProjectCodeFirst/projectcodefrst/Views/Odunc/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT2R1bmNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/X/OneDrive/Desktop/SoftitoProjectCodeFirst/projectcodefrst/Views/Odunc/Update.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT2R1bmNcVXBkYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/X/OneDrive/Desktop/SoftitoProjectCodeFirst/projectcodefrst/Views/Rapor/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmFwb3JcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/X/OneDrive/Desktop/SoftitoProjectCodeFirst/projectcodefrst/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/X/OneDrive/Desktop/SoftitoProjectCodeFirst/projectcodefrst/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/X/OneDrive/Desktop/SoftitoProjectCodeFirst/projectcodefrst/Views/Yazar/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcWWF6YXJcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/X/OneDrive/Desktop/SoftitoProjectCodeFirst/projectcodefrst/Views/Yazar/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcWWF6YXJcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/X/OneDrive/Desktop/SoftitoProjectCodeFirst/projectcodefrst/Views/Yazar/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcWWF6YXJcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/X/OneDrive/Desktop/SoftitoProjectCodeFirst/projectcodefrst/Views/Yazar/Update.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcWWF6YXJcVXBkYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/X/OneDrive/Desktop/SoftitoProjectCodeFirst/projectcodefrst/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/X/OneDrive/Desktop/SoftitoProjectCodeFirst/projectcodefrst/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/X/OneDrive/Desktop/SoftitoProjectCodeFirst/projectcodefrst/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-6qhv77cd5m

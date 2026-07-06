@@ -1,0 +1,31 @@
+@model projectcodefrst.Models.Kategori
+
+@{
+    ViewData["Title"] = "Kategori Ekle";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-primary text-white py-3">
+                <h5 class="card-title mb-0"><i class="fas fa-list me-2"></i>Yeni Kategori Ekle</h5>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="form-group mb-4">
+                        <label asp-for="KategoriAdi" class="form-label font-weight-bold">Kategori Adı</label>
+                        <input asp-for="KategoriAdi" class="form-control" placeholder="Kategori adını giriniz..." />
+                        <span asp-validation-for="KategoriAdi" class="text-danger small"></span>
+                    </div>
+
+                    <div class="d-flex justify-content-end border-top pt-3">
+                        <a asp-action="Index" class="btn btn-light border me-2"><i class="fas fa-arrow-left me-1"></i>Geri Dön</a>
+                        <button type="submit" class="btn btn-primary px-4"><i class="fas fa-plus me-1"></i>Ekle</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,308 @@
+@model projectcodefrst.Models.RaporViewModel
+
+@{
+    ViewData["Title"] = "Sistem Raporları";
+}
+
+<div class="row">
+    <div class="col-xl-3 col-md-6">
+        <div class="card card-premium-blue text-white mb-4 shadow-sm border-0">
+            <div class="card-body d-flex justify-content-between align-items-center py-4">
+                <div>
+                    <h6 class="text-uppercase small mb-1 opacity-75">Toplam Kitap</h6>
+                    <h2 class="display-6 mb-0 font-weight-bold">@Model.ToplamKitap</h2>
+                </div>
+                <i class="fas fa-book fa-2x opacity-50"></i>
+            </div>
+            <div class="card-footer d-flex align-items-center justify-content-between bg-dark bg-opacity-10 border-0">
+                <a class="small text-white stretched-link text-decoration-none" href="@Url.Action("Index", "Kitap")">Kitap Listesi</a>
+                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="card card-premium-blue text-white mb-4 shadow-sm border-0">
+            <div class="card-body d-flex justify-content-between align-items-center py-4">
+                <div>
+                    <h6 class="text-uppercase small mb-1 opacity-75">Toplam Yazar</h6>
+                    <h2 class="display-6 mb-0 font-weight-bold">@Model.ToplamYazar</h2>
+                </div>
+                <i class="fas fa-user-edit fa-2x opacity-50"></i>
+            </div>
+            <div class="card-footer d-flex align-items-center justify-content-between bg-dark bg-opacity-10 border-0">
+                <a class="small text-white stretched-link text-decoration-none" href="@Url.Action("Index", "Yazar")">Yazar Listesi</a>
+                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="card card-premium-blue text-white mb-4 shadow-sm border-0">
+            <div class="card-body d-flex justify-content-between align-items-center py-4">
+                <div>
+                    <h6 class="text-uppercase small mb-1 opacity-75">Toplam Kategori</h6>
+                    <h2 class="display-6 mb-0 font-weight-bold">@Model.ToplamKategori</h2>
+                </div>
+                <i class="fas fa-list fa-2x opacity-50"></i>
+            </div>
+            <div class="card-footer d-flex align-items-center justify-content-between bg-dark bg-opacity-10 border-0">
+                <a class="small text-white stretched-link text-decoration-none" href="@Url.Action("Index", "Kategori")">Kategori Listesi</a>
+                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="card card-premium-blue text-white mb-4 shadow-sm border-0">
+            <div class="card-body d-flex justify-content-between align-items-center py-4">
+                <div>
+                    <h6 class="text-uppercase small mb-1 opacity-75">Aktif Ödünç</h6>
+                    <h2 class="display-6 mb-0 font-weight-bold">@Model.ToplamOdunc</h2>
+                </div>
+                <i class="fas fa-exchange-alt fa-2x opacity-50"></i>
+            </div>
+            <div class="card-footer d-flex align-items-center justify-content-between bg-dark bg-opacity-10 border-0">
+                <a class="small text-white stretched-link text-decoration-none" href="@Url.Action("Index", "Odunc")">Ödünç Listesi</a>
+                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-light">
+                <i class="fas fa-info-circle me-1"></i> Genel Analiz Verileri
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-md-6 border-end">
+                        <p class="text-muted mb-1">Ortalama Sayfa Sayısı</p>
+                        <h3 class="text-primary">@Model.OrtalamaSayfaSayisi.ToString("0.0") Sayfa</h3>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-muted mb-1">En Kalın Kitap</p>
+                        @if (Model.EnKalinKitap != null)
+                        {
+                            <h5 class="text-success mb-0">@Model.EnKalinKitap.KitapAdi</h5>
+                            <small class="text-muted">(@(Model.EnKalinKitap.Yazar?.YazarAdi ?? "-") - @Model.EnKalinKitap.Sayfa Sayfa)</small>
+                        }
+                        else
+                        {
+                            <h5 class="text-muted mb-0">-</h5>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-light">
+                <i class="fas fa-chart-pie me-1"></i> Kategorilere Göre Kitap Dağılımı
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Kategori Adı</th>
+                                <th class="text-end">Kitap Sayısı</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.KategoriDagilimi)
+                            {
+                                <tr>
+                                    <td>@item.KategoriAdi</td>
+                                    <td class="text-end"><span class="badge bg-secondary">@item.KitapSayisi</span></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-light">
+                <i class="fas fa-pen-nib me-1"></i> Yazarlara Göre Kitap Dağılımı
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Yazar Adı</th>
+                                <th class="text-end">Kitap Sayısı</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.YazarDagilimi)
+                            {
+                                <tr>
+                                    <td>@item.YazarAdi</td>
+                                    <td class="text-end"><span class="badge bg-info text-dark">@item.KitapSayisi</span></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- INNER JOIN -->
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-light text-dark fw-bold">
+                <i class="fas fa-link me-1 text-primary"></i> Kitap & Yazar 
+            </div>
+            <div class="card-body">
+                <div class="table-responsive" style="max-height: 350px; overflow-y: auto;">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light sticky-top">
+                            <tr>
+                                <th>Kitap Adı</th>
+                                <th>Yazar Adı</th>
+                                <th class="text-end">Sayfa Sayısı</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.InnerJoinResult)
+                            {
+                                <tr>
+                                    <td class="fw-semibold text-dark">@item.KitapAdi</td>
+                                    <td>@item.YazarAdi</td>
+                                    <td class="text-end"><span class="badge bg-primary px-2 py-1">@item.Sayfa Sayfa</span></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LEFT JOIN -->
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-light text-dark fw-bold">
+                <i class="fas fa-exchange-alt me-1 text-primary"></i> Yazar & Kitaplar 
+            </div>
+            <div class="card-body">
+                <div class="table-responsive" style="max-height: 350px; overflow-y: auto;">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light sticky-top">
+                            <tr>
+                                <th>Yazar Adı</th>
+                                <th>Kitap Adı</th>
+                                <th class="text-end">Sayfa Sayısı</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.LeftJoinResult)
+                            {
+                                <tr>
+                                    <td class="fw-semibold text-dark">@item.YazarAdi</td>
+                                    <td>
+                                        @if (item.KitapAdi == "Kitabı Yok")
+                                        {
+                                            <span class="text-danger font-italic">@item.KitapAdi</span>
+                                        }
+                                        else
+                                        {
+                                            <span>@item.KitapAdi</span>
+                                        }
+                                    </td>
+                                    <td class="text-end">
+                                        @if (item.Sayfa == 0)
+                                        {
+                                            <span class="badge bg-secondary">-</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-success">@item.Sayfa Sayfa</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- GROUP BY -->
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-light text-dark fw-bold">
+                <i class="fas fa-layer-group me-1 text-primary"></i> Kategori Sayfa Analizi
+            </div>
+            <div class="card-body">
+                <div class="table-responsive" style="max-height: 350px; overflow-y: auto;">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light sticky-top">
+                            <tr>
+                                <th>Kategori Adı</th>
+                                <th>Kitap Sayısı</th>
+                                <th class="text-end">Toplam Sayfa</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.GroupByResult)
+                            {
+                                <tr>
+                                    <td class="fw-semibold text-dark">@item.KategoriAdi</td>
+                                    <td><span class="badge bg-secondary">@item.KitapSayisi Kitap</span></td>
+                                    <td class="text-end"><span class="badge bg-info text-dark">@item.ToplamSayfa Sayfa</span></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ORDER BY -->
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-light text-dark fw-bold">
+                <i class="fas fa-sort-amount-down me-1 text-primary"></i> Sayfa Sayısına Göre Sıralı Kitaplar
+            </div>
+            <div class="card-body">
+                <div class="table-responsive" style="max-height: 350px; overflow-y: auto;">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light sticky-top">
+                            <tr>
+                                <th>Kitap Adı</th>
+                                <th>Yazar Adı</th>
+                                <th class="text-end">Sayfa Sayısı</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.OrderByResult)
+                            {
+                                <tr>
+                                    <td class="fw-semibold text-dark">@item.KitapAdi</td>
+                                    <td>@item.YazarAdi</td>
+                                    <td class="text-end"><span class="badge bg-dark">@item.Sayfa Sayfa</span></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

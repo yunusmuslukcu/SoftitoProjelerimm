@@ -1,0 +1,362 @@
+/* Core Typography & Base Styling */
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+  background-color: #f8fafc !important;
+  color: #334155 !important;
+}
+
+#layoutSidenav_content {
+  background-color: #f8fafc !important;
+}
+
+/* Page Header Styles */
+h1.mt-4 {
+  font-weight: 800 !important;
+  color: #0f172a !important;
+  letter-spacing: -0.03em;
+  font-size: 2rem !important;
+  margin-top: 2rem !important;
+  margin-bottom: 0.25rem !important;
+}
+
+.breadcrumb {
+  background-color: transparent !important;
+  padding: 0 !important;
+  margin-bottom: 2rem !important;
+}
+.breadcrumb-item a {
+  color: #4f46e5 !important;
+  text-decoration: none !important;
+  font-weight: 600;
+  transition: color 0.15s ease;
+}
+.breadcrumb-item a:hover {
+  color: #3730a3 !important;
+}
+.breadcrumb-item.active {
+  color: #64748b !important;
+  font-weight: 500;
+}
+
+/* Premium Dashboard Card Container */
+.dashboard-card {
+  background: #ffffff !important;
+  border: none !important;
+  border-radius: 16px !important;
+  box-shadow: 0 10px 25px rgba(79, 70, 229, 0.03), 0 1px 3px rgba(0, 0, 0, 0.01) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+.dashboard-card:hover {
+  box-shadow: 0 15px 35px rgba(79, 70, 229, 0.06), 0 2px 8px rgba(0, 0, 0, 0.02) !important;
+}
+
+.dashboard-card-header {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+  padding: 1.25rem 1.5rem !important;
+}
+.dashboard-card-header h5 {
+  color: #1e293b !important;
+  font-weight: 700 !important;
+  font-size: 1.1rem !important;
+}
+
+/* Premium Table Styling */
+.dashboard-card .table-responsive {
+  max-height: 450px !important;
+  overflow-y: auto !important;
+  overflow-x: auto !important;
+  position: relative !important;
+}
+
+.dashboard-card .table {
+  margin-bottom: 0 !important;
+  vertical-align: middle !important;
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+}
+
+.dashboard-card .table th {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 5 !important;
+  background-color: #f8fafc !important;
+  color: #475569 !important;
+  font-weight: 700 !important;
+  font-size: 0.8rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.06em !important;
+  padding: 1.1rem 1.5rem !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  border-top: none !important;
+  box-shadow: inset 0 -1px 0 #e2e8f0 !important;
+}
+
+.dashboard-card .table td {
+  padding: 1.25rem 1.5rem !important;
+  color: #334155 !important;
+  font-size: 0.925rem !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+  transition: all 0.2s ease !important;
+}
+
+/* Alternate row styling (very soft tint) */
+.dashboard-card .table tbody tr:nth-of-type(even) {
+  background-color: #fcfdfe !important;
+}
+
+/* Permanent Row Highlight Accent (Left Border) */
+.dashboard-card .table tbody tr td:first-child {
+  box-shadow: inset 4px 0 0 0 #4f46e5 !important;
+}
+
+/* Table Row Hover Effects */
+.dashboard-card .table tbody tr {
+  transition: all 0.2s ease !important;
+}
+.dashboard-card .table tbody tr:hover td {
+  color: #0f172a !important;
+  background-color: #f1f5f9 !important; /* Solid cool grey highlight on hover */
+}
+
+/* Action button spacing & alignment */
+.dashboard-card .table td:last-child {
+  white-space: nowrap;
+}
+
+/* Premium Buttons System */
+.btn-primary {
+  background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%) !important;
+  border: none !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  padding: 0.6rem 1.25rem !important;
+  border-radius: 10px !important;
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.22) !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.btn-primary:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.32) !important;
+  background: linear-gradient(135deg, #4338ca 0%, #4f46e5 100%) !important;
+}
+.btn-primary:active {
+  transform: translateY(0) !important;
+  box-shadow: 0 2px 10px rgba(79, 70, 229, 0.15) !important;
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+  border: none !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.18) !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.btn-success:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 18px rgba(16, 185, 129, 0.28) !important;
+  background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+}
+.btn-success:active {
+  transform: translateY(0) !important;
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%) !important;
+  border: none !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(244, 63, 94, 0.18) !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.btn-danger:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 18px rgba(244, 63, 94, 0.28) !important;
+  background: linear-gradient(135deg, #e11d48 0%, #be123c 100%) !important;
+}
+.btn-danger:active {
+  transform: translateY(0) !important;
+}
+
+/* Icon layouts within buttons */
+.btn i {
+  font-size: 0.875rem !important;
+}
+
+/* Sidebar Active Navigation Item Styling (stays fixed when active) */
+.sb-sidenav-dark .nav-link.active {
+  color: #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border-left: 4px solid #6366f1 !important;
+}
+
+.sb-sidenav-dark .nav-link.active .sb-nav-link-icon {
+  color: #818cf8 !important; /* Indigo accent color for active icon */
+}
+
+/* Focus effects */
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.2rem rgba(99, 102, 241, 0.25) !important;
+  border-color: #818cf8 !important;
+}
+
+/* Header Box breadcrumb styling */
+.header-box {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 12px !important;
+  padding: 1.25rem 1.5rem !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03) !important;
+  margin-top: 1.5rem !important;
+}
+
+.header-box h1 {
+  font-weight: 800 !important;
+  color: #0f172a !important;
+  font-size: 1.65rem !important;
+  margin-bottom: 0.25rem !important;
+  letter-spacing: -0.02em !important;
+}
+
+.header-box .breadcrumb {
+  margin-bottom: 0 !important;
+}
+
+/* Premium Blue Cards with beautiful gradients */
+.card-premium-blue {
+  background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%) !important;
+  border: none !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.15) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.card-premium-blue:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.28) !important;
+}
+
+/* Sidebar Navigation Hover Highlights */
+.sb-sidenav-dark .sb-sidenav-menu .nav-link {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  color: rgba(255, 255, 255, 0.65) !important;
+  border-left: 4px solid transparent;
+}
+
+.sb-sidenav-dark .sb-sidenav-menu .nav-link:hover {
+  color: #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border-left: 4px solid #38bdf8 !important; /* Cyber sky blue indicator */
+  padding-left: 1.25rem !important; /* Soft shift on hover */
+}
+
+.sb-sidenav-dark .sb-sidenav-menu .nav-link:hover .sb-nav-link-icon {
+  color: #38bdf8 !important; /* Glow the icon on hover */
+  transform: scale(1.15) !important;
+}
+
+.sb-sidenav-dark .sb-sidenav-menu .nav-link .sb-nav-link-icon {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Top Navbar Hover Highlights */
+.sb-topnav.navbar {
+  background-color: #0f172a !important; /* Sleek dark slate */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+}
+
+.sb-topnav .navbar-brand {
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  transition: all 0.25s ease !important;
+}
+
+.sb-topnav .navbar-brand:hover {
+  color: #38bdf8 !important;
+}
+
+.sb-topnav .nav-link {
+  color: rgba(255, 255, 255, 0.75) !important;
+  transition: all 0.25s ease !important;
+}
+
+.sb-topnav .nav-link:hover {
+  color: #38bdf8 !important;
+}
+
+/* Create & Update Pages Styling (Purple Accent) */
+.page-create .card-header,
+.page-update .card-header {
+  background: linear-gradient(135deg, #581c87 0%, #7c3aed 100%) !important; /* Premium purple gradient */
+  color: #ffffff !important;
+}
+
+.page-create .btn-primary,
+.page-create button[type="submit"],
+.page-update .btn-primary,
+.page-update button[type="submit"] {
+  background: linear-gradient(135deg, #6d28d9 0%, #8b5cf6 100%) !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: 0 4px 14px rgba(109, 40, 217, 0.25) !important;
+  transition: all 0.2s ease !important;
+}
+
+.page-create .btn-primary:hover,
+.page-create button[type="submit"]:hover,
+.page-update .btn-primary:hover,
+.page-update button[type="submit"]:hover {
+  background: linear-gradient(135deg, #5b21b6 0%, #7c3aed 100%) !important;
+  box-shadow: 0 6px 20px rgba(109, 40, 217, 0.38) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Sidebar Styling (Matching Navbar slate color #0f172a) */
+.sb-sidenav-dark {
+  background-color: #0f172a !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.sb-sidenav-dark .sb-sidenav-footer {
+  background-color: rgba(255, 255, 255, 0.02) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Footer Styling (Matching Navbar slate color #0f172a and premium styled) */
+footer.bg-light {
+  background-color: #0f172a !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  padding-top: 1.5rem !important;
+  padding-bottom: 1.5rem !important;
+}
+
+footer.bg-light a {
+  color: rgba(255, 255, 255, 0.8) !important;
+  text-decoration: none !important;
+  transition: color 0.2s ease !important;
+}
+
+footer.bg-light a:hover {
+  color: #38bdf8 !important;
+}
+
+footer.bg-light .text-muted {
+  color: rgba(255, 255, 255, 0.5) !important;
+}

@@ -1,0 +1,150 @@
+@{
+    ViewData["Title"] = "Ana Sayfa";
+}
+
+<div class="row">
+    <div class="col-xl-3 col-md-6">
+        <div class="card card-premium-blue text-white mb-4 shadow-sm border-0">
+            <div class="card-body d-flex justify-content-between align-items-center py-4">
+                <div>
+                    <h6 class="text-uppercase small mb-1 opacity-75">Kitap Sayısı</h6>
+                    <h4 class="mb-0 font-weight-bold">Kitap Listesi</h4>
+                </div>
+                <i class="fas fa-book fa-2x opacity-50"></i>
+            </div>
+            <div class="card-footer d-flex align-items-center justify-content-between bg-dark bg-opacity-10 border-0">
+                <a class="small text-white stretched-link text-decoration-none" href="@Url.Action("Index", "Kitap")">Detayları Gör</a>
+                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="card card-premium-blue text-white mb-4 shadow-sm border-0">
+            <div class="card-body d-flex justify-content-between align-items-center py-4">
+                <div>
+                    <h6 class="text-uppercase small mb-1 opacity-75">Yazar Sayısı</h6>
+                    <h4 class="mb-0 font-weight-bold">Yazar Listesi</h4>
+                </div>
+                <i class="fas fa-user-edit fa-2x opacity-50"></i>
+            </div>
+            <div class="card-footer d-flex align-items-center justify-content-between bg-dark bg-opacity-10 border-0">
+                <a class="small text-white stretched-link text-decoration-none" href="@Url.Action("Index", "Yazar")">Detayları Gör</a>
+                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="card card-premium-blue text-white mb-4 shadow-sm border-0">
+            <div class="card-body d-flex justify-content-between align-items-center py-4">
+                <div>
+                    <h6 class="text-uppercase small mb-1 opacity-75">Kategori Sayısı</h6>
+                    <h4 class="mb-0 font-weight-bold">Kategori Listesi</h4>
+                </div>
+                <i class="fas fa-list fa-2x opacity-50"></i>
+            </div>
+            <div class="card-footer d-flex align-items-center justify-content-between bg-dark bg-opacity-10 border-0">
+                <a class="small text-white stretched-link text-decoration-none" href="@Url.Action("Index", "Kategori")">Detayları Gör</a>
+                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="card card-premium-blue text-white mb-4 shadow-sm border-0">
+            <div class="card-body d-flex justify-content-between align-items-center py-4">
+                <div>
+                    <h6 class="text-uppercase small mb-1 opacity-75">Ödünç Verilenler</h6>
+                    <h4 class="mb-0 font-weight-bold">Ödünç Listesi</h4>
+                </div>
+                <i class="fas fa-exchange-alt fa-2x opacity-50"></i>
+            </div>
+            <div class="card-footer d-flex align-items-center justify-content-between bg-dark bg-opacity-10 border-0">
+                <a class="small text-white stretched-link text-decoration-none" href="@Url.Action("Index", "Odunc")">Detayları Gör</a>
+                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-chart-area me-1"></i>
+                Aylık Ödünç Grafiği (Örnek)
+            </div>
+            <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-chart-bar me-1"></i>
+                Kategoriye Göre Kitap Dağılımı (Örnek)
+            </div>
+            <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+        </div>
+    </div>
+</div>
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        Aktif Kütüphane Görevlileri
+    </div>
+    <div class="card-body">
+        <table id="datatablesSimple">
+            <thead>
+                <tr>
+                    <th>Ad Soyad</th>
+                    <th>Görevi</th>
+                    <th>Çalıştığı Şube</th>
+                    <th>Yaş</th>
+                    <th>Başlangıç Tarihi</th>
+                    <th>Maaş Derecesi</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>Ad Soyad</th>
+                    <th>Görevi</th>
+                    <th>Çalıştığı Şube</th>
+                    <th>Yaş</th>
+                    <th>Başlangıç Tarihi</th>
+                    <th>Maaş Derecesi</th>
+                </tr>
+            </tfoot>
+            <tbody>
+                <tr>
+                    <td>Ahmet Yılmaz</td>
+                    <td>Kütüphane Müdürü</td>
+                    <td>Merkez Kütüphane</td>
+                    <td>41</td>
+                    <td>2018/04/25</td>
+                    <td>Derece 1</td>
+                </tr>
+                <tr>
+                    <td>Elif Kaya</td>
+                    <td>Arşiv Sorumlusu</td>
+                    <td>Merkez Kütüphane</td>
+                    <td>33</td>
+                    <td>2020/07/25</td>
+                    <td>Derece 2</td>
+                </tr>
+                <tr>
+                    <td>Mehmet Demir</td>
+                    <td>Kataloglama Uzmanı</td>
+                    <td>Kampüs Şubesi</td>
+                    <td>29</td>
+                    <td>2021/01/12</td>
+                    <td>Derece 3</td>
+                </tr>
+                <tr>
+                    <td>Ayşe Çelik</td>
+                    <td>Ödünç Verme Görevlisi</td>
+                    <td>Çocuk Kütüphanesi</td>
+                    <td>25</td>
+                    <td>2022/03/29</td>
+                    <td>Derece 3</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
